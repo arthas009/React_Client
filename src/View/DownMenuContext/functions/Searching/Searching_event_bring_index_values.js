@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-export default function bringIndexValues (found_indexes, elemanlar, drag)
+export default function bringIndexValues (found_indexes, books, drag)
 {
     let table = [];
     for (let i = 0; i < found_indexes.length; i++) // WE HAVE ALREADY FOUND OUR PATTERNS INDEX, NOW BRING THEM TO SCREEN
@@ -16,7 +16,7 @@ export default function bringIndexValues (found_indexes, elemanlar, drag)
         // PUSH 2 TAG VALUE TO TABLE
         for (let j = 0; j < 2; j++) {
             children.push(
-               <td>{elemanlar[found_indexes[i]].childNodes[0].nodeValue}</td>)
+               <td>{books[found_indexes[i]].title}</td>)
         }
         table.push(<tr>{children}</tr>)
     }

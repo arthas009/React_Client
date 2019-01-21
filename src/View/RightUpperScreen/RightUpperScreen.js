@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Resizer from '../JQuery/TableResizer';
-import bringsArraysOfTags from './functions/createTableComps'
 import putValuesToTable from "./functions/putValuesToTable";
 import renderFunc from "./functions/render";
 
@@ -27,8 +26,7 @@ class RightUpperScreen extends Component{
         var data = ev.dataTransfer.getData("xmldoctext"); /* FETCH THE XML FROM LEFT DOWN MENU */
         var tosearch = ev.dataTransfer.getData("id"); /* FETCH THE ID IT SENT */
         var parser =  new DOMParser();
-        var xml=parser.parseFromString(data,"text/xml"); /* PARSE XML TO STRING */
-        this.state.xmldocument = xml; /* SET XML TO STATE */
+        this.state.xmldocument = data; /* SET XML TO STATE */
           /* PUSH NEW ID ONTO OTHERS TO FETCH LATER */
         let currentids = this.state.ids;
         currentids.push(parseInt(tosearch));
@@ -47,10 +45,10 @@ class RightUpperScreen extends Component{
          var documenttobring = this.state.xmldocument;
          if(documenttobring==null)
             return null;
+         let incomingJson = JSON.parse(documenttobring);
          var currentids = this.state.ids;
-         var books = documenttobring.getElementsByTagName("book");
-
-    return putValuesToTable(bringsArraysOfTags(books),currentids,books,this.remove)
+         var books = incomingJson.Bookcase.Books;
+    return putValuesToTable(currentids,books,this.remove)
 };
 /* CALL  RENDER FUNCTION */
 render()
