@@ -1,6 +1,5 @@
-/*LEFT TOP MENU*/
 .fixedMenuContainer {
-    height:47%; /* Full-height: remove this if you want "auto" height */
+    height: 22%; /* Full-height: remove this if you want "auto" height */
     width: 350px; /* Set the width of the sidebar */
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */
@@ -23,6 +22,7 @@
     text-align:left;
     padding:7px 7px 5px 20px;
     margin-right: 105px;
+    margin-top: 1%;
     text-decoration: none;
     font-size: 15px;
     color: #4CAF50;
@@ -37,7 +37,7 @@
 
     text-decoration: underline;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 18px;
     color: #FFBA45;
     display: block;
     font-family:"Arial Black", Gadget, sans-serif;
@@ -45,27 +45,21 @@
 /* When you mouse over the navigation links, change their color */
 .fixedMenuContainer a:hover {
     color: #f1f1f1;
+    cursor:pointer;
 }
-
-/* Style page content */
-.main {
-    margin-left: 250px; /* Same as the width of the sidebar */
-    padding: 0px 10px;
-}
-
-
 /*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 /*LEFT BOTTOM MENU*/
 
 
 .leftBottomFixedMenuContainer {
-    height:47%; /* Full-height: remove this if you want "auto" height */
+    height:75%; /* Full-height: remove this if you want "auto" height */
     width: 350px; /* Set the width of the sidebar */
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */
     bottom: 0; /* Stay at the top */
     left: 0;
-    margin-bottom:10px;
+    right:22%;
+    margin-bottom:2px;
     background-color: #444; /* Black */
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 5px;
@@ -76,7 +70,6 @@
 }
 /* SEARCH LABEL*/
 .leftBottomFixedMenuContainer p {
-
     display:inline; /* STAY ON SAME COLUMN*/
     font-weight: bold;
     font-size: 16px;
@@ -84,17 +77,63 @@
     color: #FFBA45; /* ORANGE */
     font-family:"Arial Black", Gadget, sans-serif;
 }
-/* INPUT AREA*/
+/* ------------------------------INPUT AREA-------------------------*/
 .leftBottomFixedMenuContainer input{
     display:inline; /* STAY ON SAME COLUMN*/
-    margin-left:5px;
-    margin-top:10px;
 
 }
+.leftBottomFixedMenuContainer .search {
+    display: inline-block;
+    position: relative;
+    height: 35px;
+    width: 35px;
+    box-sizing: border-box;
+    margin: 5px 8px 7px 0px;
+    padding: 7px 9px 0px 9px;
+    border: 2px solid #ffffff;
+    border-radius: 25px;
+    transition: all 300ms ease;
+    cursor: pointer;
+}
+.leftBottomFixedMenuContainer .search:after {
+    content: "";
+    position: absolute;
+    width: 3px;
+    height: 30px;
+    right: -5px;
+    top: 27px;
+    background: #ffffff;
+    border-radius: 3px;
+    transform: rotate(-45deg);
+    transition: all 200ms ease;
+}
+.leftBottomFixedMenuContainer .search.active,
+.leftBottomFixedMenuContainer .search:hover {
+    width: 200px;
+    margin-right: 0px;
+}
+.leftBottomFixedMenuContainer .search.active:after,
+.leftBottomFixedMenuContainer .search:hover:after {
+    height: 0px;
+}
+.leftBottomFixedMenuContainer .search input {
+    width: 100%;
+    border: none;
+    box-sizing: border-box;
+    font-family: Helvetica;
+    color:#ffffff;
+    font-size: 13px;
+    background: transparent;
+    outline-width: 0px;
+}
+/* ------------------------------INPUT AREA-------------------------*/
+
+
+
 /* TABLE */
 .leftBottomFixedMenuContainer table {
 
-    margin-top:10px;
+    margin-top:15%;
     font-family: arial, sans-serif;
     font-size:13px;
     margin-left:5px;
@@ -175,7 +214,9 @@
 /*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 /*RightUpperContext*/
 .main p {
-
+    position: fixed;
+    margin-top:2%;
+    left:57%;
     display:inline; /* STAY ON SAME COLUMN*/
     text-decoration: underline;
     font-weight: bold;
@@ -186,25 +227,30 @@
 }
 .main
 {
-    margin-left:350px;
-    background-color: #ab5f6c;
+    height:98%; /* Full-height: remove this if you want "auto" height */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    left: 19%;
+    margin-left:0px;
+    z-index: 1; /* Stay on top */
+    bottom: 0; /* Stay at the top */
+    right: 0;
+    left: 370px;
+    margin-bottom:2px;
+    background-color: #26bc44; /* Black */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 5px;
     border-left:solid 2px;
     border-right:solid  2px;
-    border-top:solid 2px;
-    border-bottom:solid  grey 2px;
-    text-align:center;
-    border-radius: 5px;
-    max-height:450px;
-    height: 450px;
-    position:fixed;
-    bottom: 51%;
+    border-top:solid grey 2px;
+    border-bottom:solid  2px;
+    overflow: auto;
 }
 .main #droppingDivision
 {
     font-family:"Arial Black", Gadget, sans-serif;
     color: #ABCA45; /* GREEN */
-    height: 350px;
-    max-height:350Px;
+    height: 550px;
+    max-height:550Px;
     padding: 10px;
     border: 1px solid #aaaaaa;
 
@@ -214,7 +260,7 @@
 
 .main table {
 
-    margin-top:10px;
+    margin-top:5%;
     font-family: arial, sans-serif;
     font-size:13px;
     max-height: 80%;
@@ -283,13 +329,31 @@
     .fixedMenuContainer {padding-top: 15px;}
     .main a {font-size: 18px;}
 }
-.middleHR {
-    position:fixed;
-    top: 49%;
-    left: 0%;
-    width:5000em;
-    border: 1px solid #ccc;
-    background-color: #f3f3f3;
+
+
+/* SCREEN MANAGER */
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: #f1f1f1;
+    border: 1px solid #555;
 }
 
+.ScreenManager {
+    width: 18%;
+}
 
+.ScreenManager a {
+    background-color: #dddddd;
+    color: black;
+    display: block;
+    padding: 12px;
+    text-decoration: none;
+}
+
+.ScreenManager a:hover {
+    background-color: #cccccc;
+}

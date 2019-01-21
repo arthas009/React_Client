@@ -33,5 +33,6 @@ function Resizer() {
             $(this).find('th[style]').css('width', '');
         });
     });
+    console.log("Resized    ");
 }
 export default Resizer;

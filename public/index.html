@@ -8,12 +8,22 @@
 </head>
   <body>
   <div id="leftFixedMenu" class="fixedMenuContainer"> </div>
-  <div id="middleHR" class="middleHR"> </div>
   <div id="leftBottomFixedMenu" class="leftBottomFixedMenuContainer"></div>
 
   <div id="main" class="main">
 
   </div>
   </body>
-
+<script>
+  // adding click events to screen manager
+  var els = document.querySelectorAll('.speak');
+  [].forEach.call(els, function(el) {
+    el.addEventListener('click', function() {
+      [].forEach.call(els, function(clk) {
+        clk.classList.remove('active');
+      });
+      el.classList.add('active');
+    });
+  });
+</script>
 </html>

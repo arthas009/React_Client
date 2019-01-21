@@ -6,6 +6,7 @@ import bringValues from './functions/Bring_Values';
 import renderFunc from "./functions/render";
 import timedCount from '../../Controller/CheckData';
 import WebWorker from '../../Controller/WebWorker';
+import Docker from "../JQuery/SearchInputDockerClick";
 
 
 class DownMenuContext extends Component {
@@ -13,10 +14,9 @@ class DownMenuContext extends Component {
         super(props);
         this.state = {jsonstring:null, keytosearch: "",xmlfound:false};
     }
-
     componentDidMount() {
         Resizer(); // TABLE RESIZING JQUERY
-
+        Docker(); // SEARCH INPUT DOCKER
         // ASYNC WORKER
         this.XmlFetcherWorker = new WebWorker(timedCount)
 
@@ -30,7 +30,6 @@ class DownMenuContext extends Component {
             this.state.xmlfound = true;
             var jsontext = JSON.stringify(event.data);
             var parser = new DOMParser();
-            var xmlDoc = parser.parseFromString(this.state.xmldocumenttext,"text/xml");
             // SET OBJECT TO STATE
             this.setState({jsonstring:jsontext});
         }.bind(this));
@@ -66,7 +65,7 @@ class DownMenuContext extends Component {
         // ALSO SEND THE XML DOCUMENT TO OTHER REACT COMPONENT
         ev.dataTransfer.setData("xmldoctext",this.state.jsonstring); /* SET XML STRING TRANSFERRING FOR DRAG DROP */
     }
-    /* READ XML FROM INPUT FILE*/
+    /* READ XML FROM INPUT FILE
     readxmlfunc  = (event) => {
         var parser =  new DOMParser();
         var xmlDoc;
@@ -74,13 +73,13 @@ class DownMenuContext extends Component {
         var reader = new FileReader();
         reader.onload = function()
         {
-            var text = reader.result; 	/* XML STRING */
+            var text = reader.result; 	/* XML STRING
             this.state.xmldocument=text;
-            xmlDoc = parser.parseFromString(text,"text/xml"); 	/* PARSE ELEMENTS */
-            this.setState({xmldocument:xmlDoc}); 	/* SET XML DOCUMENT TO STATE VARIABLE*/
-        }.bind(this); 	/* BIND THIS FUNCTION TU UPPER */
+            xmlDoc = parser.parseFromString(text,"text/xml"); 	/* PARSE ELEMENTS
+            this.setState({xmldocument:xmlDoc}); 	/* SET XML DOCUMENT TO STATE VARIABLE
+        }.bind(this); 	/* BIND THIS FUNCTION TU UPPER
         reader.readAsText(input.files[0]);
-    };
+    };*/
 
     createTable = () =>
     {
@@ -92,17 +91,17 @@ class DownMenuContext extends Component {
             are_we_searching = false;
         var xmlstring = this.state.xmldocument;
         let jsonobj = JSON.parse(this.state.jsonstring);
-        var books = jsonobj.Bookcase.Books;
+        var parameters = jsonobj.Parameters.Parameter;
         console.log(jsonobj);
         /* CREATE TABLE'S SUB CELLS READ FROM XML */
         /* IF WE ARE SEARCHING FOR A PATTERN THEN IF CLAUSE WILL WORK */
         if(are_we_searching)
         {
-            return bringIndexValues(findIndexes(books,this.state.keytosearch),books,this.drag);
+            return bringIndexValues(findIndexes(parameters,this.state.keytosearch),parameters,this.drag);
         }
         // IF WE ARE NOT SEARCHING ANY PATTERN, THIS SECTION WILL WORK
         else {
-            return bringValues(books,this.drag);
+            return bringValues(parameters,this.drag);
         }
 
     };

@@ -47,8 +47,8 @@ class RightUpperScreen extends Component{
             return null;
          let incomingJson = JSON.parse(documenttobring);
          var currentids = this.state.ids;
-         var books = incomingJson.Bookcase.Books;
-    return putValuesToTable(currentids,books,this.remove)
+         var parameters = incomingJson.Parameters.Parameter;
+    return putValuesToTable(currentids,parameters,this.remove)
 };
 /* CALL  RENDER FUNCTION */
 render()

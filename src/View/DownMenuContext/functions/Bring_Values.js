@@ -1,10 +1,10 @@
 import React from 'react';
 
-export default function bringValues(books,drag) {
+export default function bringValues(parameters,drag) {
 
     // BRING ALL XML TAGS's VALUES AND FLUSH THEM TO table ARRAY
     let table = [];
-    for (let i = 0; i < books.length; i++) {
+    for (let i = 0; i < parameters.length; i++) {
         let children = [];
 
         // PUSH A DRAG BUTTON TO EACH COLUMNG
@@ -15,9 +15,10 @@ export default function bringValues(books,drag) {
                 </button>
             </td>
         );
-        for (let j = 0; j < 2; j++) {
+        for (let j = 0; j < 1; j++) {
             children.push(
-                <td>{books[i].title}</td>
+                <td>{parameters[i].parameter1}</td>,
+                <td>{parameters[i].definition}</td>
             );
         }
         table.push(<tr>{children}</tr>);

@@ -7,17 +7,18 @@ export default function renderFunc (createInfoComps,drop,allowDrop){
     return(
         <div class="sidenav">
             <p>  Sonuçlar </p>
-            <hr />
-            <div id="droppingDivision" onDrop={(e)=>drop(e)} onDragOver={(e)=>allowDrop(e)}> - - - - - | Eklemek istediğiniz itemleri buraya sürükleyiniz | - - - - -
-                <hr />
+            <div id="droppingDivision" onDrop={(e)=>drop(e)} onDragOver={(e)=>allowDrop(e)}>
                 <table className="table table-striped table-bordered table-resizable tables_ui" id="t_draggable1">
                     <tbody className="t_sortable">
                     <tr>
                         <th>Remove</th>
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th>Year</th>
-                        <th>Price</th>
+                        <th>Parameter1</th>
+                        <th>Parameter2</th>
+                        <th>Parameter3</th>
+                        <th>Parameter4</th>
+                        <th>Definition</th>
+                        <th>MinValue</th>
+                        <th>MaxValue</th>
                     </tr>
                     {table_to_add}
                     </tbody>
