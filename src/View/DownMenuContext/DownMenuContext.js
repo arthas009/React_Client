@@ -11,7 +11,7 @@ import WebWorker from '../../Controller/WebWorker';
 class DownMenuContext extends Component {
     constructor(props) {
         super(props);
-        this.state = {xmldocument: null, keytosearch: "",xmlfound:false,jsonstring:""};
+        this.state = {jsonstring:null, keytosearch: "",xmlfound:false};
     }
 
     componentDidMount() {
@@ -23,16 +23,16 @@ class DownMenuContext extends Component {
         //LISTEN MESSAGES FROM WORKER
         this.XmlFetcherWorker.addEventListener('message', function (event) {
             if(event.data == "" || event.data == null)
+            {
                 this.setState({xmlfound:false});
+                return;
+            }
             this.state.xmlfound = true;
             var jsontext = JSON.stringify(event.data);
-
-            this.setState({jsonstring:jsontext});
             var parser = new DOMParser();
             var xmlDoc = parser.parseFromString(this.state.xmldocumenttext,"text/xml");
             // SET OBJECT TO STATE
-            console.log("xmlDoc "+ xmlDoc);
-            this.setState({xmldocument:xmlDoc});
+            this.setState({jsonstring:jsontext});
         }.bind(this));
 
         /*fetch("https://api.example.com/items")
@@ -64,7 +64,7 @@ class DownMenuContext extends Component {
         // TRANSFER ID OF THE COLUMN THAT IS GOINT TO PLACED ON OTHER TABLE
         ev.dataTransfer.setData("id",id); 	/* SET ID DATA TRANSFERRING FOR DRAG DROP */
         // ALSO SEND THE XML DOCUMENT TO OTHER REACT COMPONENT
-        ev.dataTransfer.setData("xmldoctext",this.state.xmldocumenttext); /* SET XML STRING TRANSFERRING FOR DRAG DROP */
+        ev.dataTransfer.setData("xmldoctext",this.state.jsonstring); /* SET XML STRING TRANSFERRING FOR DRAG DROP */
     }
     /* READ XML FROM INPUT FILE*/
     readxmlfunc  = (event) => {
@@ -85,31 +85,31 @@ class DownMenuContext extends Component {
     createTable = () =>
     {
         /* GET XML DOCUMENT */
-        if(!this.state.xmldocument)
+        if(!this.state.jsonstring)
             return null;
         let are_we_searching = true;
         if(this.state.keytosearch == "")
             are_we_searching = false;
         var xmlstring = this.state.xmldocument;
         let jsonobj = JSON.parse(this.state.jsonstring);
+        var books = jsonobj.Bookcase.Books;
         console.log(jsonobj);
-        var titles = xmlstring.getElementsByTagName("title");
         /* CREATE TABLE'S SUB CELLS READ FROM XML */
         /* IF WE ARE SEARCHING FOR A PATTERN THEN IF CLAUSE WILL WORK */
         if(are_we_searching)
         {
-            return bringIndexValues(findIndexes(titles,this.state.keytosearch),titles,this.drag);
+            return bringIndexValues(findIndexes(books,this.state.keytosearch),books,this.drag);
         }
         // IF WE ARE NOT SEARCHING ANY PATTERN, THIS SECTION WILL WORK
         else {
-            return bringValues(titles,this.drag);
+            return bringValues(books,this.drag);
         }
 
     };
     render()
     {
         if(!this.state.xmlfound)
-            return (<div><h2>Error: No xml data found</h2></div>);
+            return (<div><h2>Error: No XML/JSON data found</h2></div>);
         return(
             renderFunc(this.createTable,this.readxmlfunc,this.search)
         );

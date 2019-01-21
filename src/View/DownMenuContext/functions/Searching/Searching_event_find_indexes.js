@@ -1,8 +1,8 @@
-function findIndexes(elemanlar,searching) {
+function findIndexes(books,searching) {
     let found_indexes = [];
-    for (let i = 0; i < elemanlar.length; i++) // FIND OUT WHERE OUR PATTERNS ARE
+    for (let i = 0; i < books.length; i++) // FIND OUT WHERE OUR PATTERNS ARE
     {
-        if (elemanlar[i].childNodes[0].nodeValue.toLowerCase().indexOf(searching.toLowerCase()) != -1) {
+        if (books[i].title.toLowerCase().indexOf(searching.toLowerCase()) != -1) {
             found_indexes.push(i);
         }
     }
