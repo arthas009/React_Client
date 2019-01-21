@@ -11,7 +11,7 @@ export default function bringValues(books,drag) {
         children.push(
             <td id="first" draggable="true" onDragStart={(e) => drag(e, i)}>
                 <button
-                    ref={"dragbutton"+i} draggable="true" onDragStart={(e) => drag(e, i)} width="25" height="69">Sürükle
+                   id = "dragButton" ref={"dragbutton"+i} draggable="true" onDragStart={(e) => drag(e, i)} width="25" height="69">Sürükle
                 </button>
             </td>
         );
