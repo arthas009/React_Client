@@ -3,6 +3,7 @@ import * as ReactDOM from "react-dom";
 import RightUpperTableRenderer from "../RightUpperScreen/TableRenderer/RightUpperTableRenderer";
 import DownMenuContext from "../DownMenuContext/DownMenuContext";
 import RightUpperGraphRenderer from "../RightUpperScreen/GraphRenderer/RightUpperGraphRenderer";
+import TabSection from '../RightUpperScreen/TabSection/TabSection';
 
 class ScreenManager extends Component {
     constructor(props)
@@ -15,7 +16,8 @@ class ScreenManager extends Component {
                         ids:[],
                         next:null
                     },
-        currentTab:1}
+        currentTab:1,
+        totalTabs:1}
     }
     getData = () =>
     {
@@ -25,6 +27,10 @@ class ScreenManager extends Component {
     setCurrentTab = (newValue) =>
     {
         this.state.currentTab = newValue;
+    }
+    tabButtonOnClick= () =>
+    {
+        this.setState( {totalTabs:this.state.totalTabs+1});
     }
     setParentObject =(newJSONs,newIds,currentTab) =>
     {
@@ -56,19 +62,19 @@ class ScreenManager extends Component {
 
     render(){
 
+        // To Decide whether graphs is selected or tables
         if(this.state.which_one_selected ==1)
         {
-
-            ReactDOM.render(<DownMenuContext/>, document.getElementById('leftBottomFixedMenu'));
             ReactDOM.render(<RightUpperTableRenderer currentTab = {this.state.currentTab}
             parentTabs = {this.state.Tabs} setParentObject={this.setParentObject}/>, document.getElementById('insideMain'));
         }
         else
         {
-            ReactDOM.render(<DownMenuContext/>, document.getElementById('leftBottomFixedMenu'));
             ReactDOM.render(<RightUpperGraphRenderer>
             </RightUpperGraphRenderer>, document.getElementById('insideMain'));
         }
+        ReactDOM.render(<DownMenuContext/>, document.getElementById('leftBottomFixedMenu'));
+        ReactDOM.render(<TabSection tabButtonOnClick = {this.tabButtonOnClick} totalTabs={this.state.totalTabs}/>,document.getElementById('tabSection'));
      return(
 
         <div>

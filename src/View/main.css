@@ -358,19 +358,25 @@
 .main .tabSection #newSection
 {
     margin-top:5px;
+    margin-left:15px;
     display: inline-block;
+    font-weight: bold;
     padding: 7px 10px;
     font-size: 12px;
     cursor: pointer;
-    text-align: center;
-    text-decoration: none;
     outline: none;
     border: none;
     border-top-left-radius: 15px;
     box-shadow: 0 9px #999ccc;
 }
-.main .tabSection button:hover {background-color: #3e8e41}
 
+.main .tabSection button:hover {
+    background-color: #3e8e41;
+}
+.main .tabSection #newSection:hover {
+    background-color: #3e8e41;
+    text-decoration: underline;
+}
 .main .tabSection button:active {
     background-color: #3e8e41;
     box-shadow: 0 5px #666;
@@ -380,6 +386,7 @@
 .main .tabSection .sections
 {
     margin-top:5px;
+    margin-left:7px;
     display: inline-block;
     padding: 7px 10px;
     font-size: 12px;

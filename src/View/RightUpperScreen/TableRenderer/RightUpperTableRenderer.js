@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Resizer from '../../../JQuery/TableResizer';
 import putValuesToTable from "./functions/putValuesToTable";
 import renderFunc from "./functions/render";
-import SavedData from "../../../Model/SavedData";
+
 
 class RightUpperTableRenderer extends Component {
     constructor(props) {
