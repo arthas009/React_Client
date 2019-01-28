@@ -14,7 +14,7 @@ class RightUpperGraphRenderer extends Component {
         /* FIND THE CHART FROM ITS REF */
         var ctx = this.refs.myGraphCanvas;
         this.state.myChart = new Chart(ctx, {
-            type: 'bar',
+            type: 'line',
             data: {
                 labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange","Black"],
                 datasets: [{

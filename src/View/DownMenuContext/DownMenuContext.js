@@ -6,8 +6,6 @@ import bringValues from './functions/Bring_Values';
 import renderFunc from "./functions/render";
 import timedCount from '../../Controller/CheckData';
 import WebWorker from '../../Controller/WebWorker';
-import Docker from "../../JQuery/SearchInputDockerClick";
-
 
 class DownMenuContext extends Component {
     constructor(props) {
@@ -16,7 +14,6 @@ class DownMenuContext extends Component {
     }
     componentDidMount() {
         Resizer(); // TABLE RESIZING JQUERY
-        Docker(); // SEARCH INPUT DOCKER
         // ASYNC WORKER
         this.XmlFetcherWorker = new WebWorker(timedCount)
 
@@ -59,7 +56,6 @@ class DownMenuContext extends Component {
         var xmlstring = this.state.xmldocument;
         let jsonobj = JSON.parse(this.state.jsonstring);
         var parameters = jsonobj.Parameters.Parameter;
-        console.log(jsonobj);
         /* CREATE TABLE'S SUB CELLS READ FROM XML */
         /* IF WE ARE SEARCHING FOR A PATTERN THEN IF CLAUSE WILL WORK */
         if(are_we_searching)

@@ -232,7 +232,7 @@
 }
 .main .insideMain
 {
-    margin-top:6%;
+    margin-top:7%;
     background-color: #26cc44;
 }
 .main .insideMain p {
@@ -337,6 +337,62 @@
     height:45px;
     width: 75px;
 }
+
+.main .tabSection
+{
+    height:10%; /* Full-height: remove this if you want "auto" height */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    right: 0;
+    left: 19%;
+    margin-bottom:2px;
+    margin-right:10px;
+    background-color: #4CAF50;
+    border-left:solid 2px;
+    border-right:solid  2px;
+    border-top:solid grey 2px;
+    border-bottom:solid  2px;
+    overflow: auto;
+}
+.main .tabSection #newSection
+{
+    margin-top:5px;
+    display: inline-block;
+    padding: 7px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    border: none;
+    border-top-left-radius: 15px;
+    box-shadow: 0 9px #999ccc;
+}
+.main .tabSection button:hover {background-color: #3e8e41}
+
+.main .tabSection button:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+
+}
+.main .tabSection .sections
+{
+    margin-top:5px;
+    display: inline-block;
+    padding: 7px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999ccc;
+}
+
+
 /*WORTHLESS*/
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {

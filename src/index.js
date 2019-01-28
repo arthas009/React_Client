@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './View/main.css';
 import ScreenManager from './View/ScreenManager/ScreenManager';
-import DownMenuContext from './View/DownMenuContext/DownMenuContext';
-import RightUpperTableRenderer from './View/RightUpperScreen/TableRenderer/RightUpperTableRenderer';
+import TabSection from './View/RightUpperScreen/TabSection/TabSection';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<ScreenManager />, document.getElementById('leftFixedMenu'));
+ReactDOM.render(<TabSection />,document.getElementById('tabSection'));
 //ReactDOM.render(<DownMenuContext />, document.getElementById('leftBottomFixedMenu'));
 //ReactDOM.render(<RightUpperTableRenderer />, document.getElementById('main'));
 // If you want your app to work offline and load faster, you can change
