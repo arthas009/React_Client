@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import Resizer from '../JQuery/TableResizer';
+import Resizer from '../../JQuery/TableResizer';
 import findIndexes from './functions/Searching/Searching_event_find_indexes';
 import bringIndexValues from './functions/Searching/Searching_event_bring_index_values';
 import bringValues from './functions/Bring_Values';
 import renderFunc from "./functions/render";
 import timedCount from '../../Controller/CheckData';
 import WebWorker from '../../Controller/WebWorker';
-import Docker from "../JQuery/SearchInputDockerClick";
+import Docker from "../../JQuery/SearchInputDockerClick";
 
 
 class DownMenuContext extends Component {
@@ -30,27 +30,10 @@ class DownMenuContext extends Component {
             this.state.xmlfound = true;
             var jsontext = JSON.stringify(event.data);
             var parser = new DOMParser();
-            // SET OBJECT TO STATE
+            // SET OBJECT STRING TO STATE. THIS WILL TRIGGER A COMPONENT REFRESH
             this.setState({jsonstring:jsontext});
         }.bind(this));
 
-        /*fetch("https://api.example.com/items")
-          .then(res => res.json())
-            .then(
-                (result) => {
-                    this.setState({
-                       isLoaded: true,
-                       items: result.items
-                    });
-                },
-                // Note: it's important to handle errors here
-               // instead of a catch() block so that we don't swallow
-                // exceptions from actual bugs in components.
-                 (error) => {
-                this.setState({isLoaded: true,error});
-                     }
-                 );
-                 */
     }
     componentWillUnmount() {
         this.XmlFetcherWorker.terminate();
@@ -65,22 +48,6 @@ class DownMenuContext extends Component {
         // ALSO SEND THE XML DOCUMENT TO OTHER REACT COMPONENT
         ev.dataTransfer.setData("xmldoctext",this.state.jsonstring); /* SET XML STRING TRANSFERRING FOR DRAG DROP */
     }
-    /* READ XML FROM INPUT FILE
-    readxmlfunc  = (event) => {
-        var parser =  new DOMParser();
-        var xmlDoc;
-        var input = event.target;
-        var reader = new FileReader();
-        reader.onload = function()
-        {
-            var text = reader.result; 	/* XML STRING
-            this.state.xmldocument=text;
-            xmlDoc = parser.parseFromString(text,"text/xml"); 	/* PARSE ELEMENTS
-            this.setState({xmldocument:xmlDoc}); 	/* SET XML DOCUMENT TO STATE VARIABLE
-        }.bind(this); 	/* BIND THIS FUNCTION TU UPPER
-        reader.readAsText(input.files[0]);
-    };*/
-
     createTable = () =>
     {
         /* GET XML DOCUMENT */
