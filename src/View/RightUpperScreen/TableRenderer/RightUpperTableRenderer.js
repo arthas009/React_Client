@@ -31,7 +31,8 @@ class RightUpperTableRenderer extends Component {
         ev.preventDefault();
         var data = ev.dataTransfer.getData("xmldoctext"); /* FETCH THE XML FROM LEFT DOWN MENU */
         var tosearch = ev.dataTransfer.getData("id"); /* FETCH THE ID LEFT DOWN MENU SENT */
-        var parser = new DOMParser();
+        if(data == "" || data == null || tosearch == null || tosearch == "")
+            return null;
         this.state.xmldocument = data; /* SET XML TO STATE */
 
         /* PUSH NEW ID ONTO OTHERS TO FETCH LATER */

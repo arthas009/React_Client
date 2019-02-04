@@ -70,6 +70,7 @@ class DownMenuContext extends Component {
     };
     render()
     {
+        /* IF no answer from server .. */
         if(!this.state.xmlfound)
             return (<div><h2>Error: No XML/JSON data found</h2></div>);
         return(

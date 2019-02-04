@@ -77,11 +77,25 @@ class TabSection extends Component {
             ReactDOM.render(<RightUpperTableRenderer  parentTabs={this.state.Tabs} setParentObject = {this.setParentObject} currentTab = {this.state.currentTab} >
             </RightUpperTableRenderer>,document.getElementById('insideMain'));
         }
+        /*
+        * IF there is no data dragged yet, throw an error to screen.
+        */
         else
         {
-            ReactDOM.unmountComponentAtNode(document.getElementById('insideMain'));
-            ReactDOM.render(<RightUpperGraphRenderer parentTabs={this.state.Tabs}>
-            </RightUpperGraphRenderer>,document.getElementById('insideMain'));
+            if(this.state.Tabs.getNodeAt(this.state.currentTab).objects == "")
+            {
+                ReactDOM.render(<div><h1>No graph to show</h1>
+                </div>, document.getElementById('insideMain'));
+                return;
+            }
+            else
+            {
+                ReactDOM.unmountComponentAtNode(document.getElementById('insideMain'));
+                ReactDOM.render(<RightUpperGraphRenderer parentTabs={this.state.Tabs}
+                                                         setParentObject={this.setParentObject}
+                                                         currentTab={this.state.currentTab}>
+                </RightUpperGraphRenderer>, document.getElementById('insideMain'));
+            }
         }
     };
 

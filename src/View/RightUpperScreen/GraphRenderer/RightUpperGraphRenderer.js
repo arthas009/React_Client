@@ -6,11 +6,23 @@ class RightUpperGraphRenderer extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {myChart:null};
+        this.state = {
+            myChart:null,
+            currentTab : this.props.currentTab,
+            parentTabs : this.props.parentTabs
+        };
     }
 
     componentDidMount() {
-        var dataset = [-1000, 200, 400, 1000, 1200, 2550,180];
+
+        let objectstring = this.state.parentTabs.getNodeAt(this.state.currentTab).objects;
+        let JSONobject = JSON.parse(objectstring);
+        console.log(JSONobject.Parameters.Parameter);
+
+        let minvalue = JSONobject.Parameters.Parameter[0].minvalue;
+        let maxvalue = JSONobject.Parameters.Parameter[0].maxvalue;
+
+        var dataset = [minvalue,maxvalue,minvalue,maxvalue,minvalue,maxvalue];
         /* FIND THE CHART FROM ITS REF */
         var ctx = this.refs.myGraphCanvas;
         this.state.myChart = new Chart(ctx, {
@@ -79,12 +91,12 @@ class RightUpperGraphRenderer extends Component {
             }
         });
 
-        this.state.myChart.data.datasets[0].data[4] = ++dataset[4];
+        this.state.myChart.data.datasets[0].data[1] = ++dataset[1];
         this.state.myChart.update();
     }
 
     componentWillUnmount() {
-        this.state.myChart.destroy();
+      this.state.myChart.destroy();
     }
 
     /* CALL  RENDER FUNCTION */
