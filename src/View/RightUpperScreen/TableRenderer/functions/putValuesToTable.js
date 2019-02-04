@@ -5,9 +5,11 @@ export default function putValuesToTable(currentids,JSONstrings,remove)
 {
 
     let table = [];
-    /*FIND THE INDEX YOU SEEK AND BRING ELEMENTS */
-    /* CURRENTIDS HOLDS THE ALL IDS WE BROUGHT TO THE RIGHT UPPER SCREEN */
-    /* JSONstrings KEEPS THE STRINGS CAME FROM DOWNMENUCONTEXT */
+    /*
+    *FIND THE INDEX YOU SEEK AND BRING ELEMENTS
+    * CURRENTIDS HOLDS THE ALL IDS WE BROUGHT TO THE RIGHT UPPER SCREEN
+    * JSONstrings KEEPS THE STRINGS CAME FROM DOWNMENUCONTEXT
+    */
         for (let i = 0; i < currentids.length; i++) {
             {
                 var currentObject = JSON.parse(JSONstrings[i]).Parameters.Parameter;

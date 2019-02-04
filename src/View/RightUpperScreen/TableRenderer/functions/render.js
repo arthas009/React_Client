@@ -1,11 +1,12 @@
 import React from "react";
 
-export default function renderFunc (createInfoComps,drop,allowDrop){
+export default function renderFunc (createInfoComps,drop,allowDrop,currentTab){
 
     //CREATE THE TABLE OF DRAGGED ID's
     let table_to_add = createInfoComps();
     return(
         <div class="sidenav">
+            <h1> Sekme {currentTab} </h1>
             <p>  Sonuçlar </p>
             <div id="droppingDivision" onDrop={(e)=>drop(e)} onDragOver={(e)=>allowDrop(e)}>
                 <table className="table table-striped table-bordered table-resizable tables_ui" id="t_draggable1">
