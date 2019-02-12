@@ -17,11 +17,23 @@ class RightUpperGraphRenderer extends Component {
         let objectstring = this.state.parentTabs.getNodeAt(this.state.currentTab).objects;
         let ids = this.state.parentTabs.getNodeAt(this.state.currentTab).ids;
         console.log(ids);
-
+        let max = 0;
+        let min = 9999999;
         let datasett = [];
             for(let i = 0;i<ids.length;i++)
             {
                 let JSONobject = JSON.parse(objectstring[i]);
+                for(let k =0;k<JSONobject.Parameters.Parameter[ids[i]].timestamp.length;k++)
+                {
+                    if(JSONobject.Parameters.Parameter[ids[i]].timestamp[k]>max)
+                    {
+                        max = JSONobject.Parameters.Parameter[ids[i]].timestamp[k];
+                    }
+                    if(min>JSONobject.Parameters.Parameter[ids[i]].timestamp[k])
+                    {
+                        min = JSONobject.Parameters.Parameter[ids[i]].timestamp[k];
+                    }
+                }
                 let toadd= {
                     label:'Deneme '+(i+1),
                     data:JSONobject.Parameters.Parameter[ids[i]].timestamp,
@@ -39,6 +51,28 @@ class RightUpperGraphRenderer extends Component {
                 datasett.push(toadd);
                 console.log(datasett);
             }
+
+            let maxlimit = [max,max,max,max,max];
+
+        let maxlimits = {
+                data:maxlimit,
+                label:'MaxLimit',
+                fill: false,
+                radius: 0,
+                borderColor: "rgba(0,0,0,1)",
+                };
+                datasett.push(maxlimits);
+
+        let minlimit = [min,min,min,min,min];
+
+        let minlimits = {
+            data:minlimit,
+            label:'MinLimit',
+            fill: false,
+            radius: 0,
+            borderColor: "rgba(0,0,0,1)",
+        };
+        datasett.push(minlimits);
         /* FIND THE CHART FROM ITS REF */
         var ctx = this.refs.myGraphCanvas;
         Chart.defaults.global.elements.line.fill = false;
