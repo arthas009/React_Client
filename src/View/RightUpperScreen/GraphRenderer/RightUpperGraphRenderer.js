@@ -14,44 +14,39 @@ class RightUpperGraphRenderer extends Component {
     }
 
     componentDidMount() {
-
         let objectstring = this.state.parentTabs.getNodeAt(this.state.currentTab).objects;
-        let JSONobject = JSON.parse(objectstring);
-        console.log(JSONobject.Parameters.Parameter);
+        let ids = this.state.parentTabs.getNodeAt(this.state.currentTab).ids;
+        console.log(ids);
 
-        let minvalue = JSONobject.Parameters.Parameter[0].minvalue;
-        let maxvalue = JSONobject.Parameters.Parameter[0].maxvalue;
-
-        var dataset = [minvalue,maxvalue,minvalue,maxvalue,minvalue,maxvalue];
+        let datasett = [];
+            for(let i = 0;i<ids.length;i++)
+            {
+                let JSONobject = JSON.parse(objectstring[i]);
+                let toadd= {
+                    label:'Deneme '+(i+1),
+                    data:JSONobject.Parameters.Parameter[ids[i]].timestamp,
+                    borderColor:
+                    [
+                        this.random_rgba(),
+                        this.random_rgba(),
+                        this.random_rgba(),
+                        this.random_rgba(),
+                        this.random_rgba(),
+                        this.random_rgba()
+                    ],
+                    borderWidth: 3
+                };
+                datasett.push(toadd);
+                console.log(datasett);
+            }
         /* FIND THE CHART FROM ITS REF */
         var ctx = this.refs.myGraphCanvas;
+        Chart.defaults.global.elements.line.fill = false;
         this.state.myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange","Black"],
-                datasets: [{
-                    label: 'Deneme',
-                    data: dataset,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)',
-                        'rgba(0, 0, 0, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)',
-                        'rgba(0, 0, 0, 1)'
-                    ],
-                    borderWidth: 3
-                }]
+                labels: ["0", "1", "2", "3", "4", "5"],
+                datasets: datasett
             },
             options: {
                 layout: {
@@ -65,7 +60,7 @@ class RightUpperGraphRenderer extends Component {
 
                 events: ['click'],
                 legend: {
-                    display: false,
+                    display: true,
                     labels: {
                         fontColor: 'rgb(255, 99, 132)'
                     }
@@ -91,18 +86,22 @@ class RightUpperGraphRenderer extends Component {
             }
         });
 
-        this.state.myChart.data.datasets[0].data[1] = ++dataset[1];
+       // this.state.myChart.data.datasets[0].data[1] = dataset[1];
         this.state.myChart.update();
     }
 
     componentWillUnmount() {
+        if(this.state.myChart)
       this.state.myChart.destroy();
     }
-
+    random_rgba() {
+        var o = Math.round, r = Math.random, s = 255;
+        return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
+    }
     /* CALL  RENDER FUNCTION */
     render() {
         return (
-            renderFunct()
+            renderFunct(this.state.currentTab)
         );
     }
 

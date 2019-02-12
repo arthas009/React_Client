@@ -17,6 +17,11 @@ export default function putValuesToTable(currentids,JSONstrings,remove)
                 children.push(<td>
                     <button ref={"deletebutton" + i} width="25" height="69" onClick={() => remove(i)}> Kaldır</button>
                 </td>)
+                let children2 = [];
+                for(let k = 0;k<currentObject[currentids[i]].timestamp.length;k++)
+                {
+                    children2.push(<option value={currentObject[currentids[i]].timestamp[k]}>{k}: {currentObject[currentids[i]].timestamp[k]}</option>)
+                }
                 children.push(<td> {currentObject[currentids[i]].parameter1} </td>);
                 children.push(<td> {currentObject[currentids[i]].parameter2} </td>);
                 children.push(<td> {currentObject[currentids[i]].parameter3} </td>);
@@ -24,6 +29,7 @@ export default function putValuesToTable(currentids,JSONstrings,remove)
                 children.push(<td> {currentObject[currentids[i]].definition} </td>);
                 children.push(<td> {currentObject[currentids[i]].minvalue} </td>);
                 children.push(<td> {currentObject[currentids[i]].maxvalue} </td>);
+                children.push(<td><select> {children2}</select></td>)
                 table.push(<tr>{children}</tr>);
             }
         }

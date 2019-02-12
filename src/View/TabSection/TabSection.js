@@ -50,14 +50,15 @@ class TabSection extends Component {
     {
         var changer = this.state.Tabs; // To open a new empty room in DATA STORAGE.
         changer.add([],[]);
-        this.state.totalTabs++; // increment of the total tab number
-
+        this.state.totalTabs = this.state.totalTabs+1; // increment of the total tab number
+        this.state.currentTab=this.state.totalTabs;
         /* Last added  tab is the last current tab */
         ReactDOM.unmountComponentAtNode(document.getElementById('insideMain'));
+        this.setState( {Tabs:changer});
         ReactDOM.render(<RightUpperTableRenderer  parentTabs={this.state.Tabs} setParentObject = {this.setParentObject} currentTab = {this.state.totalTabs} >
         </RightUpperTableRenderer>,document.getElementById('insideMain'));
 
-        this.setState( {Tabs:changer});
+
     };
 
     setParentObject =(newJSONs,newIds,currentTab) => {
@@ -84,7 +85,9 @@ class TabSection extends Component {
         {
             if(this.state.Tabs.getNodeAt(this.state.currentTab).objects == "")
             {
-                ReactDOM.render(<div><h1>No graph to show</h1>
+                ReactDOM.unmountComponentAtNode(document.getElementById('insideMain'));
+                ReactDOM.render(<div id="graphDivision"><h1> Sekme {this.state.currentTab}</h1>
+                    <h2>No graph to show</h2>
                 </div>, document.getElementById('insideMain'));
                 return;
             }

@@ -20,6 +20,7 @@ export default function renderFunc (createInfoComps,drop,allowDrop,currentTab){
                         <th>Definition</th>
                         <th>MinValue</th>
                         <th>MaxValue</th>
+                        <th>timestamp</th>
                     </tr>
                     {table_to_add}
                     </tbody>

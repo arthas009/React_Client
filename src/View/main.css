@@ -148,12 +148,14 @@
 .leftBottomFixedMenuContainer td, th {
     border: 1px solid #dddddd;
     word-wrap:break-word;
+    width:5%;
     text-align: left;
 }
 /* TH COLOR */
 .leftBottomFixedMenuContainer th {
     color:#FFBA45;
     font-family:"Arial Black", Gadget, sans-serif;
+
     text-align:center;
 }
 /* DRAG BUTTON */
@@ -189,14 +191,13 @@
     max-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: break-word;
 }
 /* ROW AND COLUMN */
 .leftBottomFixedMenuContainer .table-resizable th{
     border: 1px solid #dddddd;
     text-align: center;
     padding:10px;
-    width:55px;
+
 }
 /* EVEN NUMBER COLUMN*/
 .leftBottomFixedMenuContainer tr:nth-child(even) {
@@ -252,13 +253,51 @@
 
 .main .insideMain #droppingDivision
 {
-    font-family:"Arial Black", Gadget, sans-serif;
     color: #ABCA45; /* GREEN */
-    height: 650px;
-    max-height:650Px;
+    height: 750px;
+    max-height:750Px;
     padding: 10px;
-    border: 1px solid #aaaaaa;
 
+}
+.main .insideMain #graphDivision
+{
+    color: #ABCA45; /* GREEN */
+    height:100px;
+    padding: 10px;
+}
+.main .insideMain #canvasDivision
+{
+    color: #ABCA45; /* GREEN */
+    height: 750px;
+    max-height:750Px;
+    padding: 10px;
+
+}
+.main .insideMain h1
+{
+    width:60px;
+    text-decoration: underline;
+    font-size: 12px;
+    color: #ffffff;
+    border: 3px solid;
+    padding:10px;
+        margin-left:5px;
+    font-family:"Courier New", Courier, monospace;
+}
+
+.main .insideMain h2
+{
+    font-size: 32px;
+    color: #ffffff;
+    margin-left:50%;
+    font-family:"Courier New", Courier, monospace;
+}
+.main .insideMain canvas
+{
+    background-color:#ffffff;
+    border:1px solid;
+    margin-bottom:30px;
+    margin-left:30px;
 }
 /* TABLE */
 
@@ -266,13 +305,11 @@
 .main .insideMain table {
 
     margin-top:5%;
-    font-family: arial, sans-serif;
     font-size:13px;
     max-height: 80%;
     margin-left:5px;
     display: block;
     overflow-x: auto;
-    white-space: break-word;
 
 }
 /* ROW AND COLUMN */
@@ -280,11 +317,16 @@
 /* TH COLOR */
 .main .insideMain th {
     color:#FFBA45;
-    font-family:"Arial Black", Gadget, sans-serif;
+    font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-weight: bold;
+    font-size:15px;
     text-align:center;
+
+    width:400px;
 }
-.main .insideMain td, th {
-    font-family:"Arial Black", Gadget, sans-serif;
+.main .insideMain td {
+    font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size:12px;
     border: 1px solid #dddddd;
     word-wrap:break-word;
     text-align: left;
@@ -295,13 +337,7 @@
     background-color: #dddddd;
 }
 
-.main .insideMain canvas
-{
-    background-color:#ffffff;
-    border:1px solid;
-    margin-bottom:30px;
-    margin-left:20px;
-}
+
 
 
 
@@ -331,26 +367,12 @@
     max-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: break-word;
 }
 .main .insideMain .table-resizable button
 {
     margin-left: 15px;
     height:45px;
     width: 75px;
-}
-
-.main .insideMain h1
-{
-    position: fixed;
-    text-decoration: underline;
-    font-weight: bold;
-    font-size: 12px;
-    color: #ffffff;
-    border: 5px solid;
-    padding:10px;
-    margin-left:5px;
-    font-family:"Arial Black", Gadget, sans-serif;
 }
 
 
@@ -374,6 +396,7 @@
 }
 .main .tabSection #newSection
 {
+    font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
     margin-top:5px;
     margin-left:15px;
     display: inline-block;
@@ -388,7 +411,7 @@
 }
 
 .main .tabSection button:hover {
-    background-color: #3e8e41;
+    background-color: #f1f1f1;
 }
 .main .tabSection #newSection:hover {
     background-color: #3e8e41;
@@ -402,8 +425,10 @@
 }
 .main .tabSection .sections
 {
+    font-family:"Courier New", Courier, monospace;
     margin-top:5px;
     margin-left:7px;
+    background-color:#26cc44;
     display: inline-block;
     padding: 7px 10px;
     font-size: 12px;
@@ -413,7 +438,7 @@
     outline: none;
     border: none;
     border-radius: 15px;
-    box-shadow: 0 9px #999ccc;
+    box-shadow: 0 9px #3e8e41;
 }
 
 
