@@ -37,8 +37,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/View/RightUpperScreen/TableRenderer/functions/render.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="92" lean-forward="true" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="92" />
+            <state relative-caret-position="136">
+              <caret line="8" column="41" selection-start-line="8" selection-start-column="41" selection-end-line="8" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -56,7 +56,7 @@
         <entry file="file://$PROJECT_DIR$/src/View/TabSection/TabSection.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="306">
-              <caret line="88" column="61" selection-start-line="88" selection-start-column="61" selection-end-line="88" selection-end-column="61" />
+              <caret line="94" column="13" lean-forward="true" selection-start-line="94" selection-start-column="13" selection-end-line="94" selection-end-column="13" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -67,8 +67,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/View/RightUpperScreen/GraphRenderer/functions/render.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="18" lean-forward="true" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
+            <state relative-caret-position="153">
+              <caret line="9" column="44" selection-start-line="9" selection-start-column="44" selection-end-line="9" selection-end-column="44" />
             </state>
           </provider>
         </entry>
@@ -109,8 +109,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/View/main.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="283" selection-start-line="283" selection-end-line="283" selection-end-column="24" />
+            <state relative-caret-position="301">
+              <caret line="265" column="11" selection-start-line="265" selection-start-column="11" selection-end-line="265" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -183,10 +183,10 @@
         <option value="$PROJECT_DIR$/src/JQuery/TableResizer.js" />
         <option value="$PROJECT_DIR$/src/View/ScreenManager/ScreenManager.js" />
         <option value="$PROJECT_DIR$/src/View/RightUpperScreen/TableRenderer/functions/putValuesToTable.js" />
-        <option value="$PROJECT_DIR$/src/View/RightUpperScreen/TableRenderer/functions/render.js" />
-        <option value="$PROJECT_DIR$/src/View/TabSection/TabSection.js" />
-        <option value="$PROJECT_DIR$/src/View/RightUpperScreen/GraphRenderer/functions/render.js" />
         <option value="$PROJECT_DIR$/src/View/RightUpperScreen/GraphRenderer/RightUpperGraphRenderer.js" />
+        <option value="$PROJECT_DIR$/src/View/TabSection/TabSection.js" />
+        <option value="$PROJECT_DIR$/src/View/RightUpperScreen/TableRenderer/functions/render.js" />
+        <option value="$PROJECT_DIR$/src/View/RightUpperScreen/GraphRenderer/functions/render.js" />
         <option value="$PROJECT_DIR$/src/View/main.css" />
       </list>
     </option>
@@ -380,12 +380,12 @@
       <workItem from="1548048444639" duration="21355000" />
       <workItem from="1548652057782" duration="28316000" />
       <workItem from="1549262869263" duration="21990000" />
-      <workItem from="1549948024642" duration="15045000" />
+      <workItem from="1549948024642" duration="18225000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="153732000" />
+    <option name="totallyTimeSpent" value="156912000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -563,20 +563,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/View/RightUpperScreen/TableRenderer/functions/putValuesToTable.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="16" column="34" lean-forward="true" selection-start-line="16" selection-start-column="34" selection-end-line="16" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/View/RightUpperScreen/TableRenderer/functions/render.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="92" lean-forward="true" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="92" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/View/ScreenManager/ScreenManager.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -587,17 +573,24 @@
     <entry file="file://$PROJECT_DIR$/src/View/TabSection/TabSection.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
-          <caret line="88" column="61" selection-start-line="88" selection-start-column="61" selection-end-line="88" selection-end-column="61" />
+          <caret line="94" column="13" lean-forward="true" selection-start-line="94" selection-start-column="13" selection-end-line="94" selection-end-column="13" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/View/RightUpperScreen/GraphRenderer/functions/render.js">
+    <entry file="file://$PROJECT_DIR$/src/View/RightUpperScreen/TableRenderer/functions/render.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="18" lean-forward="true" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
+        <state relative-caret-position="136">
+          <caret line="8" column="41" selection-start-line="8" selection-start-column="41" selection-end-line="8" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/View/RightUpperScreen/TableRenderer/functions/putValuesToTable.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="16" column="34" lean-forward="true" selection-start-line="16" selection-start-column="34" selection-end-line="16" selection-end-column="34" />
         </state>
       </provider>
     </entry>
@@ -611,10 +604,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/View/RightUpperScreen/GraphRenderer/functions/render.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="44" selection-start-line="9" selection-start-column="44" selection-end-line="9" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/View/main.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="283" selection-start-line="283" selection-end-line="283" selection-end-column="24" />
+        <state relative-caret-position="301">
+          <caret line="265" column="11" selection-start-line="265" selection-start-column="11" selection-end-line="265" selection-end-column="11" />
         </state>
       </provider>
     </entry>

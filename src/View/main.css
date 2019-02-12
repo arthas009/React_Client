@@ -238,18 +238,6 @@
     margin-top:7%;
     background-color: #26cc44;
 }
-.main .insideMain p {
-    position: fixed;
-    margin-top:2%;
-    left:57%;
-    display:inline; /* STAY ON SAME COLUMN*/
-    text-decoration: underline;
-    font-weight: bold;
-    font-size: 24px;
-    color: #FFBA45;
-    margin-left:5px;
-    font-family:"Arial Black", Gadget, sans-serif;
-}
 
 .main .insideMain #droppingDivision
 {
@@ -262,7 +250,7 @@
 .main .insideMain #graphDivision
 {
     color: #ABCA45; /* GREEN */
-    height:100px;
+    height:110px;
     padding: 10px;
 }
 .main .insideMain #canvasDivision
@@ -275,9 +263,9 @@
 }
 .main .insideMain h1
 {
-    width:60px;
+    width:90px;
     text-decoration: underline;
-    font-size: 12px;
+    font-size: 15px;
     color: #ffffff;
     border: 3px solid;
     padding:10px;
@@ -289,7 +277,9 @@
 {
     font-size: 32px;
     color: #ffffff;
-    margin-left:50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-family:"Courier New", Courier, monospace;
 }
 .main .insideMain canvas
@@ -297,7 +287,6 @@
     background-color:#ffffff;
     border:1px solid;
     margin-bottom:30px;
-    margin-left:30px;
 }
 /* TABLE */
 

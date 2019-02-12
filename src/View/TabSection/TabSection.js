@@ -87,7 +87,7 @@ class TabSection extends Component {
             {
                 ReactDOM.unmountComponentAtNode(document.getElementById('insideMain'));
                 ReactDOM.render(<div id="graphDivision"><h1> Sekme {this.state.currentTab}</h1>
-                    <h2>No graph to show</h2>
+                    <h2>Tabloya henüz bir öğe atanmamış</h2>
                 </div>, document.getElementById('insideMain'));
                 return;
             }
