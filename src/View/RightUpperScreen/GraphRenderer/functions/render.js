@@ -6,13 +6,9 @@ export default function renderFunc(currentTab)
 
     return(
         <div className="sidenav">
-            <div id="graphDivision">
-                <h1> Sekme {currentTab}</h1>
-            </div>
+        <h1> Sekme {currentTab}</h1>
 
-            <div id="canvasDivision">
                 <canvas ref="myGraphCanvas" id="myGraphCanvas"></canvas>
-            </div>
         </div>
     );
 }

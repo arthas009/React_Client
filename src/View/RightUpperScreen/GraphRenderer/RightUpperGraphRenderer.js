@@ -79,7 +79,7 @@ class RightUpperGraphRenderer extends Component {
         this.state.myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ["0", "1", "2", "3", "4", "5"],
+                labels: ["0", "1", "2", "3", "4"],
                 datasets: datasett
             },
             options: {

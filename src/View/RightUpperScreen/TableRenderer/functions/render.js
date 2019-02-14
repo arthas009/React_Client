@@ -8,6 +8,7 @@ export default function renderFunc (createInfoComps,drop,allowDrop,currentTab){
         <div class="sidenav">
             <h1> Sekme {currentTab} </h1>
             <div id="droppingDivision" onDrop={(e)=>drop(e)} onDragOver={(e)=>allowDrop(e)}>
+
                 <table className="table table-striped table-bordered table-resizable tables_ui" id="t_draggable1">
                     <tbody className="t_sortable">
                     <tr>

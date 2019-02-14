@@ -9,7 +9,7 @@ export default function bringIndexValues (found_indexes, parameters, drag)
         let children = [];
         children.push(<td id="first" draggable="true" onDragStart={(e) => drag(e, i)}>
                 <button id="dragButton" draggable="true" onDragStart={(e) => drag(e, i)} width="25"
-                        height="69">Sürükle
+                        height="69">Drag
                 </button>
             </td>
         );
