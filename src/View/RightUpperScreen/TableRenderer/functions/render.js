@@ -6,7 +6,6 @@ export default function renderFunc (createInfoComps,drop,allowDrop,currentTab){
     let table_to_add = createInfoComps();
     return(
         <div class="sidenav">
-            <h1> Sekme {currentTab} </h1>
             <div id="droppingDivision" onDrop={(e)=>drop(e)} onDragOver={(e)=>allowDrop(e)}>
 
                 <table className="table table-striped table-bordered table-resizable tables_ui" id="t_draggable1">
