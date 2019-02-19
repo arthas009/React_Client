@@ -241,7 +241,7 @@
 .main .insideMain #canvasDivision
 {
     color: #ABCA45; /* GREEN */
-    height: 525px;
+    height: 800px;
     padding-left:10px;
     padding-right:10px;
 
@@ -259,8 +259,29 @@
     background-color: #ffffff;
     border: 1px solid;
     margin-bottom: 30px;
-    max-height: 500px;
+        max-height: 800px;
+
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
+
+/* p */
+.main .insideMain #intervals
+{
+    margin-left:5px;
+}
+/* input */
+.main .insideMain #totalIntervals
+{
+    display:inline;
+}
+/* button */
+.main .insideMain #setIntervals
+{
+ margin-left:5px;
+}
+
 /* TABLE */
 
 
