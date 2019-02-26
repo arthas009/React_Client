@@ -229,7 +229,6 @@
     max-height:650Px;
     background-color: #26cc44;
     margin-left:2px;
-    margin-right:50px;
 }
 
 .main .insideMain #droppingDivision
@@ -245,8 +244,6 @@
     color: #ABCA45; /* GREEN */
     height: 800px;
     padding-left:10px;
-    padding-right:10px;
-
 
 }
 .main .insideMain h2
@@ -262,7 +259,7 @@
     background-color: #ffffff;
     border: 1px solid;
     margin-bottom: 30px;
-        max-height: 700px;
+    max-height: 700px;
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;

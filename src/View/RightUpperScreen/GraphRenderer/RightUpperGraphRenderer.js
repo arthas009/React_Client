@@ -14,6 +14,7 @@ class RightUpperGraphRenderer extends Component {
         };
     }
     componentDidMount() {
+
         let objectstring = this.state.parentTabs.getNodeAt(this.state.currentTab).objects; // find current jsons
         let ids = this.state.parentTabs.getNodeAt(this.state.currentTab).ids; // find current ids
         console.log(ids);
@@ -23,6 +24,7 @@ class RightUpperGraphRenderer extends Component {
         let datasett = [];
         let intervals = [];
         let interval = 0;
+        let whereIsMax = 0;
         /*
         *
         * CALCULATE MIN AND MAX NUMBER
@@ -35,6 +37,7 @@ class RightUpperGraphRenderer extends Component {
             for (let k = 0; k < JSONobject.Parameters.Parameter[ids[i]].timestamp.length; k++) {
                 if (JSONobject.Parameters.Parameter[ids[i]].timestamp[k] > max) {
                     max = JSONobject.Parameters.Parameter[ids[i]].timestamp[k];
+                    whereIsMax = i;
                 }
                 if (min > JSONobject.Parameters.Parameter[ids[i]].timestamp[k]) {
                     min = JSONobject.Parameters.Parameter[ids[i]].timestamp[k];
@@ -42,12 +45,13 @@ class RightUpperGraphRenderer extends Component {
             }
             let bordercolor = [this.random_rgba(), this.random_rgba(), this.random_rgba(), this.random_rgba(), this.random_rgba(), this.random_rgba()];
             bordercolors.push(bordercolor);
-            let toadd = {
-                label: 'Deneme ' + (i + 1),
-                data: JSONobject.Parameters.Parameter[ids[i]].timestamp,
-                borderColor: bordercolor,
-                borderWidth: 3
-            };
+            let toadd;
+                 toadd = {
+                    label: 'Deneme ' + (i + 1),
+                    data: JSONobject.Parameters.Parameter[ids[i]].timestamp,
+                    borderColor: bordercolor,
+                    borderWidth: 3
+                };
             datasett.push(toadd);
             interval = JSONobject.Parameters.Parameter[ids[i]].timestamp.length;
         }
@@ -137,7 +141,11 @@ class RightUpperGraphRenderer extends Component {
                     display: true,
                     text: 'Denemeler'
                 },
-
+                plugins: {
+                    filler: {
+                        propagate: false
+                    }
+                },
                 scales: {
                     yAxes: [{
                         ticks: {
@@ -154,6 +162,36 @@ class RightUpperGraphRenderer extends Component {
 
             },
 
+        });
+        Chart.plugins.register({
+            afterDatasetsDraw: function(c) {
+                let ctx = c.ctx;
+                let prevY;
+                c.data.datasets.forEach(function(e, i) {
+                    let meta = c.getDatasetMeta(i);
+                    if (meta.hidden) return;
+                    meta.data.forEach(function(e) {
+                        let x = e.tooltipPosition().x;
+                        let y = e.tooltipPosition().y;
+                        let radius = e._model.radius;
+                        let moveY = prevY && (y < prevY ? y - (radius * 3) : y + (radius * 3));
+                        let lineY = prevY && (y < prevY ? y - (radius * 2) : y + (radius * 2));
+                        let color = prevY && (y < prevY ? 'green' : 'red');
+
+                        // draw arrow
+                        ctx.save();
+                        ctx.fillStyle = color;
+                        ctx.beginPath();
+                        ctx.moveTo(x, moveY);
+                        ctx.lineTo(x + radius, lineY);
+                        ctx.lineTo(x - radius, lineY);
+                        ctx.closePath();
+                        ctx.fill()
+                        ctx.restore();
+                        prevY = y;
+                    })
+                });
+            }
         });
 
         /* DYNAMICALLY AND INTERVALLY UPDATE THE CHART IN EACH 1 SEC */
@@ -188,6 +226,7 @@ class RightUpperGraphRenderer extends Component {
     internalInputOnChange(e)
     {
        e.target.value = e.target.value.replace(/\D/,'');
+
        if(e.target.value.length <=0 || e.target.value === '0')
        {
            document.getElementById("setIntervals").disabled = true;
@@ -196,6 +235,11 @@ class RightUpperGraphRenderer extends Component {
        {
            document.getElementById("setIntervals").disabled = false;
        }
+
+        if(e.target.value.length >=5)
+        {
+            e.target.value = e.target.value.substring(0,5);
+        }
     }
 
     /* Internal button click event */
@@ -265,7 +309,7 @@ class RightUpperGraphRenderer extends Component {
         let max = 0;
         let min = 99999999;
         let copydatasetfirst = this.state.dataSet; // we always use dataset from state
-
+        let whereIsMax = 0;
         let newdata = [];
 
         /* loop ends 2 number before because last 2 index includes min and max limit information */
@@ -290,6 +334,7 @@ class RightUpperGraphRenderer extends Component {
             for (let k = 0; k < datatochange[i].data.length; k++) {
                 if (datatochange[i].data[k] > max) {
                     max = datatochange[i].data[k];
+                    whereIsMax = i;
                 }
                 if (min > datatochange[i].data[k]) {
                     min = datatochange[i].data[k];
@@ -324,8 +369,8 @@ class RightUpperGraphRenderer extends Component {
             radius: 0,
             borderColor: "rgba(0,0,0,1)",
         };
-        newdata.push(minlimits);
         newdata.push(maxlimits);
+        newdata.push(minlimits);
 
         this.state.datasett = newdata;
         this.state.myChart.data.datasets = newdata;
