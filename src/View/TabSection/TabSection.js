@@ -36,7 +36,7 @@ class TabSection extends Component {
     */
     setCurrentTab = (newValue) =>
     {
-        this.state.currentTab = newValue;
+        this.setState({currentTab:newValue});
         ReactDOM.unmountComponentAtNode(document.getElementById('insideMain'));
         ReactDOM.render(<RightUpperTableRenderer  parentTabs={this.state.Tabs} setParentObject = {this.setParentObject} currentTab = {newValue} >
         </RightUpperTableRenderer>,document.getElementById('insideMain'));
@@ -86,7 +86,7 @@ class TabSection extends Component {
             if(this.state.Tabs.getNodeAt(this.state.currentTab).objects == "")
             {
                 ReactDOM.unmountComponentAtNode(document.getElementById('insideMain'));
-                ReactDOM.render(<div id="graphDivision"><h1> Sekme {this.state.currentTab}</h1>
+                ReactDOM.render(<div id="graphDivision">
                     <h2>Tabloya henüz bir öğe atanmamış</h2>
                 </div>, document.getElementById('insideMain'));
                 return;
@@ -108,6 +108,10 @@ class TabSection extends Component {
         let buttons = [];
         for(let i = 0;i<this.state.totalTabs;i++)
         {
+            console.log(i+" "+this.state.currentTab);
+          if(i+1 == this.state.currentTab)
+          buttons.push(<button ref={"button"+(i+1)} className="sections active" onClick={() => this.setCurrentTab(i+1)}>Sekme {i+1}</button>)
+          else
           buttons.push(<button ref={"button"+(i+1)} className="sections" onClick={() => this.setCurrentTab(i+1)}>Sekme {i+1}</button>)
         }
         return buttons;
@@ -123,10 +127,11 @@ class TabSection extends Component {
         ReactDOM.render(<ScreenManager changeScreen={this.changeSelectedSection}> </ScreenManager>, document.getElementById('leftFixedMenu'));
 
 
+
         /* PRINT REACT BUTTONS */
        return(<div>
             {this.bringButtons()}
-           <button id="newSection" onClick = {this.newTabButtonOnClick}> Yeni Sekme Aç</button>
+           <button id="newSection" onClick = {this.newTabButtonOnClick}> Yeni Sekme Aç </button>
        </div>);
     }
 }

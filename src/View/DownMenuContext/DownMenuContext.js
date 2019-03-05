@@ -15,7 +15,7 @@ class DownMenuContext extends Component {
     componentDidMount() {
         Resizer(); // TABLE RESIZING JQUERY
         // ASYNC WORKER
-        this.XmlFetcherWorker = new WebWorker(timedCount)
+        this.XmlFetcherWorker = new WebWorker(timedCount);
 
         //LISTEN MESSAGES FROM WORKER
         this.XmlFetcherWorker.addEventListener('message', function (event) {
@@ -38,13 +38,13 @@ class DownMenuContext extends Component {
 
     search = (ev) => {
         this.setState({keytosearch: ev.target.value});
-    }
+    };
     drag = (ev,id) => {
         // TRANSFER ID OF THE COLUMN THAT IS GOINT TO PLACED ON OTHER TABLE
         ev.dataTransfer.setData("id",id); 	/* SET ID DATA TRANSFERRING FOR DRAG DROP */
         // ALSO SEND THE XML DOCUMENT TO OTHER REACT COMPONENT
         ev.dataTransfer.setData("xmldoctext",this.state.jsonstring); /* SET XML STRING TRANSFERRING FOR DRAG DROP */
-    }
+    };
     createTable = () =>
     {
         /* GET XML DOCUMENT */

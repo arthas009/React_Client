@@ -1,52 +1,63 @@
 
+.header
+{
+    background:#444444;
+    height:9%; /* Full-height: remove this if you want "auto" height */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    width:100%;
+    left:0;
+    top:0;
+
+}
+.header p
+{
+    font-family:"Trebuchet MS", "Lucida Grande", sans-serif;
+    color:#f1f1f1;
+    margin-left:45%;
+    font-size:25px;
+}
+
 
 .fixedMenuContainer {
     height: 22%; /* Full-height: remove this if you want "auto" height */
-    width: 18%; /* Set the width of the sidebar */
+    width: 19%; /* Set the width of the sidebar */
+    top:9%;
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */
-    top: 0; /* Stay at the top */
     left: 0;
     background-color: #444; /* Black */
     padding-top: 5px;
-    border-left:solid 2px;
-    border-right:solid  2px;
-    border-top:solid 2px;
-    border-bottom:solid  grey 2px;
     text-align:center;
-    border-radius: 5px;
+    border-top:2px solid black;
     overflow: auto;
+
 }
 
 /* The navigation menu links */
 .fixedMenuContainer a {
 
     text-align:left;
-    padding:7px 7px 5px 20px;
-    margin-right: 105px;
-    margin-top: 1%;
+    padding:10px 10px 10px 35%;
     text-decoration: none;
-    font-size: 15px;
-    color: #4CAF50;
+    font-size: 20px;
+    color: #f1f1f1;
     display: block;
-    border: solid 2px #4CAF50;
-    border-radius: 15px;
-    font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    border:1px solid #888888;
+    font-family:"Trebuchet MS", sans-serif;
 }
 /* SCREEN MANAGEMENT LABEL*/
 .fixedMenuContainer p {
 
-
     text-decoration: underline;
     font-weight: bold;
     font-size: 18px;
-    color: #FFBA45;
+    color: #f1f1f1;
     display: block;
     font-family:"Arial Black", Gadget, sans-serif;
 }
 /* When you mouse over the navigation links, change their color */
 .fixedMenuContainer a:hover {
-    color: #f1f1f1;
+    background-color:#555555;
     cursor:pointer;
 }
 /*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
@@ -54,8 +65,8 @@
 
 
 .leftBottomFixedMenuContainer {
-    height:75%; /* Full-height: remove this if you want "auto" height */
-    width: 18%; /* Set the width of the sidebar */
+    height:68%; /* Full-height: remove this if you want "auto" height */
+    width: 19%; /* Set the width of the sidebar */
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */
     bottom: 0; /* Stay at the top */
@@ -64,10 +75,7 @@
     margin-bottom:2px;
     background-color: #444; /* Black */
     padding-top: 5px;
-    border-left:solid 2px;
-    border-right:solid  2px;
-    border-top:solid grey 2px;
-    border-bottom:solid  2px;
+    border-top:2px solid black;
     overflow: auto;
 }
 /* SEARCH LABEL*/
@@ -76,7 +84,7 @@
     font-weight: bold;
     font-size: 16px;
     margin-left:5px;
-    color: #FFBA45; /* ORANGE */
+    color: #f1f1f1; /* ORANGE */
     font-family:"Arial Black", Gadget, sans-serif;
 }
 /* ------------------------------INPUT AREA-------------------------*/
@@ -111,7 +119,7 @@
 }
 .leftBottomFixedMenuContainer .search.active,
 .leftBottomFixedMenuContainer .search:hover {
-    width: 200px;
+    width: 150px;
     margin-right: 0px;
 }
 .leftBottomFixedMenuContainer .search.active:after,
@@ -129,33 +137,38 @@
     outline-width: 0px;
 }
 /* ------------------------------INPUT AREA-------------------------*/
+.leftBottomFixedMenuContainer #dragButton{
 
+    padding:40px 0px 40px 1px;
+    background-color:#666666;
+    font-size:12px;
+}
 
 
 /* TABLE */
 .leftBottomFixedMenuContainer table {
 
+    border-radius: 0.7rem;
+    display:grid;
     margin-top:15%;
     font-family: arial, sans-serif;
-    font-size:13px;
+    font-size:14px;
     margin-left:5px;
-    display: block;
     overflow-x: auto;
-    white-space: break-word;
+
 
 }
 /* ROW AND COLUMN */
 .leftBottomFixedMenuContainer td, th {
-    border: 1px solid #dddddd;
     word-wrap:break-word;
     width:5%;
     text-align: left;
 }
 /* TH COLOR */
 .leftBottomFixedMenuContainer th {
-    color:#FFBA45;
+    color: #f1f1f1;
     font-family:"Arial Black", Gadget, sans-serif;
-
+    background-color:#333333;
     text-align:center;
 }
 /* DRAG BUTTON */
@@ -163,9 +176,6 @@
     font-family:"Arial Black", Gadget, sans-serif;
     text-align:center;
 }
-.leftBottomFixedMenuContainer tr:first-child td {
-}
-
 /*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 /* TABLE RESIZING CSS */
 .leftBottomFixedMenuContainer .table-resizable.resizing, .table-resizable th::before {
@@ -190,19 +200,14 @@
 .leftBottomFixedMenuContainer .table-resizable td {
     max-width: 0;
     overflow: hidden;
+    background-color:#ffffff;
     text-overflow: ellipsis;
 }
 /* ROW AND COLUMN */
 .leftBottomFixedMenuContainer .table-resizable th{
-    border: 1px solid #dddddd;
-    text-align: center;
     padding:10px;
+}
 
-}
-/* EVEN NUMBER COLUMN*/
-.leftBottomFixedMenuContainer tr:nth-child(even) {
-    background-color: #dddddd;
-}
 /*WORTHLESS*/
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
@@ -218,7 +223,6 @@
 /*RightUpperContext*/
 .main
 {
-    height:100%; /* Full-height: remove this if you want "auto" height */
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */
     bottom: 0; /* Stay at the top */
@@ -226,111 +230,118 @@
     left: 19%;
     margin-bottom:2px;
     margin-right:10px;
-    background-color: #26bc44; /* Black */
-    border-left:solid 2px;
-    border-right:solid  2px;
-    border-top:solid grey 2px;
-    border-bottom:solid  2px;
+    background-color: #dddddd; /* Black */
+    border-left:2px solid black;
+    border-top:2px solid black;
+    top:9%;
     overflow: auto;
 }
 .main .insideMain
 {
-    margin-top:7%;
-    background-color: #26cc44;
+    max-height:650Px;
+    background-color: #dddddd  ;
+    margin-left:2px;
 }
 
 .main .insideMain #droppingDivision
 {
     color: #ABCA45; /* GREEN */
-    height: 750px;
-    max-height:750Px;
-    padding: 10px;
+    height: 550px;
+    max-height:650Px;
+    margin-left:1px;
 
-}
-.main .insideMain #graphDivision
-{
-    color: #ABCA45; /* GREEN */
-    height:110px;
-    padding: 10px;
 }
 .main .insideMain #canvasDivision
 {
     color: #ABCA45; /* GREEN */
-    height: 750px;
-    max-height:750Px;
-    padding: 10px;
+    height: 800px;
+    padding-left:10px;
 
 }
-.main .insideMain h1
-{
-    width:90px;
-    text-decoration: underline;
-    font-size: 15px;
-    color: #ffffff;
-    border: 3px solid;
-    padding:10px;
-        margin-left:5px;
-    font-family:"Courier New", Courier, monospace;
-}
-
 .main .insideMain h2
 {
     font-size: 32px;
-    color: #ffffff;
+    color: #333333;
     display: flex;
     align-items: center;
     justify-content: center;
     font-family:"Courier New", Courier, monospace;
 }
-.main .insideMain canvas
-{
-    background-color:#ffffff;
-    border:1px solid;
-    margin-bottom:30px;
+.main .insideMain canvas {
+    background-color: #dddddd;
+    border: 1px solid;
+    margin-bottom: 30px;
+    max-height: 700px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
+
+/* p */
+.main .insideMain #intervals
+{
+    margin-left:5px;
+}
+/* input */
+.main .insideMain #totalIntervals
+{
+    display:inline;
+
+}
+/* button */
+.main .insideMain #setIntervals
+{
+ margin-left:5px;
+}
+.main .insideMain #resetGraph
+{
+margin-left:15px;
+}
+.main .insideMain #startFloating
+{
+    margin-left:15px;
+}
+.main .insideMain #changeColors
+{
+    margin-left:15px;
+}
+
 /* TABLE */
 
 
 .main .insideMain table {
 
-    margin-top:5%;
-    font-size:13px;
-    max-height: 80%;
+    border-radius: 0.7rem;
+    display:grid;
+    font-family: arial, sans-serif;
     margin-left:5px;
-    display: block;
     overflow-x: auto;
+    max-height: 550px;
 
 }
-/* ROW AND COLUMN */
 
 /* TH COLOR */
 .main .insideMain th {
-    color:#FFBA45;
-    font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    color:#f1f1f1;
+    background-color:#666666;
+    font-family:"Trebuchet MS", "Lucida Grande", sans-serif;
+    padding: 10px;
     font-weight: bold;
-    font-size:15px;
+    font-size:17px;
     text-align:center;
 
     width:400px;
 }
 .main .insideMain td {
-    font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-family:"Trebuchet MS", "Lucida Grande", sans-serif;
     font-size:12px;
+    background-color:#f1f1f1;
     border: 1px solid #dddddd;
     word-wrap:break-word;
+    overflow: hidden;
     text-align: left;
-    width:400px;
 
 }
-.main  .insideMain tr:nth-child(even) {
-    background-color: #dddddd;
-}
-
-
-
-
-
-
 /* RESIZING */
 .main .insideMain .table-resizable.resizing, .table-resizable th::before {
     cursor: col-resize;
@@ -354,7 +365,6 @@
 .main .insideMain .table-resizable td {
     color:#000000;
     max-width: 0;
-    overflow: hidden;
     text-overflow: ellipsis;
 }
 .main .insideMain .table-resizable button
@@ -369,18 +379,16 @@
 .main .tabSection
 {
     height:10%; /* Full-height: remove this if you want "auto" height */
-    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */
     top: 0; /* Stay at the top */
     right: 0;
     left: 19%;
     margin-bottom:2px;
     margin-right:10px;
-    background-color: #4CAF50;
-    border-left:solid 2px;
-    border-right:solid  2px;
-    border-top:solid grey 2px;
+    background-color: #dddddd;
     border-bottom:solid  2px;
+    padding-left:10px;
+    padding-top:10px;
     overflow: auto;
 }
 .main .tabSection #newSection
@@ -394,7 +402,7 @@
     font-size: 12px;
     cursor: pointer;
     outline: none;
-    border: none;
+    background-color:#f1f1f1;
     border-top-left-radius: 15px;
     box-shadow: 0 9px #999ccc;
 }
@@ -403,21 +411,22 @@
     background-color: #f1f1f1;
 }
 .main .tabSection #newSection:hover {
-    background-color: #3e8e41;
+    background-color: #234967;
     text-decoration: underline;
 }
 .main .tabSection button:active {
-    background-color: #3e8e41;
+    background-color: #999ccc;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
 
 }
+
+
+
 .main .tabSection .sections
 {
     font-family:"Courier New", Courier, monospace;
-    margin-top:5px;
-    margin-left:7px;
-    background-color:#26cc44;
+    background-color:#888888;
     display: inline-block;
     padding: 7px 10px;
     font-size: 12px;
@@ -425,43 +434,18 @@
     text-align: center;
     text-decoration: none;
     outline: none;
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 9px #3e8e41;
+    border: 1px solid #333333;
+    box-shadow: 0 9px #666666;
 }
+.main .tabSection .active{
+    background-color:#555555;
+    box-shadow: 0 5px #666;
+    transform: translateY(8px);
 
-
+}
 /*WORTHLESS*/
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
     .fixedMenuContainer {padding-top: 15px;}
     .main a {font-size: 18px;}
-}
-
-
-/* SCREEN MANAGER */
-
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: 200px;
-    background-color: #f1f1f1;
-    border: 1px solid #555;
-}
-
-.ScreenManager {
-    width: 18%;
-}
-
-.ScreenManager a {
-    background-color: #dddddd;
-    color: black;
-    display: block;
-    padding: 12px;
-    text-decoration: none;
-}
-
-.ScreenManager a:hover {
-    background-color: #cccccc;
 }
