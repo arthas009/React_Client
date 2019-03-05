@@ -11,6 +11,7 @@
 class SavedData {
     constructor(objects,ids) {
         this.head = new Node(objects,ids);
+        this.currentTab = 1;
     }
 
     add(objects,ids) {
@@ -56,6 +57,24 @@ class SavedData {
         }
         gezici.ids = newids;
         gezici.objects = newobjects;
+    }
+    /*
+    *
+    * Return current tab if called
+    *
+    */
+    getCurrentTab()
+    {
+        return this.currentTab;
+    }
+    /*
+   *
+   * Set current tab data
+   *
+   */
+    setCurrentTab(newValue)
+    {
+        this.currentTab = newValue;
     }
 }
 class Node
