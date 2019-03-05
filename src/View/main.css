@@ -278,9 +278,15 @@
 }
 
 /* p */
-.main .insideMain #intervals
+.main .insideMain #intervalsMin
 {
     margin-left:5px;
+    width:50px;
+}
+.main .insideMain #intervalsMax
+{
+    margin-left:5px;
+    width:50px;
 }
 /* input */
 .main .insideMain #totalIntervals

@@ -8,8 +8,9 @@ export default function renderFunc(currentTab,intervalInputOnChange,setIntervals
         <div className="sidenav">
             <canvas ref="myGraphCanvas" id="myGraphCanvas" />
 
-            <p id="totalIntervals">Aralık sayısı</p>
-            <input id="intervals" pattern="[0-9]*" onChange={(e) =>intervalInputOnChange(e)}/>
+            <p id="totalIntervals">Aralıklar (Min-Max)</p>
+            <input id="intervalsMin" pattern="[0-9]*" onChange={(e) =>intervalInputOnChange(e)}/>
+            <input id="intervalsMax" pattern="[0-9]*" onChange={(e) =>intervalInputOnChange(e)}/>
             <button id="setIntervals" onClick = {() => setIntervals()}>Ayarla</button>
             <button id="resetGraph" onClick = {() => resetGraph()}>Reset zoom</button>
 
