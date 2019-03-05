@@ -1,16 +1,34 @@
 
+.header
+{
+    background:#444444;
+    height:9%; /* Full-height: remove this if you want "auto" height */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    width:100%;
+    left:0;
+    top:0;
+
+}
+.header p
+{
+    font-family:"Trebuchet MS", "Lucida Grande", sans-serif;
+    color:#f1f1f1;
+    margin-left:45%;
+    font-size:25px;
+}
+
+
 .fixedMenuContainer {
     height: 22%; /* Full-height: remove this if you want "auto" height */
-    width: 18%; /* Set the width of the sidebar */
+    width: 19%; /* Set the width of the sidebar */
+    top:9%;
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */
-    top: 0; /* Stay at the top */
     left: 0;
     background-color: #444; /* Black */
     padding-top: 5px;
-    border-left:solid 2px;
-    border-right:solid  2px;
     text-align:center;
+    border-top:2px solid black;
     overflow: auto;
 
 }
@@ -21,11 +39,11 @@
     text-align:left;
     padding:10px 10px 10px 35%;
     text-decoration: none;
-    font-size: 13px;
-    color: #FFFFFF;
+    font-size: 20px;
+    color: #f1f1f1;
     display: block;
     border:1px solid #888888;
-    font-family:"Arial Black", Gadget, sans-serif;
+    font-family:"Trebuchet MS", sans-serif;
 }
 /* SCREEN MANAGEMENT LABEL*/
 .fixedMenuContainer p {
@@ -33,7 +51,7 @@
     text-decoration: underline;
     font-weight: bold;
     font-size: 18px;
-    color: #FFBA45;
+    color: #f1f1f1;
     display: block;
     font-family:"Arial Black", Gadget, sans-serif;
 }
@@ -47,8 +65,8 @@
 
 
 .leftBottomFixedMenuContainer {
-    height:75%; /* Full-height: remove this if you want "auto" height */
-    width: 18%; /* Set the width of the sidebar */
+    height:68%; /* Full-height: remove this if you want "auto" height */
+    width: 19%; /* Set the width of the sidebar */
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */
     bottom: 0; /* Stay at the top */
@@ -57,10 +75,7 @@
     margin-bottom:2px;
     background-color: #444; /* Black */
     padding-top: 5px;
-    border-left:solid 2px;
-    border-right:solid  2px;
-    border-top:solid grey 2px;
-    border-bottom:solid  2px;
+    border-top:2px solid black;
     overflow: auto;
 }
 /* SEARCH LABEL*/
@@ -69,7 +84,7 @@
     font-weight: bold;
     font-size: 16px;
     margin-left:5px;
-    color: #FFBA45; /* ORANGE */
+    color: #f1f1f1; /* ORANGE */
     font-family:"Arial Black", Gadget, sans-serif;
 }
 /* ------------------------------INPUT AREA-------------------------*/
@@ -151,7 +166,7 @@
 }
 /* TH COLOR */
 .leftBottomFixedMenuContainer th {
-    color:#FFBA45;
+    color: #f1f1f1;
     font-family:"Arial Black", Gadget, sans-serif;
     background-color:#333333;
     text-align:center;
@@ -208,7 +223,6 @@
 /*RightUpperContext*/
 .main
 {
-    height:100%; /* Full-height: remove this if you want "auto" height */
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */
     bottom: 0; /* Stay at the top */
@@ -216,18 +230,16 @@
     left: 19%;
     margin-bottom:2px;
     margin-right:10px;
-    background-color: #26bc44; /* Black */
-    border-left:solid 2px;
-    border-right:solid  2px;
-    border-top:solid grey 2px;
-    border-bottom:solid  2px;
+    background-color: #dddddd; /* Black */
+    border-left:2px solid black;
+    border-top:2px solid black;
+    top:9%;
     overflow: auto;
 }
 .main .insideMain
 {
-    margin-top:7%;
     max-height:650Px;
-    background-color: #26cc44;
+    background-color: #dddddd  ;
     margin-left:2px;
 }
 
@@ -249,14 +261,14 @@
 .main .insideMain h2
 {
     font-size: 32px;
-    color: #ffffff;
+    color: #333333;
     display: flex;
     align-items: center;
     justify-content: center;
     font-family:"Courier New", Courier, monospace;
 }
 .main .insideMain canvas {
-    background-color: #ffffff;
+    background-color: #dddddd;
     border: 1px solid;
     margin-bottom: 30px;
     max-height: 700px;
@@ -310,19 +322,20 @@ margin-left:15px;
 
 /* TH COLOR */
 .main .insideMain th {
-    color:#FFBA45;
-    background-color:#269c44;
-    font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    color:#f1f1f1;
+    background-color:#666666;
+    font-family:"Trebuchet MS", "Lucida Grande", sans-serif;
+    padding: 10px;
     font-weight: bold;
-    font-size:15px;
+    font-size:17px;
     text-align:center;
 
     width:400px;
 }
 .main .insideMain td {
-    font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    font-size:11px;
-    background-color:#ffffff;
+    font-family:"Trebuchet MS", "Lucida Grande", sans-serif;
+    font-size:12px;
+    background-color:#f1f1f1;
     border: 1px solid #dddddd;
     word-wrap:break-word;
     overflow: hidden;
@@ -366,18 +379,16 @@ margin-left:15px;
 .main .tabSection
 {
     height:10%; /* Full-height: remove this if you want "auto" height */
-    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */
     top: 0; /* Stay at the top */
     right: 0;
     left: 19%;
     margin-bottom:2px;
     margin-right:10px;
-    background-color: #4CAF50;
-    border-left:solid 2px;
-    border-right:solid  2px;
-    border-top:solid grey 2px;
+    background-color: #dddddd;
     border-bottom:solid  2px;
+    padding-left:10px;
+    padding-top:10px;
     overflow: auto;
 }
 .main .tabSection #newSection
@@ -391,7 +402,7 @@ margin-left:15px;
     font-size: 12px;
     cursor: pointer;
     outline: none;
-    border: none;
+    background-color:#f1f1f1;
     border-top-left-radius: 15px;
     box-shadow: 0 9px #999ccc;
 }
@@ -400,11 +411,11 @@ margin-left:15px;
     background-color: #f1f1f1;
 }
 .main .tabSection #newSection:hover {
-    background-color: #3e8e41;
+    background-color: #234967;
     text-decoration: underline;
 }
 .main .tabSection button:active {
-    background-color: #3e8e41;
+    background-color: #999ccc;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
 
@@ -415,9 +426,7 @@ margin-left:15px;
 .main .tabSection .sections
 {
     font-family:"Courier New", Courier, monospace;
-    margin-top:5px;
-    margin-left:7px;
-    background-color:#26cc44;
+    background-color:#888888;
     display: inline-block;
     padding: 7px 10px;
     font-size: 12px;
@@ -425,9 +434,8 @@ margin-left:15px;
     text-align: center;
     text-decoration: none;
     outline: none;
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 9px #3e8e41;
+    border: 1px solid #333333;
+    box-shadow: 0 9px #666666;
 }
 .main .tabSection .active{
     background-color:#555555;

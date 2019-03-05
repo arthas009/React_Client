@@ -131,7 +131,7 @@ class TabSection extends Component {
         /* PRINT REACT BUTTONS */
        return(<div>
             {this.bringButtons()}
-           <button id="newSection" onClick = {this.newTabButtonOnClick}> Yeni Sekme Aç</button>
+           <button id="newSection" onClick = {this.newTabButtonOnClick}> Yeni Sekme Aç </button>
        </div>);
     }
 }
