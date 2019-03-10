@@ -260,6 +260,7 @@ class RightUpperGraphRenderer extends Component {
         valueMax = parseInt(valueMax);
 
         if(this.state.startIndex != valueMin) {
+
             this.state.startIndex = valueMin;
             this.state.endIndex = valueMax;
             let intervals = [];
@@ -323,10 +324,12 @@ class RightUpperGraphRenderer extends Component {
     float = () =>
     {
 
-        /* GENERATE A RANDOM NUMBER AND PUSH IT TO EACH DATA ARRAY. BEFORE IT, MAKE A CALCULATION ABOUT MIN AND MAX VALUES
+        /*
+         * GENERATE A RANDOM NUMBER AND PUSH IT TO EACH DATA ARRAY. BEFORE IT, MAKE A CALCULATION ABOUT MIN AND MAX VALUES
          */
         let currentds = this.state.currentDataset;
         console.log(currentds);
+
         for (let i = 0; i <  currentds.length - 2; i++) {
            let newValue = Math.floor(Math.random() * 225) + 10;
             if(newValue > this.state.max)
@@ -358,12 +361,20 @@ class RightUpperGraphRenderer extends Component {
         // UPDATE CURRENT DATASET
         this.state.currentDataset=currentds;
         console.log(currentds);
-        // SLICE UNTIL BEGIN INDEX AND UPDATE CHART
-        for(let i = 0; i<currentds.length ;i++ )
+        let changer = [];
+        for (let i = 0; i <  currentds.length; i++)
         {
-            currentds[i].data = currentds[i].data.slice(this.state.startIndex);
+            let toadd;
+            toadd = {
+                label: currentds[i].label,
+                data: currentds[i].data.slice(this.state.startIndex),
+                borderColor: this.state.borderColors[i],
+                borderWidth: 3
+            };
+            changer.push(toadd);
         }
-        this.state.myChart.data.dataset = currentds;
+
+        this.state.myChart.data.dataset = changer;
         this.state.myChart.update();
     };
 
