@@ -11,6 +11,8 @@ class RightUpperGraphRenderer extends Component {
             myChart: null,
             currentTab : this.props.currentTab,
             parentTabs : this.props.parentTabs,
+            min : 99999999,
+            max : 0
         };
     }
     componentDidMount() {
@@ -24,7 +26,6 @@ class RightUpperGraphRenderer extends Component {
         let datasett = [];
         let intervals = [];
         let interval = 0;
-        let whereIsMax = 0;
         /*
         *
         * CALCULATE MIN AND MAX NUMBER
@@ -36,11 +37,12 @@ class RightUpperGraphRenderer extends Component {
             let JSONobject = JSON.parse(objectstring[i]);
             for (let k = 0; k < JSONobject.Parameters.Parameter[ids[i]].timestamp.length; k++) {
                 if (JSONobject.Parameters.Parameter[ids[i]].timestamp[k] > max) {
+                    this.state.max = JSONobject.Parameters.Parameter[ids[i]].timestamp[k];
                     max = JSONobject.Parameters.Parameter[ids[i]].timestamp[k];
-                    whereIsMax = i;
                 }
                 if (min > JSONobject.Parameters.Parameter[ids[i]].timestamp[k]) {
                     min = JSONobject.Parameters.Parameter[ids[i]].timestamp[k];
+                    this.state.min = JSONobject.Parameters.Parameter[ids[i]].timestamp[k];
                 }
             }
             let bordercolor = [this.random_rgba(), this.random_rgba(), this.random_rgba(), this.random_rgba(), this.random_rgba(), this.random_rgba()];
@@ -56,7 +58,6 @@ class RightUpperGraphRenderer extends Component {
             interval = JSONobject.Parameters.Parameter[ids[i]].timestamp.length;
         }
 
-        this.state.dataSet = datasett;
         this.state.borderColors = bordercolors;
 
         for(let k = 0;k<=interval;k++)
@@ -193,7 +194,7 @@ class RightUpperGraphRenderer extends Component {
                 });
             }
         });
-
+        this.state.currentDataset = datasett;
         /* DYNAMICALLY AND INTERVALLY UPDATE THE CHART IN EACH 1 SEC */
         this.intervalID = setInterval(() => {
 
@@ -306,74 +307,41 @@ class RightUpperGraphRenderer extends Component {
     /* floating graph */
     float = () =>
     {
-        let max = 0;
-        let min = 99999999;
-        let copydatasetfirst = this.state.dataSet; // we always use dataset from state
-        let whereIsMax = 0;
-        let newdata = [];
-
-        /* loop ends 2 number before because last 2 index includes min and max limit information */
-        for (let i = 0; i < copydatasetfirst.length - 2; i++) {
-
-            let datatochange = copydatasetfirst;
-            for (let k = 0; k < datatochange[i].data.length; k++) {
-                datatochange[i].data[k] = datatochange[i].data[k + 1];
-            }
-            datatochange[i].data[datatochange[i].data.length - 1] = Math.floor(Math.random() * 550) + 1;
-            ;
-
-            let toadd = {
-                label: 'Deneme ' + (i + 1),
-                data: datatochange[i].data,
-                borderColor:
-                    [
-                        this.state.borderColors[i]
-                    ],
-                borderWidth: 3
-            };
-            for (let k = 0; k < datatochange[i].data.length; k++) {
-                if (datatochange[i].data[k] > max) {
-                    max = datatochange[i].data[k];
-                    whereIsMax = i;
+        let currentds = this.state.currentDataset;
+        console.log(currentds);
+        for (let i = 0; i <  currentds.length - 2; i++) {
+            let newValue = Math.floor(Math.random() * 225) + 10;
+            if(newValue > this.state.max)
+            {
+                this.state.max = newValue;
+                for(let k = 0;k<currentds[currentds.length-2].data.length;k++)
+                {
+                    currentds[currentds.length-2].data[k] = newValue;
                 }
-                if (min > datatochange[i].data[k]) {
-                    min = datatochange[i].data[k];
-                }
+                currentds[currentds.length-2].data.push(newValue);
             }
-            newdata.push(toadd);
-        }
+            else
+                currentds[currentds.length-2].data.push(this.state.max);
+            if(newValue <this.state.min)
+            {
+                this.state.min = newValue;
+                for(let k = 0;k<currentds[currentds.length-1].data.length;k++)
+                {
+                    currentds[currentds.length-1].data[k] = newValue;
+                }
+                currentds[currentds.length-1].data.push(newValue);
+            }
+            else
+                currentds[currentds.length-1].data.push(this.state.min);
 
-        /* TO ARRANGE MIN AND MAX LIMITS */
-        let maxlimit = [];
-        for(let k =0;k<newdata[0].data.length;k++)
-        {
-            maxlimit.push(max);
+            // PUSH NEW VALUE
+            currentds[i].data.push(newValue);
         }
-
-        let minlimit = [];
-        for(let k =0;k<newdata[0].data.length;k++)
-        {
-            minlimit.push(min);
-        }
-        let maxlimits = {
-            data: maxlimit,
-            label: 'MaxLimit',
-            fill: false,
-            radius: 0,
-            borderColor: "rgba(0,0,0,1)",
-        };
-        let minlimits = {
-            data: minlimit,
-            label: 'MinLimit',
-            fill: false,
-            radius: 0,
-            borderColor: "rgba(0,0,0,1)",
-        };
-        newdata.push(maxlimits);
-        newdata.push(minlimits);
-
-        this.state.datasett = newdata;
-        this.state.myChart.data.datasets = newdata;
+        // UPDATE CURRENT DATASET
+        this.state.currentDataset=currentds;
+        console.log(currentds);
+        // SLICE UNTIL BEGIN INDEX AND UPDATE CHART
+        this.state.myChart.data.dataset = currentds;
         this.state.myChart.update();
     };
 
