@@ -15,7 +15,7 @@ class TabSection extends Component {
 
         /*
         *
-        * 'isTableSelected' to control wheter tables or graphs clicked. We set page according to it.
+        * 'isTableSelected' to control whether tables or graphs clicked. We set page according to it.
         * 'Tabs' contains the values of objects and dragged IDs of selected current tab.
         * 'currentTab' holds the number of current tab.
         * 'totalTabs' holds the number of total tabs.
@@ -30,6 +30,7 @@ class TabSection extends Component {
     componentDidMount() {
 
     }
+
 
     /*
     * Set the page according to current tab.

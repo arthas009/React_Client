@@ -8,23 +8,30 @@ class RightUpperGraphRenderer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            myChart: null,
-            currentTab : this.props.currentTab,
-            parentTabs : this.props.parentTabs,
-            max:0,
-            min:9999999,
-            startIndex:0,
-            endIndex:0
         };
     }
     componentDidMount() {
 
-        let objectstring = this.state.parentTabs.getNodeAt(this.state.currentTab).objects; // find current jsons
-        let ids = this.state.parentTabs.getNodeAt(this.state.currentTab).ids; // find current ids
+        let date = new Date();
+        let currentHour = date.getHours();
+        let currentMinute = date.getMinutes();
+        let currentSecond = date.getSeconds();
+
+        this.max = 0;
+        this.min = 9999999;
+        this.startIndex=0;
+        this.endIndex = 0;
+        this.currentTab = this.props.currentTab;
+        this.parentTabs = this.props.parentTabs;
+        this.myChart = null;
+
+        let objectstring = this.parentTabs.getNodeAt(this.currentTab).objects; // find current jsons
+        let ids = this.parentTabs.getNodeAt(this.currentTab).ids; // find current ids of jsons so that we can find which parameters belongs to whick json object
         let bordercolors = [];
         let datasett = [];
         let intervals = [];
         let interval = 0;
+
         /*
         *
         * CALCULATE MIN AND MAX NUMBER
@@ -35,11 +42,11 @@ class RightUpperGraphRenderer extends Component {
         for (let i = 0; i < ids.length; i++) {
             let JSONobject = JSON.parse(objectstring[i]);
             for (let k = 0; k < JSONobject.Parameters.Parameter[ids[i]].timestamp.length; k++) {
-                if (JSONobject.Parameters.Parameter[ids[i]].timestamp[k] > this.state.max) {
-                    this.state.max = JSONobject.Parameters.Parameter[ids[i]].timestamp[k];
+                if (JSONobject.Parameters.Parameter[ids[i]].timestamp[k] > this.max) {
+                    this.max = JSONobject.Parameters.Parameter[ids[i]].timestamp[k];
                 }
-                if (this.state.min > JSONobject.Parameters.Parameter[ids[i]].timestamp[k]) {
-                    this.state.min = JSONobject.Parameters.Parameter[ids[i]].timestamp[k];
+                if (this.min > JSONobject.Parameters.Parameter[ids[i]].timestamp[k]) {
+                    this.min = JSONobject.Parameters.Parameter[ids[i]].timestamp[k];
                 }
             }
             let bordercolor = [this.random_rgba(), this.random_rgba(), this.random_rgba(), this.random_rgba(), this.random_rgba(), this.random_rgba()];
@@ -55,24 +62,38 @@ class RightUpperGraphRenderer extends Component {
             interval = JSONobject.Parameters.Parameter[ids[i]].timestamp.length;
         }
 
-        this.state.borderColors = bordercolors;
+        this.borderColors = bordercolors;
 
         for(let k = 0;k<=interval;k++)
         {
-            intervals.push(""+k);
+            intervals.push(currentHour+":"+currentMinute+":"+(currentSecond++));
+            if(currentSecond == 60)
+            {
+                currentMinute++;
+                currentSecond=0;
+            }
+            if(currentMinute==60)
+            {
+                currentHour++;
+                currentMinute=0;
+            }
+            if(currentHour==24)
+            {
+                currentHour=0;
+            }
         }
 
         /* TO ARRANGE MIN AND MAX LIMITS */
         let maxlimit = [];
         for(let k =0;k<datasett[0].data.length;k++)
         {
-            maxlimit.push(this.state.max);
+            maxlimit.push(this.max);
         }
 
         let minlimit = [];
         for(let k =0;k<datasett[0].data.length;k++)
         {
-            minlimit.push(this.state.min);
+            minlimit.push(this.min);
         }
 
         let maxlimits = {
@@ -97,7 +118,7 @@ class RightUpperGraphRenderer extends Component {
         /* FIND THE CHART FROM ITS REF */
         var ctx = this.refs.myGraphCanvas;
         Chart.defaults.global.elements.line.fill = false;
-        this.state.myChart = new Chart(ctx, {
+        this.myChart = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: intervals,
@@ -149,14 +170,6 @@ class RightUpperGraphRenderer extends Component {
                             },
 
                         }
-                    }],
-                    xAxes: [{
-                        ticks: {
-                            min: 2,
-                            max: 3
-
-                        }
-
                     }]
                 }
             },
@@ -192,7 +205,7 @@ class RightUpperGraphRenderer extends Component {
                 });
             }
         });
-        this.state.currentDataset = datasett.slice(0);
+        this.currentDataset = datasett.slice(0);
         /* DYNAMICALLY AND INTERVALLY UPDATE THE CHART IN EACH 1 SEC */
         this.intervalID = setInterval(() => {
 
@@ -208,8 +221,8 @@ class RightUpperGraphRenderer extends Component {
 
     componentWillUnmount()
     {
-        if(this.state.myChart)
-            this.state.myChart.destroy();
+        if(this.myChart)
+            this.myChart.destroy();
 
         /* close the interval function so that we can use another one later */
         clearInterval(this.intervalID);
@@ -224,8 +237,10 @@ class RightUpperGraphRenderer extends Component {
     /*Internal input area text change event */
     internalInputOnChange(e)
     {
+        //Regex for only numbers
         e.target.value = e.target.value.replace(/\D/,'');
 
+        //Intervals can not be less than 0 and max can not be less then min
         if(document.getElementById("intervalsMax").value.length <= 0 ||
             document.getElementById("intervalsMax").value.length ==='0'||
             document.getElementById("intervalsMin").value.length <= 0 ||
@@ -239,6 +254,7 @@ class RightUpperGraphRenderer extends Component {
             document.getElementById("setIntervals").disabled = false;
         }
 
+        // If its length is greater then five, then cut after five.
         if(e.target.value.length >=5)
         {
             e.target.value = e.target.value.substring(0,5);
@@ -253,41 +269,39 @@ class RightUpperGraphRenderer extends Component {
         valueMin = parseInt(valueMin);
         valueMax = parseInt(valueMax);
 
-        this.state.startIndex = valueMin;
-        this.state.endIndex = valueMax;
+        this.startIndex = valueMin;
+        this.endIndex = valueMax;
         let intervals = [];
         /* CALCULATE INTERVAL STRING ARRAY FOR CHART.JS */
         for (let k = valueMin; k <= valueMax; k++) {
             intervals.push("" + k);
         }
-        let currentds = this.state.currentDataset;
+        //find current data.
+        let currentds = this.currentDataset;
         for(let i = 0; i<currentds.length -2 ;i++ )
         {
 
             let startIndexChangedData = [];
-            for(let k = this.state.startIndex;k<currentds[i].data.length;k++)
+            // Calculate new data to show from start index.
+            for(let k = this.startIndex;k<currentds[i].data.length;k++)
             {
                 startIndexChangedData.push(currentds[i].data[k]);
             }
-
-            this.state.myChart.data.datasets[i].data=startIndexChangedData;
+            //Change chart's data.
+            this.myChart.data.datasets[i].data=startIndexChangedData;
         }
-        this.state.myChart.data.labels = intervals;
-        this.state.myChart.update();
-
+        this.myChart.data.labels = intervals;
+        this.myChart.update();
         this.resetGraph();
-
-
     };
 
     /* reset zoom click event */
     resetGraph = () =>
     {
-        this.state.myChart.resetZoom();
+        this.myChart.resetZoom();
     };
 
     /* start button click event */
-
     startFloating = () =>
     {
         this.intervalID = setInterval(() => {
@@ -306,32 +320,32 @@ class RightUpperGraphRenderer extends Component {
         clearInterval(this.intervalID);
     };
 
-
     /* change colors click event */
     changeColors = () =>
     {
 
-        for(let k = 0;k<this.state.myChart.data.datasets.length-2;k++)
+        for(let k = 0;k<this.myChart.data.datasets.length-2;k++)
         {
             let bordercolor = [this.random_rgba(), this.random_rgba(), this.random_rgba(), this.random_rgba(), this.random_rgba(), this.random_rgba()];
-            this.state.myChart.data.datasets[k].borderColor =bordercolor;
+            this.borderColors[k]=bordercolor;
+            this.myChart.data.datasets[k].borderColor =bordercolor;
         }
-        this.state.myChart.update();
+        this.myChart.update();
     };
-
 
     /* floating graph */
     float = () =>
     {
-
-        /* GENERATE A RANDOM NUMBER AND PUSH IT TO EACH DATA ARRAY. BEFORE IT, MAKE A CALCULATION ABOUT MIN AND MAX VALUES
-         */
-        let currentds = this.state.currentDataset;
+        /*
+        * GENERATE A RANDOM NUMBER AND PUSH IT TO EACH DATA ARRAY. BEFORE IT, MAKE A CALCULATION ABOUT MIN AND MAX VALUES
+        */
+        let currentds = this.currentDataset;
         for (let i = 0; i <  currentds.length - 2; i++) {
             let newValue = Math.floor(Math.random() * 225) + 10;
-            if(newValue > this.state.max)
+            if(newValue > this.max)
             {
-                this.state.max = newValue;
+                //If new value is greater than maximum, then place new maximum to chart.
+                this.max = newValue;
                 for(let k = 0;k<currentds[currentds.length-2].data.length;k++)
                 {
                     currentds[currentds.length-2].data[k] = newValue;
@@ -339,10 +353,11 @@ class RightUpperGraphRenderer extends Component {
                 currentds[currentds.length-2].data.push(newValue);
             }
             else
-                currentds[currentds.length-2].data.push(this.state.max);
-            if(newValue <this.state.min)
+                currentds[currentds.length-2].data.push(this.max);
+            if(newValue <this.min)
             {
-                this.state.min = newValue;
+                //If new value is less than minimum, then place new minimum to chart.
+                this.min = newValue;
                 for(let k = 0;k<currentds[currentds.length-1].data.length;k++)
                 {
                     currentds[currentds.length-1].data[k] = newValue;
@@ -350,38 +365,41 @@ class RightUpperGraphRenderer extends Component {
                 currentds[currentds.length-1].data.push(newValue);
             }
             else
-                currentds[currentds.length-1].data.push(this.state.min);
+                currentds[currentds.length-1].data.push(this.min);
 
-            // PUSH NEW VALUE
+            // PUSH NEW VALUE TO DATA
             currentds[i].data.push(newValue);
         }
         // UPDATE CURRENT DATASET
-        this.state.currentDataset=currentds.slice(0);
+        this.currentDataset=currentds.slice(0);
         // SLICE UNTIL BEGIN INDEX AND UPDATE CHART
         let dataToReplace = [];
         for(let i = 0; i<currentds.length-2 ;i++ )
         {
             let startIndexChangedData = [];
-            for(let k = this.state.startIndex;k<currentds[i].data.length;k++)
+            for(let k = this.startIndex;k<currentds[i].data.length;k++)
                 startIndexChangedData.push(currentds[i].data[k]);
 
             dataToReplace.push({
                 label: 'Deneme ' + (i + 1),
                 data:startIndexChangedData,
-                borderColor: this.state.borderColors[i],
+                borderColor: this.borderColors[i],
                 borderWidth: 3
             })
         }
+        /*
+        * Push a new MAX and MIN data to chart
+        */
         let maxlimit = [];
         for(let k =0;k<currentds[0].data.length;k++)
         {
-            maxlimit.push(this.state.max);
+            maxlimit.push(this.max);
         }
 
         let minlimit = [];
         for(let k =0;k<currentds[0].data.length;k++)
         {
-            minlimit.push(this.state.min);
+            minlimit.push(this.min);
         }
 
         let maxlimits = {
@@ -398,18 +416,19 @@ class RightUpperGraphRenderer extends Component {
             radius: 0,
             borderColor: "rgba(0,0,0,1)",
         };
+
         dataToReplace.push(maxlimits);
         dataToReplace.push(minlimits);
 
-        this.state.myChart.data.datasets = dataToReplace;
-        this.state.myChart.update();
+        this.myChart.data.datasets = dataToReplace;
+        this.myChart.update();
     };
 
     /* CALL  RENDER FUNCTION */
     render() {
 
         return (
-            renderFunct(this.state.currentTab,this.internalInputOnChange,this.setIntervals,this.resetGraph,this.startFloating,this.stopFloating,this.changeColors)
+            renderFunct(this.currentTab,this.internalInputOnChange,this.setIntervals,this.resetGraph,this.startFloating,this.stopFloating,this.changeColors)
 
         );
     }
