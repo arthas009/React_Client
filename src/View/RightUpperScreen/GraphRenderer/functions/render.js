@@ -8,8 +8,18 @@ export default function renderFunc(currentTab,intervalInputOnChange,setIntervals
         <div className="sidenav">
             <canvas ref="myGraphCanvas" id="myGraphCanvas" />
 
-            <p id="totalIntervals">Aralık sayısı</p>
-            <input id="intervals" pattern="[0-9]*" onChange={(e) =>intervalInputOnChange(e)}/>
+            <p id="totalIntervals">Aralıklar (HH-MM-ss)</p>
+            <input id="intervalsMinHour"   className="IntervalsMinInputs" pattern="[0-9]*" onChange={(e) =>intervalInputOnChange(e)}/>
+            <input id="intervalsMinMinute" className="IntervalsMinInputs" pattern="[0-9]*" onChange={(e) =>intervalInputOnChange(e)}/>
+            <input id="intervalsMinSecond" className="IntervalsMinInputs" pattern="[0-9]*" onChange={(e) =>intervalInputOnChange(e)}/>
+
+            <p className="Ayrac"> - </p>
+
+            <input id="intervalsMaxHour"   className="IntervalsMaxInputs" pattern="[0-9]*" onChange={(e) =>intervalInputOnChange(e)}/>
+            <input id="intervalsMaxMinute" className="IntervalsMaxInputs" pattern="[0-9]*" onChange={(e) =>intervalInputOnChange(e)}/>
+            <input id="intervalsMaxSecond" className="IntervalsMaxInputs" pattern="[0-9]*" onChange={(e) =>intervalInputOnChange(e)}/>
+
+
             <button id="setIntervals" onClick = {() => setIntervals()}>Ayarla</button>
             <button id="resetGraph" onClick = {() => resetGraph()}>Reset zoom</button>
 

@@ -15,7 +15,7 @@ class TabSection extends Component {
 
         /*
         *
-        * 'isTableSelected' to control wheter tables or graphs clicked. We set page according to it.
+        * 'isTableSelected' to control whether tables or graphs clicked. We set page according to it.
         * 'Tabs' contains the values of objects and dragged IDs of selected current tab.
         * 'currentTab' holds the number of current tab.
         * 'totalTabs' holds the number of total tabs.
@@ -30,6 +30,7 @@ class TabSection extends Component {
     componentDidMount() {
 
     }
+
 
     /*
     * Set the page according to current tab.
@@ -108,7 +109,6 @@ class TabSection extends Component {
         let buttons = [];
         for(let i = 0;i<this.state.totalTabs;i++)
         {
-            console.log(i+" "+this.state.currentTab);
           if(i+1 == this.state.currentTab)
           buttons.push(<button ref={"button"+(i+1)} className="sections active" onClick={() => this.setCurrentTab(i+1)}>Sekme {i+1}</button>)
           else

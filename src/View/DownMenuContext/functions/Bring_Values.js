@@ -9,9 +9,9 @@ export default function bringValues(parameters,drag) {
 
         // PUSH A DRAG BUTTON TO EACH COLUMNG
         children.push(
-            <td id="first" draggable="true" onDragStart={(e) => drag(e, i)}>
+            <td id="first" draggable="true" ref={"tableTd"+i} onDragStart={(e) => drag(e, i)}>
                 <button
-                   id = "dragButton" ref={"dragbutton"+i} draggable="true" onDragStart={(e) => drag(e, i)} width="25" height="69">Sürükle
+                   id = "dragButton" ref={"dragbutton"+i} draggable="true" onDragStart={(e) => drag(e, i)}>Sürükle
                 </button>
             </td>
         );
