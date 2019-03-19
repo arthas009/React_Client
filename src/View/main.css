@@ -267,14 +267,23 @@
     justify-content: center;
     font-family:"Courier New", Courier, monospace;
 }
-.main .insideMain canvas {
+/* plotly */
+.main .insideMain .plotly {
     background-color: #dddddd;
     border: 1px solid;
     margin-bottom: 30px;
+    height: 700px;
     max-height: 700px;
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
+}
+/* plotly */
+.main .insideMain .main-svg {
+    border: 1px solid;
+    margin-bottom: 30px;
+    height: 700px;
+    max-height: 700px;
 }
 
 /* p */

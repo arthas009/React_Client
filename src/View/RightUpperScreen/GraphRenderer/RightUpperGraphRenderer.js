@@ -1,18 +1,16 @@
 import React, {Component} from 'react';
-import Chart from 'chart.js';
+
 import renderFunct from './functions/render.js';
-import 'chartjs-plugin-zoom';
+
+import * as Plotly from "plotly.js";
 
 
 class RightUpperGraphRenderer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            myChart: null,
             currentTab : this.props.currentTab,
             parentTabs : this.props.parentTabs,
-            min : 99999999,
-            max : 0
         };
     }
     componentDidMount() {
@@ -47,25 +45,13 @@ class RightUpperGraphRenderer extends Component {
             }
             let bordercolor = [this.random_rgba(), this.random_rgba(), this.random_rgba(), this.random_rgba(), this.random_rgba(), this.random_rgba()];
             bordercolors.push(bordercolor);
-            let toadd;
-                 toadd = {
-                    label: 'Deneme ' + (i + 1),
-                    data: JSONobject.Parameters.Parameter[ids[i]].timestamp,
-                    borderColor: bordercolor,
-                    borderWidth: 3
-                };
-            datasett.push(toadd);
-            interval = JSONobject.Parameters.Parameter[ids[i]].timestamp.length;
+            datasett.push(JSONobject.Parameters.Parameter[ids[i]].timestamp);
         }
 
         this.state.borderColors = bordercolors;
 
-        for(let k = 0;k<=interval;k++)
-        {
-            intervals.push(""+k);
-        }
-
         /* TO ARRANGE MIN AND MAX LIMITS */
+        /*
         let maxlimit = [];
         for(let k =0;k<datasett[0].data.length;k++)
         {
@@ -92,116 +78,36 @@ class RightUpperGraphRenderer extends Component {
             radius: 0,
             borderColor: "rgba(0,0,0,1)",
         };
-
-        datasett.push(maxlimits);
-        datasett.push(minlimits);
+       */
+       // datasett.push(maxlimits);
+       // datasett.push(minlimits);
 
 
         /* FIND THE CHART FROM ITS REF */
-        var ctx = this.refs.myGraphCanvas;
-        Chart.defaults.global.elements.line.fill = false;
-        this.state.myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: intervals,
-                datasets: datasett
-            },
-            options: {
-                layout: {
-                    padding: {
-                        left: 0,
-                        right: 0,
-                        top: 0,
-                        bottom: 0
-                    }
-                },
-                pan: {
-                    enabled: true,
-                    mode: "y",
-                    speed: 10,
-                    threshold: 10
-                },
-                zoom: {
-                    enabled: true,
-                    drag: false,
-                    mode: "xy",
-                    limits: {
-                        max: 10,
-                        min: 0.5
-                    }
-                },
-                responsive: true,
-                animation: false,
-                legend: {
-                    display: true,
-                    labels: {
-                        fontColor: 'rgb(255, 99, 132)'
-                    }
-                },
-                title: {
-                    display: true,
-                    text: 'Denemeler'
-                },
-                plugins: {
-                    filler: {
-                        propagate: false
-                    }
-                },
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            // Include a dollar sign in the ticks
-                            callback: function (value, index, values) {
-                                if(value>0)
-                                    return '+' + value;
-                                else
-                                    return value;
-                            }
-                        }
-                    }]
-                }
 
-            },
-
-        });
-        Chart.plugins.register({
-            afterDatasetsDraw: function(c) {
-                let ctx = c.ctx;
-                let prevY;
-                c.data.datasets.forEach(function(e, i) {
-                    let meta = c.getDatasetMeta(i);
-                    if (meta.hidden) return;
-                    meta.data.forEach(function(e) {
-                        let x = e.tooltipPosition().x;
-                        let y = e.tooltipPosition().y;
-                        let radius = e._model.radius;
-                        let moveY = prevY && (y < prevY ? y - (radius * 3) : y + (radius * 3));
-                        let lineY = prevY && (y < prevY ? y - (radius * 2) : y + (radius * 2));
-                        let color = prevY && (y < prevY ? 'green' : 'red');
-
-                        // draw arrow
-                        ctx.save();
-                        ctx.fillStyle = color;
-                        ctx.beginPath();
-                        ctx.moveTo(x, moveY);
-                        ctx.lineTo(x + radius, lineY);
-                        ctx.lineTo(x - radius, lineY);
-                        ctx.closePath();
-                        ctx.fill()
-                        ctx.restore();
-                        prevY = y;
-                    })
-                });
+        let layout = {
+            title: 'Custom Range',
+            xaxis: {
+                range: [0, 7],
             }
-        });
+        };
+        let ctx = this.refs.myGraphCanvas;
+        Plotly.plot( ctx, [{
+            type:'line',
+            x: [1,2,3,4,5,6,7,8,9,10],
+            y: datasett[0] }],layout);
+
+
+
+
         this.state.currentDataset = datasett;
         /* DYNAMICALLY AND INTERVALLY UPDATE THE CHART IN EACH 1 SEC */
-        this.intervalID = setInterval(() => {
+        /*this.intervalID = setInterval(() => {
 
           this.float();
 
         }, 3000);
-
+        */
         /* start button deactive at first */
         document.getElementById("startFloating").disabled = true;
         /* interval set button deactive at first */
