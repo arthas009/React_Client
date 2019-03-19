@@ -13,20 +13,22 @@ class RightUpperGraphRenderer extends Component {
     componentDidMount() {
 
         let date = new Date();
-        let currentHour = date.getHours();
-        let currentMinute = date.getMinutes();
-        let currentSecond = date.getSeconds();
+        this.currentHour = date.getHours();
+        this.currentMinute = date.getMinutes();
+        this.currentSecond = date.getSeconds();
 
         this.max = 0;
         this.min = 9999999;
+
         this.startIndex=0;
         this.endIndex = 0;
+
         this.currentTab = this.props.currentTab;
         this.parentTabs = this.props.parentTabs;
         this.myChart = null;
 
         let objectstring = this.parentTabs.getNodeAt(this.currentTab).objects; // find current jsons
-        let ids = this.parentTabs.getNodeAt(this.currentTab).ids; // find current ids of jsons so that we can find which parameters belongs to whick json object
+        let ids = this.parentTabs.getNodeAt(this.currentTab).ids; // find current ids of jsons so that we can find which parameters belongs to which json object
         let bordercolors = [];
         let datasett = [];
         let intervals = [];
@@ -64,20 +66,26 @@ class RightUpperGraphRenderer extends Component {
 
         this.borderColors = bordercolors;
 
+        /* For local operations, take class variables we saved on line 16 */
+        let currentHour = this.currentHour;
+        let currentMinute = this.currentMinute;
+        let currentSecond = this.currentSecond;
+
+        /* push first values of x axis to 'intervals' variable */
         for(let k = 0;k<=interval;k++)
         {
             intervals.push(currentHour+":"+currentMinute+":"+(currentSecond++));
-            if(currentSecond == 60)
+            if(currentSecond === 60)
             {
                 currentMinute++;
                 currentSecond=0;
             }
-            if(currentMinute==60)
+            if(currentMinute===60)
             {
                 currentHour++;
                 currentMinute=0;
             }
-            if(currentHour==24)
+            if(currentHour===24)
             {
                 currentHour=0;
             }
@@ -205,13 +213,17 @@ class RightUpperGraphRenderer extends Component {
                 });
             }
         });
+
+        /* SAVE CURRENT DATASET AS CLASS VARIABLE */
         this.currentDataset = datasett.slice(0);
-        /* DYNAMICALLY AND INTERVALLY UPDATE THE CHART IN EACH 1 SEC */
+
+
+        /* DYNAMICALLY AND INTERVALLY UPDATE THE CHART IN EACH 3 SEC */
         this.intervalID = setInterval(() => {
 
             this.float();
 
-        }, 3000);
+        }, 1000);
 
         /* start button deactive at first */
         document.getElementById("startFloating").disabled = true;
@@ -241,11 +253,7 @@ class RightUpperGraphRenderer extends Component {
         e.target.value = e.target.value.replace(/\D/,'');
 
         //Intervals can not be less than 0 and max can not be less then min
-        if(document.getElementById("intervalsMax").value.length <= 0 ||
-            document.getElementById("intervalsMax").value.length ==='0'||
-            document.getElementById("intervalsMin").value.length <= 0 ||
-            document.getElementById("intervalsMin").value.length ==='0'||
-            parseInt(document.getElementById("intervalsMax").value) <= parseInt(document.getElementById("intervalsMin").value))
+        if (e.target.value <= 0)
         {
             document.getElementById("setIntervals").disabled = true;
         }
@@ -264,23 +272,53 @@ class RightUpperGraphRenderer extends Component {
     /* Internal button click event */
     setIntervals = () =>
     {
-        let valueMin= document.getElementById('intervalsMin').value;
-        let valueMax= document.getElementById('intervalsMax').value;
-        valueMin = parseInt(valueMin);
-        valueMax = parseInt(valueMax);
+        let valueMinHour= document.getElementById('intervalsMinHour').value;
+        let valueMinMinute= document.getElementById('intervalsMinMinute').value;
+        let valueMinSecond = document.getElementById('intervalsMinSecond').value;
 
-        this.startIndex = valueMin;
-        this.endIndex = valueMax;
+        let valueMaxHour= document.getElementById('intervalsMaxHour').value;
+        let valueMaxMinute= document.getElementById('intervalsMaxMinute').value;
+        let valueMaxSecond = document.getElementById('intervalsMaxSecond').value;
+
+        valueMinHour = parseInt(valueMinHour);
+        valueMinMinute = parseInt(valueMinMinute);
+        valueMinSecond = parseInt(valueMinSecond);
+
+        valueMaxHour = parseInt(valueMaxHour);
+        valueMaxMinute = parseInt(valueMaxMinute);
+        valueMaxSecond = parseInt(valueMaxSecond);
+
+        /* This gives us where to begin loop */
+        this.startIndex = (valueMinHour-this.currentHour)*60*60 + (valueMinMinute-this.currentMinute)*60 + (valueMinSecond-this.currentSecond);
+
+        /* Difference between MIN time and MAX time. This gives us length of loop */
+        let totalDifferenceWithSeconds = (valueMaxHour-valueMinHour)*60*60 + (valueMaxMinute-valueMinMinute)*60 + (valueMaxSecond-valueMinSecond);
         let intervals = [];
         /* CALCULATE INTERVAL STRING ARRAY FOR CHART.JS */
-        for (let k = valueMin; k <= valueMax; k++) {
-            intervals.push("" + k);
+        for (let k = 0; k <= totalDifferenceWithSeconds; k++) {
+            intervals.push(valueMinHour+":"+valueMinMinute+":"+(valueMinSecond++));
+            if(valueMinSecond === 60)
+            {
+                valueMinMinute++;
+                valueMinSecond=0;
+            }
+            if(valueMinMinute===60)
+            {
+                valueMinHour++;
+                valueMinMinute=0;
+            }
+            if(valueMinHour===24)
+            {
+                valueMinHour=0;
+            }
         }
         //find current data.
         let currentds = this.currentDataset;
+
+        /* Not taking last 2 elements because they contain MIN and MAX value. No need to change them */
+        let dataToReplace = [];
         for(let i = 0; i<currentds.length -2 ;i++ )
         {
-
             let startIndexChangedData = [];
             // Calculate new data to show from start index.
             for(let k = this.startIndex;k<currentds[i].data.length;k++)
@@ -288,8 +326,51 @@ class RightUpperGraphRenderer extends Component {
                 startIndexChangedData.push(currentds[i].data[k]);
             }
             //Change chart's data.
-            this.myChart.data.datasets[i].data=startIndexChangedData;
+            dataToReplace.push({
+                label: 'Deneme ' + (i + 1),
+                data:startIndexChangedData,
+                borderColor: this.borderColors[i],
+                borderWidth: 3
+            })
         }
+
+        let maxlimit = [];
+        for(let k =0;k<currentds[0].data.length;k++)
+        {
+            maxlimit.push(this.max);
+        }
+
+        let minlimit = [];
+        for(let k =0;k<currentds[0].data.length;k++)
+        {
+            minlimit.push(this.min);
+        }
+
+        let maxlimits = {
+            data:maxlimit,
+            label:'MaxLimit',
+            fill: false,
+            radius: 0,
+            borderColor: "rgba(0,0,0,1)",
+        };
+        let minlimits = {
+            data:minlimit,
+            label:'MinLimit',
+            fill: false,
+            radius: 0,
+            borderColor: "rgba(0,0,0,1)",
+        };
+
+        dataToReplace.push(maxlimits);
+        dataToReplace.push(minlimits);
+
+        console.log("CurrentDataset");
+        console.log(this.currentDataset);
+
+        console.log("CurrentChart");
+        console.log(this.myChart.data.datasets);
+
+        this.myChart.data.datasets = dataToReplace;
         this.myChart.data.labels = intervals;
         this.myChart.update();
         this.resetGraph();
@@ -323,12 +404,11 @@ class RightUpperGraphRenderer extends Component {
     /* change colors click event */
     changeColors = () =>
     {
-
         for(let k = 0;k<this.myChart.data.datasets.length-2;k++)
         {
-            let bordercolor = [this.random_rgba(), this.random_rgba(), this.random_rgba(), this.random_rgba(), this.random_rgba(), this.random_rgba()];
-            this.borderColors[k]=bordercolor;
-            this.myChart.data.datasets[k].borderColor =bordercolor;
+            let borderColor = [this.random_rgba(), this.random_rgba(), this.random_rgba(), this.random_rgba(), this.random_rgba(), this.random_rgba()];
+            this.borderColors[k]=borderColor;
+            this.myChart.data.datasets[k].borderColor =borderColor;
         }
         this.myChart.update();
     };

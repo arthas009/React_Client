@@ -109,7 +109,6 @@ class TabSection extends Component {
         let buttons = [];
         for(let i = 0;i<this.state.totalTabs;i++)
         {
-            console.log(i+" "+this.state.currentTab);
           if(i+1 == this.state.currentTab)
           buttons.push(<button ref={"button"+(i+1)} className="sections active" onClick={() => this.setCurrentTab(i+1)}>Sekme {i+1}</button>)
           else
