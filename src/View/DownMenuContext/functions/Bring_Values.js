@@ -6,19 +6,11 @@ export default function bringValues(parameters,drag) {
     let table = [];
     for (let i = 0; i < parameters.length; i++) {
         let children = [];
-
-        // PUSH A DRAG BUTTON TO EACH COLUMNG
-        children.push(
-            <td id="first" draggable="true" onDragStart={(e) => drag(e, i)}>
-                <button
-                   id = "dragButton" ref={"dragbutton"+i} draggable="true" onDragStart={(e) => drag(e, i)} width="25" height="69">Sürükle
-                </button>
-            </td>
-        );
+        children.push(<td><div draggable="true" onDragStart={(e) => drag(e, i)}>{i+1}</div></td>);
         for (let j = 0; j < 1; j++) {
             children.push(
-                <td>{parameters[i].parameter1}</td>,
-                <td>{parameters[i].definition}</td>
+                <td><div draggable="true" onDragStart={(e) => drag(e, i)}>{parameters[i].parameter1}</div></td>,
+                <td><div draggable="true" onDragStart={(e) => drag(e, i)}>{parameters[i].definition}</div></td>
             );
         }
         table.push(<tr>{children}</tr>);

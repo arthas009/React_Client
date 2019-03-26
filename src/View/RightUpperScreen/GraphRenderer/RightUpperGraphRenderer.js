@@ -18,10 +18,10 @@ class RightUpperGraphRenderer extends Component {
         let currentHour = date.getHours();
         let currentMinute = date.getMinutes();
         let currentSecond = date.getSeconds();
-
         this.startHour = currentHour;
         this.startMinute = currentMinute;
         this.startSecond = currentSecond;
+
 
         let objectstring = this.state.parentTabs.getNodeAt(this.state.currentTab).objects; // find current jsons
         let ids = this.state.parentTabs.getNodeAt(this.state.currentTab).ids; // find current ids
@@ -130,20 +130,25 @@ class RightUpperGraphRenderer extends Component {
     /* Internal button click event */
     setIntervals = () =>
     {
+        /* Min limits */
         let selectedMinHour = document.getElementById("intervalsHourMin").value;
         let selectedMinMinute = document.getElementById("intervalsMinuteMin").value;
         let selectedMinSecond = document.getElementById("intervalsSecondMin").value;
 
+        /* Max limits */
         let selectedMaxHour = document.getElementById("intervalsHourMax").value;
         let selectedMaxMinute = document.getElementById("intervalsMinuteMax").value;
         let selectedMaxSecond = document.getElementById("intervalsSecondMax").value;
 
+        /* Calculation of start and end indexes */
         let startIndex = 0;
         let endIndex = 0;
 
+        /* Find graph div */
         let ctx = this.refs.myGraphCanvas;
 
 
+        /* Decide where to start */
         for(let k =0;k<this.timeStamp.length;k++)
        {
            if(this.timeStamp[k] === selectedMinHour+":"+selectedMinMinute+":"+selectedMinSecond)
@@ -152,6 +157,7 @@ class RightUpperGraphRenderer extends Component {
            }
            startIndex++;
        }
+        /* If specified, decide where to end */
         if(!(selectedMaxHour==null||selectedMaxMinute==null||selectedMaxSecond==null)) {
             for (let k = startIndex; k < this.timeStamp.length; k++) {
                 if (this.timeStamp[k] === selectedMaxHour + ":" + selectedMaxMinute + ":" + selectedMaxSecond) {
@@ -159,17 +165,17 @@ class RightUpperGraphRenderer extends Component {
                 }
                 endIndex++;
             }
-            Plotly.relayout(ctx, 'xaxis.range', [startIndex-1,endIndex+startIndex-1]);
+            Plotly.relayout(ctx, 'xaxis.range', [startIndex,endIndex+startIndex]);
         }
+        /* If not specified, go until end */
         else
-            Plotly.relayout(ctx, 'xaxis.range', [startIndex-1,this.currentDataset[0].length-1]);
+            Plotly.relayout(ctx, 'xaxis.range', [startIndex,this.currentDataset[0].length]);
 
 
 
     };
 
-    /* start button click event */
-
+    /* Start button click event */
     startFloating = () =>
     {
         this.intervalID = setInterval(() => {
@@ -180,21 +186,24 @@ class RightUpperGraphRenderer extends Component {
         document.getElementById("startFloating").disabled = true;
     };
 
-    /* stop button click event */
+    /* Stop button click event */
     stopFloating = () =>
     {
         document.getElementById("stopFloating").disabled = true;
         document.getElementById("startFloating").disabled = false;
         clearInterval(this.intervalID);
     };
-    /* floating graph */
+    /* Floating graph */
     float = () => {
         let date = new Date();
         let currentHour = date.getHours();
         let currentMinute = date.getMinutes();
         let currentSecond = date.getSeconds();
 
+        /* Find Graph Div */
         let ctx = this.refs.myGraphCanvas;
+
+        /* Go for each element and push a new value */
         for (let i = 0; i < this.currentDataset.length; i++) {
             let newValue = Math.floor(Math.random() * 225) + 10;
             // PUSH NEW VALUE
@@ -204,10 +213,12 @@ class RightUpperGraphRenderer extends Component {
         /* push first values of x axis to 'intervals' variable */
         this.timeStamp.push(currentHour+":"+currentMinute+":"+(currentSecond++));
 
+        /* New object to update */
         var update = {
             x: [this.timeStamp],
             y: [this.currentDataset],
         };
+        /* Redraw chart */
         Plotly.redraw(ctx, update, [0]);
     };
     /* CALL  RENDER FUNCTION */

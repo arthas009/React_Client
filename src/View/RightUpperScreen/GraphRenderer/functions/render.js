@@ -8,7 +8,7 @@ export default function renderFunc(currentTab,intervalInputOnChange,setIntervals
         <div className="sidenav">
             <div ref="myGraphCanvas" id="myGraphCanvas"> </div>
 
-            <p id="totalIntervals">Aralıklar</p>
+            <p id="totalIntervals">Aralıklar (HH - MM - ss)</p>
 
             <input id="intervalsHourMin"   className="intervals"   pattern="[0-9]*" onChange={(e) =>intervalInputOnChange(e)}/>
             <input id="intervalsMinuteMin" className="intervals"   pattern="[0-9]*" onChange={(e) =>intervalInputOnChange(e)}/>
