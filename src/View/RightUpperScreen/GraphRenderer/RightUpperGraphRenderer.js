@@ -14,20 +14,26 @@ class RightUpperGraphRenderer extends Component {
         };
     }
     componentDidMount() {
+        let date = new Date();
+        let currentHour = date.getHours();
+        let currentMinute = date.getMinutes();
+        let currentSecond = date.getSeconds();
+
+        this.startHour = currentHour;
+        this.startMinute = currentMinute;
+        this.startSecond = currentSecond;
 
         let objectstring = this.state.parentTabs.getNodeAt(this.state.currentTab).objects; // find current jsons
         let ids = this.state.parentTabs.getNodeAt(this.state.currentTab).ids; // find current ids
-        console.log(ids);
         let max = 0;
         let min = 9999999;
-        let bordercolors = [];
         let datasett = [];
-        let intervals = [];
-        let interval = 0;
+        this.timeStamp = [];
+
+
         /*
         *
         * CALCULATE MIN AND MAX NUMBER
-        * THEN ARRANGE A BORDER COLOR ARRAY
         * THEN START ARRANGING DATASET ACCORDING TO DRAGGED PARAMETERS
         *
          */
@@ -43,71 +49,41 @@ class RightUpperGraphRenderer extends Component {
                     this.state.min = JSONobject.Parameters.Parameter[ids[i]].timestamp[k];
                 }
             }
-            let bordercolor = [this.random_rgba(), this.random_rgba(), this.random_rgba(), this.random_rgba(), this.random_rgba(), this.random_rgba()];
-            bordercolors.push(bordercolor);
             datasett.push(JSONobject.Parameters.Parameter[ids[i]].timestamp);
         }
 
-        this.state.borderColors = bordercolors;
-
-        /* TO ARRANGE MIN AND MAX LIMITS */
-        /*
-        let maxlimit = [];
-        for(let k =0;k<datasett[0].data.length;k++)
-        {
-            maxlimit.push(max);
-        }
-
-        let minlimit = [];
-        for(let k =0;k<datasett[0].data.length;k++)
-        {
-            minlimit.push(min);
-        }
-
-        let maxlimits = {
-            data:maxlimit,
-            label:'MaxLimit',
-            fill: false,
-            radius: 0,
-            borderColor: "rgba(0,0,0,1)",
-        };
-        let minlimits = {
-            data:minlimit,
-            label:'MinLimit',
-            fill: false,
-            radius: 0,
-            borderColor: "rgba(0,0,0,1)",
-        };
-       */
-       // datasett.push(maxlimits);
-       // datasett.push(minlimits);
-
-
-        /* FIND THE CHART FROM ITS REF */
-
+        /* push first values of x axis to 'intervals' variable */
+        for(let k = 0;k<datasett[0].length;k++)
+        this.timeStamp.push(currentHour+":"+currentMinute+":"+(currentSecond++));
         let layout = {
-            title: 'Custom Range',
+            title: 'Parameters',
             xaxis: {
-                range: [0, 7],
+                range: [0,15],
             }
         };
         let ctx = this.refs.myGraphCanvas;
-        Plotly.plot( ctx, [{
-            type:'line',
-            x: [1,2,3,4,5,6,7,8,9,10],
-            y: datasett[0] }],layout);
+        let data = [];
 
+        for(let i = 0; i< datasett.length;i++)
+        {
+            data.push({
+                name:"Parameter"+(i+1),
+                x: this.timeStamp,
+                y: datasett[i],
+                mode: 'lines',
+                line: {color: this.randomRgb()}
+            });
+        }
+        Plotly.plot(ctx, data,layout);
 
-
-
-        this.state.currentDataset = datasett;
+        this.currentDataset = datasett;
         /* DYNAMICALLY AND INTERVALLY UPDATE THE CHART IN EACH 1 SEC */
-        /*this.intervalID = setInterval(() => {
+        this.intervalID = setInterval(() => {
 
           this.float();
 
-        }, 3000);
-        */
+        }, 1000);
+
         /* start button deactive at first */
         document.getElementById("startFloating").disabled = true;
         /* interval set button deactive at first */
@@ -124,17 +100,13 @@ class RightUpperGraphRenderer extends Component {
     }
 
     /* generate random colors */
-    random_rgba() {
-        var o = Math.round, r = Math.random, s = 255;
-        return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
-    }
 
     /*Internal input area text change event */
     internalInputOnChange(e)
     {
        e.target.value = e.target.value.replace(/\D/,'');
 
-       if(e.target.value.length <=0 || e.target.value === '0')
+       if(e.target.value.length <0)
        {
            document.getElementById("setIntervals").disabled = true;
        }
@@ -148,32 +120,52 @@ class RightUpperGraphRenderer extends Component {
             e.target.value = e.target.value.substring(0,5);
         }
     }
-
+    randomRgb = () => {
+        var num = Math.round(0xffffff * Math.random());
+        var r = num >> 16;
+        var g = num >> 8 & 255;
+        var b = num & 255;
+        return 'rgb(' + r + ', ' + g + ', ' + b + ')';
+    };
     /* Internal button click event */
     setIntervals = () =>
     {
-        let value= document.getElementById('intervals').value;
-        value = parseInt(value);
-        let intervals =[];
+        let selectedMinHour = document.getElementById("intervalsHourMin").value;
+        let selectedMinMinute = document.getElementById("intervalsMinuteMin").value;
+        let selectedMinSecond = document.getElementById("intervalsSecondMin").value;
 
-        /* CALCULATE INTERVAL STRING ARRAY FOR CHART.JS */
-        for(let k = 0;k<=value;k++)
-        {
-            intervals.push(""+k);
+        let selectedMaxHour = document.getElementById("intervalsHourMax").value;
+        let selectedMaxMinute = document.getElementById("intervalsMinuteMax").value;
+        let selectedMaxSecond = document.getElementById("intervalsSecondMax").value;
+
+        let startIndex = 0;
+        let endIndex = 0;
+
+        let ctx = this.refs.myGraphCanvas;
+
+
+        for(let k =0;k<this.timeStamp.length;k++)
+       {
+           if(this.timeStamp[k] === selectedMinHour+":"+selectedMinMinute+":"+selectedMinSecond)
+           {
+               break;
+           }
+           startIndex++;
+       }
+        if(!(selectedMaxHour==null||selectedMaxMinute==null||selectedMaxSecond==null)) {
+            for (let k = startIndex; k < this.timeStamp.length; k++) {
+                if (this.timeStamp[k] === selectedMaxHour + ":" + selectedMaxMinute + ":" + selectedMaxSecond) {
+                    break;
+                }
+                endIndex++;
+            }
+            Plotly.relayout(ctx, 'xaxis.range', [startIndex-1,endIndex+startIndex-1]);
         }
+        else
+            Plotly.relayout(ctx, 'xaxis.range', [startIndex-1,this.currentDataset[0].length-1]);
 
-        if(this.state.myChart.data.labels)
-        {
-            this.state.myChart.data.labels = intervals;
-            this.state.myChart.update();
-            this.resetGraph();
-        }
-    };
 
-    /* reset zoom click event */
-    resetGraph = () =>
-    {
-        this.state.myChart.resetZoom();
+
     };
 
     /* start button click event */
@@ -182,7 +174,7 @@ class RightUpperGraphRenderer extends Component {
     {
         this.intervalID = setInterval(() => {
             this.float();
-        }, 3000);
+        }, 1000);
 
         document.getElementById("stopFloating").disabled = false;
         document.getElementById("startFloating").disabled = true;
@@ -195,62 +187,29 @@ class RightUpperGraphRenderer extends Component {
         document.getElementById("startFloating").disabled = false;
         clearInterval(this.intervalID);
     };
-
-
-    /* change colors click event */
-    changeColors = () =>
-    {
-
-        for(let k = 0;k<this.state.myChart.data.datasets.length-2;k++)
-        {
-            let bordercolor = [this.random_rgba(), this.random_rgba(), this.random_rgba(), this.random_rgba(), this.random_rgba(), this.random_rgba()];
-            this.state.myChart.data.datasets[k].borderColor =bordercolor;
-        }
-        this.state.myChart.update();
-    };
-
-
     /* floating graph */
-    float = () =>
-    {
-        let currentds = this.state.currentDataset;
-        console.log(currentds);
-        for (let i = 0; i <  currentds.length - 2; i++) {
+    float = () => {
+        let date = new Date();
+        let currentHour = date.getHours();
+        let currentMinute = date.getMinutes();
+        let currentSecond = date.getSeconds();
+
+        let ctx = this.refs.myGraphCanvas;
+        for (let i = 0; i < this.currentDataset.length; i++) {
             let newValue = Math.floor(Math.random() * 225) + 10;
-            if(newValue > this.state.max)
-            {
-                this.state.max = newValue;
-                for(let k = 0;k<currentds[currentds.length-2].data.length;k++)
-                {
-                    currentds[currentds.length-2].data[k] = newValue;
-                }
-                currentds[currentds.length-2].data.push(newValue);
-            }
-            else
-                currentds[currentds.length-2].data.push(this.state.max);
-            if(newValue <this.state.min)
-            {
-                this.state.min = newValue;
-                for(let k = 0;k<currentds[currentds.length-1].data.length;k++)
-                {
-                    currentds[currentds.length-1].data[k] = newValue;
-                }
-                currentds[currentds.length-1].data.push(newValue);
-            }
-            else
-                currentds[currentds.length-1].data.push(this.state.min);
-
             // PUSH NEW VALUE
-            currentds[i].data.push(newValue);
+            this.currentDataset[i].push(newValue);
         }
-        // UPDATE CURRENT DATASET
-        this.state.currentDataset=currentds;
-        console.log(currentds);
-        // SLICE UNTIL BEGIN INDEX AND UPDATE CHART
-        this.state.myChart.data.dataset = currentds;
-        this.state.myChart.update();
-    };
 
+        /* push first values of x axis to 'intervals' variable */
+        this.timeStamp.push(currentHour+":"+currentMinute+":"+(currentSecond++));
+
+        var update = {
+            x: [this.timeStamp],
+            y: [this.currentDataset],
+        };
+        Plotly.redraw(ctx, update, [0]);
+    };
     /* CALL  RENDER FUNCTION */
     render() {
 

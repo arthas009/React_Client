@@ -16,8 +16,8 @@ class ScreenManager extends Component {
             <div className="sidenav">
                 <div className="sidenav-cont">
             <p>Ekran Yönetimi </p>
-                <a onClick={()=>this.props.changeScreen("table")}> Tablolar </a>
-                <a onClick={()=>this.props.changeScreen("graph")}> Grafikler </a>
+                <a onClick={()=>this.props.changeScreen("table")}> Tablo </a>
+                <a onClick={()=>this.props.changeScreen("graph")}> Grafik </a>
         </div>
             </div>);
     }

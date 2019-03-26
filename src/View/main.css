@@ -254,7 +254,7 @@
 .main .insideMain #canvasDivision
 {
     color: #ABCA45; /* GREEN */
-    height: 800px;
+    height: 700px;
     padding-left:10px;
 
 }
@@ -268,7 +268,7 @@
     font-family:"Courier New", Courier, monospace;
 }
 /* plotly */
-.main .insideMain .plotly {
+.main .insideMain #myGraphCanvas {
     background-color: #dddddd;
     border: 1px solid;
     margin-bottom: 30px;
@@ -278,18 +278,12 @@
     -webkit-user-select: none;
     -ms-user-select: none;
 }
-/* plotly */
-.main .insideMain .main-svg {
-    border: 1px solid;
-    margin-bottom: 30px;
-    height: 700px;
-    max-height: 700px;
-}
-
 /* p */
-.main .insideMain #intervals
+.main .insideMain .intervals
 {
     margin-left:5px;
+    display:inline;
+    max-width: 50px;
 }
 /* input */
 .main .insideMain #totalIntervals
@@ -300,21 +294,17 @@
 /* button */
 .main .insideMain #setIntervals
 {
- margin-left:5px;
-}
-.main .insideMain #resetGraph
-{
-margin-left:15px;
+ margin-left:5px;    display:inline;
 }
 .main .insideMain #startFloating
 {
     margin-left:15px;
 }
-.main .insideMain #changeColors
+.main .insideMain p
 {
-    margin-left:15px;
+    margin-left:5px;
+    display:inline;
 }
-
 /* TABLE */
 
 

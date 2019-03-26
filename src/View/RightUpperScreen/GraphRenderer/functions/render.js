@@ -8,15 +8,21 @@ export default function renderFunc(currentTab,intervalInputOnChange,setIntervals
         <div className="sidenav">
             <div ref="myGraphCanvas" id="myGraphCanvas"> </div>
 
-            <p id="totalIntervals">Aralık sayısı</p>
-            <input id="intervals" pattern="[0-9]*" onChange={(e) =>intervalInputOnChange(e)}/>
+            <p id="totalIntervals">Aralıklar</p>
+
+            <input id="intervalsHourMin"   className="intervals"   pattern="[0-9]*" onChange={(e) =>intervalInputOnChange(e)}/>
+            <input id="intervalsMinuteMin" className="intervals"   pattern="[0-9]*" onChange={(e) =>intervalInputOnChange(e)}/>
+            <input id="intervalsSecondMin" className="intervals"   pattern="[0-9]*" onChange={(e) =>intervalInputOnChange(e)}/>
+            <p>-</p>
+            <input id="intervalsHourMax"   className="intervals"   pattern="[0-9]*" onChange={(e) =>intervalInputOnChange(e)}/>
+            <input id="intervalsMinuteMax" className="intervals"   pattern="[0-9]*" onChange={(e) =>intervalInputOnChange(e)}/>
+            <input id="intervalsSecondMax" className="intervals"   pattern="[0-9]*" onChange={(e) =>intervalInputOnChange(e)}/>
+
             <button id="setIntervals" onClick = {() => setIntervals()}>Ayarla</button>
-            <button id="resetGraph" onClick = {() => resetGraph()}>Reset zoom</button>
 
             <button ref ="startFloating" id="startFloating" onClick = {() => startFloating()}>Start</button>
             <button ref ="stopFloating" id="stopFloating" onClick = {() => stopFloating()}>Stop</button>
 
-            <button ref ="changeColors" id="changeColors" onClick = {() => changeColors()}>Change Colors</button>
 
         </div>
     );
