@@ -37,7 +37,7 @@
 .fixedMenuContainer a {
 
     text-align:left;
-    padding:10px 10px 10px 35%;
+    padding:5px 10px 5px 35%;
     text-decoration: none;
     font-size: 20px;
     color: #f1f1f1;
@@ -254,23 +254,16 @@
 .main .insideMain
 {
     max-height:650Px;
-    background-color: #dddddd  ;
+    background-color:#dddddd;
     margin-left:2px;
 }
 
 .main .insideMain #droppingDivision
 {
-    color: #ABCA45; /* GREEN */
+    color: #ABCA45;
     height: 550px;
     max-height:650Px;
     margin-left:1px;
-
-}
-.main .insideMain #canvasDivision
-{
-    color: #ABCA45; /* GREEN */
-    height: 700px;
-    padding-left:10px;
 
 }
 .main .insideMain h2
@@ -293,6 +286,14 @@
     -webkit-user-select: none;
     -ms-user-select: none;
 }
+.main .insideMain #myWorldWind {
+
+    margin-left:10%;
+    width:1200px;
+    height:750px;
+
+}
+
 /* p */
 .main .insideMain .intervals
 {
@@ -315,6 +316,7 @@
 {
     margin-left:15px;
 }
+
 .main .insideMain p
 {
     margin-left:5px;

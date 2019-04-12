@@ -15,10 +15,12 @@ class ScreenManager extends Component {
         return (
             <div className="sidenav">
                 <div className="sidenav-cont">
-            <p>Ekran Yönetimi </p>
-                <a onClick={()=>this.props.changeScreen("table")}> Tablo </a>
-                <a onClick={()=>this.props.changeScreen("graph")}> Grafik </a>
-        </div>
+                    <p>Ekran Yönetimi </p>
+                    <a onClick={()=>this.props.changeScreen("table")}> Tablo </a>
+                    <a onClick={()=>this.props.changeScreen("graph")}> Grafik </a>
+                    <a onClick={()=>this.props.changeScreen("world")}> World Wind </a>
+                    <a onClick={()=>this.props.changeScreen("gantt")}> Gantt </a>
+                </div>
             </div>);
     }
 }

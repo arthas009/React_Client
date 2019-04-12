@@ -165,6 +165,7 @@ class RightUpperGraphRenderer extends Component {
                 }
                 endIndex++;
             }
+            /* I'm using relayout() shows only an area with an interval */
             Plotly.relayout(ctx, 'xaxis.range', [startIndex,endIndex+startIndex]);
         }
         /* If not specified, go until end */

@@ -4,6 +4,8 @@ import ScreenManager from "../ScreenManager/ScreenManager"
 import RightUpperTableRenderer from "../RightUpperScreen/TableRenderer/RightUpperTableRenderer";
 import DownMenuContext from "../DownMenuContext/DownMenuContext";
 import RightUpperGraphRenderer from "../RightUpperScreen/GraphRenderer/RightUpperGraphRenderer";
+import WorldWindRenderer from '../RightUpperScreen/WorldWindRenderer/WorldWindRenderer'
+import GanttRenderer from '../RightUpperScreen/GanttRendered/GanttRenderer'
 import SavedData from "../../Model/SavedData";
 
 
@@ -70,7 +72,7 @@ class TabSection extends Component {
     changeSelectedSection = (toWhat) =>
     {
         /*
-        * Screen Manager Click events. To decide page's flow. Whether tables or graphs are selected.
+        * Screen Manager Click events. To decide page's flow. Whether tables or graphs or worldwind are selected.
         */
         if(toWhat == "table")
         {
@@ -78,11 +80,12 @@ class TabSection extends Component {
             ReactDOM.render(<RightUpperTableRenderer  parentTabs={this.state.Tabs} setParentObject = {this.setParentObject} currentTab = {this.state.currentTab} >
             </RightUpperTableRenderer>,document.getElementById('insideMain'));
         }
-        /*
-        * IF there is no data dragged yet, throw an error to screen.
-        */
-        else
+
+        else if(toWhat =="graph")
         {
+            /*
+            * IF there is no data dragged yet, throw an error to screen.
+            */
             if(this.state.Tabs.getNodeAt(this.state.currentTab).objects == "")
             {
                 ReactDOM.unmountComponentAtNode(document.getElementById('insideMain'));
@@ -100,9 +103,25 @@ class TabSection extends Component {
                 </RightUpperGraphRenderer>, document.getElementById('insideMain'));
             }
         }
+        else if(toWhat =="world")
+        {
+            ReactDOM.unmountComponentAtNode(document.getElementById('insideMain'));
+            ReactDOM.render(<WorldWindRenderer parentTabs={this.state.Tabs}
+                                                     setParentObject={this.setParentObject}
+                                                     currentTab={this.state.currentTab}>
+            </WorldWindRenderer>, document.getElementById('insideMain'));
+        }
+        else if(toWhat =="gantt")
+        {
+            ReactDOM.unmountComponentAtNode(document.getElementById('insideMain'));
+            ReactDOM.render(<GanttRenderer parentTabs={this.state.Tabs}
+                                               setParentObject={this.setParentObject}
+                                               currentTab={this.state.currentTab}>
+            </GanttRenderer>, document.getElementById('insideMain'));
+        }
     };
 
-    /* place all buttons according to a count number in parent */
+    /* place all section buttons according to a count number in parent */
     bringButtons = () =>
     {
         let buttons = [];
