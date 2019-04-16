@@ -286,6 +286,7 @@
     -webkit-user-select: none;
     -ms-user-select: none;
 }
+
 .main .insideMain #myWorldWind {
 
     margin-left:10%;
@@ -390,6 +391,12 @@
     width: 75px;
 }
 
+/* GRAPH TABLE */
+.main .insideMain .granttGraphsTable
+{
+    height:1200px;
+    max-height: 1200px;
+}
 
 
 .main .tabSection
