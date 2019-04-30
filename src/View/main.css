@@ -262,7 +262,7 @@
 {
     color: #ABCA45;
     height: 550px;
-    max-height:650Px;
+    max-height: 650Px;
     margin-left:1px;
 
 }
@@ -394,14 +394,20 @@
 /* GRAPH TABLE */
 .main .insideMain .granttGraphsTable
 {
-    height:1200px;
-    max-height: 1200px;
+    height:780px;
+    max-height: 1500px;
+}
+.main .insideMain .granttGraphsTable td
+{
+    padding:0px;
+    margin:0px;
+    border:none;
 }
 
 
 .main .tabSection
 {
-    height:10%; /* Full-height: remove this if you want "auto" height */
+    height:7%; /* Full-height: remove this if you want "auto" height */
     z-index: 1; /* Stay on top */
     top: 0; /* Stay at the top */
     right: 0;
@@ -411,7 +417,7 @@
     background-color: #dddddd;
     border-bottom:solid  2px;
     padding-left:10px;
-    padding-top:10px;
+    padding-top:5px;
     overflow: auto;
 }
 .main .tabSection #newSection

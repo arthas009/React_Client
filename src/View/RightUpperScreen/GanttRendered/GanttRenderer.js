@@ -4,187 +4,670 @@ import * as Plotly from "plotly.js";
 class GanttRenderer extends Component {
     constructor(props) {
         super(props);
-        this.isFirstZoomed = false;
-
     }
     componentDidMount() {
-        let trace1 = {
-            x: ['09:30:00', '16:35:00'],
-            y: [0, 0],
-            marker: {color: 'white'},
-            name: '',
-            type: 'scatter'
-        };
-        let trace2 = {
-            x: ['10:00:00', '11:22:00'],
-            y: [1, 1],
-            marker: {color: 'white'},
-            name: '',
-            type: 'scatter'
-        };
-        let trace3 = {
-            x: ['10:00:00', '12:15:00'],
-            y: [2, 2],
-            marker: {color: 'white'},
-            name: '',
-            type: 'scatter'
-        };
-        let trace4 = {
-            x: ['11:15:00', '12:49:00'],
-            y: [3, 3],
-            marker: {color: 'white'},
-            name: '',
-            type: 'scatter'
-        };
-        let trace5 = {
-            x: ['10:30:00', '13:56:00'],
-            y: [4, 4],
-            marker: {color: 'white'},
-            name: '',
-            type: 'scatter'
-        };
-        let trace6 = {
-            x: ['11:45:00', '15:11:00'],
-            y: [5, 5],
-            marker: {color: 'white'},
-            name: '',
-            type: 'scatter'
-        };
-        let trace7 = {
-            x: ['11:45:00', '13:04:00'],
-            y: [6, 6],
-            marker: {color: 'white'},
-            name: '',
-            type: 'scatter'
-        };
-        let trace8 = {
-            x: ['12:15:00', '13:30:00'],
-            y: [7, 7],
-            marker: {color: 'white'},
-            name: '',
-            type: 'scatter'
-        };
+        /* GANNTLAR */
+       this.startPlotting();
+    }
+    startPlotting = () =>
+    {
+        let indirmeBaslangic = this.refs.indirmeBaslangicGannt;
+        let manevra = this.refs.manevraGannt;
+        let goruntuBaslangic = this.refs.goruntulemeBaslangicGannt;
+        let goruntuleme = this.refs.goruntulemeGannt;
+        let goruntulemeBitis = this.refs.goruntulemeBitisGannt;
+        let manevraOto = this.refs.manevraOtoGannt;
+        let goruntuIndirme = this.refs.goruntuIndirmeGannt;
+        let goruntuSilme = this.refs.goruntuSilmeGannt;
+        let indirmeBitis = this.refs.indirmeBitisGannt;
+        let dtoBir = this.refs.dtoBirGannt;
+        let dloSabitYerIstasyonu = this.refs.dloSabitYerIstasyonuGannt;
+        let yerIstasyonuIletisimZamanlari = this.refs.yerIstasyonuIletisimZamanlariGannt;
+        let gunesIsigiUygunsuzlukAraligi = this.refs.gunesIsigiUygunsuzlukAraligiGannt;
+        let gorevYukuElverisizlikPenceresi = this.refs.gorevYukuElverissizlikPenceresiGannt;
+        let pilGerilim = this.refs.pilGerilimGannt;
+        let pilDOD = this.refs.pilDODGannt;
+        let gorevYuku = this.refs.gorevYukuGannt;
+        let veriDepolama = this.refs.veriDepolamaGannt;
 
-        let data = [trace1, trace2, trace3, trace4, trace5, trace6, trace7, trace8];
-        let layout = {
+        // console.log("asd"+goruntulemeBitis);
+
+        let data = [];
+        let indirmeBaslangicLayout = {
             margin: {
-                l: 80,
+                l: 20,
                 r: 20,
-                b: 50,
-                t: 20,
+                b: 20,
+                t:0,
                 pad: 3
             },
-            height: 400,
+            height: 50,
             shapes: [
                 {
                     fillcolor: 'rgb(0, 0, 0)',
                     line: {width: 0},
                     opacity: 1,
                     type: 'rect',
-                    x0: '09:30:00',
-                    x1: '16:35:00',
+                    x0: 1,
+                    x1: 5,
                     xref: 'x',
-                    y0: -0.4,
-                    y1: 0.4,
-                    yref: 'y'
-                },
-                {
-                    fillcolor: 'rgb(139, 0, 0)',
-                    line: {width: 0},
-                    opacity: 1,
-                    type: 'rect',
-                    x0: '10:00:00',
-                    x1: '11:22:00',
-                    xref: 'x',
-                    y0: 0.6,
-                    y1: 1.4,
-                    yref: 'y'
-                },
-                {
-                    fillcolor: 'rgb(0, 0, 0)',
-                    line: {width: 0},
-                    opacity: 1,
-                    type: 'rect',
-                    x0: '10:00:00',
-                    x1: '12:15:00',
-                    xref: 'x',
-                    y0: 1.6,
-                    y1: 2.4,
-                    yref: 'y'
-                },
-                {
-                    fillcolor: 'rgb(0, 0, 0)',
-                    line: {width: 0},
-                    opacity: 1,
-                    type: 'rect',
-                    x0: '11:15:00',
-                    x1: '12:49:00',
-                    xref: 'x',
-                    y0: 2.6,
-                    y1: 3.4,
-                    yref: 'y'
-                },
-                {
-                    fillcolor: 'rgb(139, 0, 0)',
-                    line: {width: 0},
-                    opacity: 1,
-                    type: 'rect',
-                    x0: '10:30:00',
-                    x1: '13:56:00',
-                    xref: 'x',
-                    y0: 3.6,
-                    y1: 4.4,
-                    yref: 'y'
-                },
-                {
-                    fillcolor: 'rgb(139, 0, 0)',
-                    line: {width: 0},
-                    opacity: 1,
-                    type: 'rect',
-                    x0: '11:45:00',
-                    x1: '15:11:00',
-                    xref: 'x',
-                    y0: 4.6,
-                    y1: 5.4,
-                    yref: 'y'
-                },
-                {
-                    fillcolor: 'rgb(0, 0, 0)',
-                    line: {width: 0},
-                    opacity: 1,
-                    type: 'rect',
-                    x0: '11:45:00',
-                    x1: '13:04:00',
-                    xref: 'x',
-                    y0: 5.6,
-                    y1: 6.4,
+                    y0: -1,
+                    y1: 1,
                     yref: 'y'
                 }
             ],
-            title: '',
             width: 1300,
             yaxis: {
-                range: [-1, 7],
+                range: [-1, 1],
                 showgrid: true,
-                ticktext: ['Turbine 2', 'Turbine 4', 'Turbine 10', 'Turbine 11', 'Turbine 20', 'Turbine 27', 'Turbine 16'],
-                tickvals: [0, 1, 2, 3, 4, 5, 6],
+                //ticktext: ['Turbine 2', 'Turbine 4', 'Turbine 10', 'Turbine 11', 'Turbine 20', 'Turbine 27', 'Turbine 16'],
+                //ticktext:[""],
+                tickvals: [],
                 zeroline: false,
                 fixedrange: true,
                 rangemode: 'tozero'
             },
             xaxis:
                 {
-                    rangemode: 'tozero'
+                    rangemode: 'tozero',
+                    range:[0,12]
                 },
             scrollZoom: true,
         };
-        let ctx = this.refs.myGanttCanvas;
+        let manevraHedefLayout = {
+            margin: {
+                l: 20,
+                r: 20,
+                b: 20,
+                t:0,
+                pad: 3
+            },
+            height: 50,
+            shapes: [
+                {
+                    fillcolor: 'rgb(0, 0, 0)',
+                    line: {width: 0},
+                    opacity: 1,
+                    type: 'rect',
+                    x0: 2,
+                    x1: 3,
+                    xref: 'x',
+                    y0: -1,
+                    y1: 1,
+                    yref: 'y'
+                }
+            ],
+            width: 1300,
+            yaxis: {
+                range: [-1, 1],
+                showgrid: true,
+                //ticktext: ['Turbine 2', 'Turbine 4', 'Turbine 10', 'Turbine 11', 'Turbine 20', 'Turbine 27', 'Turbine 16'],
+                //ticktext:[""],
+                tickvals: [],
+                zeroline: false,
+                fixedrange: true,
+                rangemode: 'tozero'
+            },
+            xaxis:
+                {
+                    rangemode: 'tozero',
+                    range:[0,12]
+                },
+            scrollZoom: true,
+        };
+        let goruntulemeBaslangicLayout = {
+            margin: {
+                l: 20,
+                r: 20,
+                b: 20,
+                t:0,
+                pad: 3
+            },
+            height: 50,
+            shapes: [
+                {
+                    fillcolor: 'rgb(0, 0, 0)',
+                    line: {width: 0},
+                    opacity: 1,
+                    type: 'rect',
+                    x0: 0,
+                    x1: 3,
+                    xref: 'x',
+                    y0: -1,
+                    y1: 1,
+                    yref: 'y'
+                }
+            ],
+            width: 1300,
+            yaxis: {
+                range: [-1, 1],
+                showgrid: true,
+                //ticktext: ['Turbine 2', 'Turbine 4', 'Turbine 10', 'Turbine 11', 'Turbine 20', 'Turbine 27', 'Turbine 16'],
+                //ticktext:[""],
+                tickvals: [],
+                zeroline: false,
+                fixedrange: true,
+                rangemode: 'tozero'
+            },
+            xaxis:
+                {
+                    rangemode: 'tozero',
+                    range:[0,12]
+                },
+            scrollZoom: true,
+        };
+        let goruntulemeLayout = {
+            margin: {
+                l: 20,
+                r: 20,
+                b: 20,
+                t:0,
+                pad: 3
+            },
+            height: 50,
+            shapes: [
+                {
+                    fillcolor: 'rgb(0, 0, 0)',
+                    line: {width: 0},
+                    opacity: 1,
+                    type: 'rect',
+                    x0: 0,
+                    x1: 4,
+                    xref: 'x',
+                    y0: -1,
+                    y1: 1,
+                    yref: 'y'
+                }
+            ],
+            width: 1300,
+            yaxis: {
+                range: [-1, 1],
+                showgrid: true,
+                //ticktext: ['Turbine 2', 'Turbine 4', 'Turbine 10', 'Turbine 11', 'Turbine 20', 'Turbine 27', 'Turbine 16'],
+                //ticktext:[""],
+                tickvals: [],
+                zeroline: false,
+                fixedrange: true,
+                rangemode: 'tozero'
+            },
+            xaxis:
+                {
+                    rangemode: 'tozero',
+                    range:[0,12]
+                },
+            scrollZoom: true,
+        };
+        let goruntulemeBitisLayout = {
+            margin: {
+                l: 20,
+                r: 20,
+                b: 20,
+                t:0,
+                pad: 3
+            },
+            height: 50,
+            shapes: [
+                {
+                    fillcolor: 'rgb(0, 0, 0)',
+                    line: {width: 0},
+                    opacity: 1,
+                    type: 'rect',
+                    x0: 0,
+                    x1: 6,
+                    xref: 'x',
+                    y0: -1,
+                    y1: 1,
+                    yref: 'y'
+                }
+            ],
+            width: 1300,
+            yaxis: {
+                range: [-1, 1],
+                showgrid: true,
+                //ticktext: ['Turbine 2', 'Turbine 4', 'Turbine 10', 'Turbine 11', 'Turbine 20', 'Turbine 27', 'Turbine 16'],
+                //ticktext:[""],
+                tickvals: [],
+                zeroline: false,
+                fixedrange: true,
+                rangemode: 'tozero'
+            },
+            xaxis:
+                {
+                    rangemode: 'tozero',
+                    range:[0,12]
+                },
+            scrollZoom: true,
+        };
+        let manevraOtoLayout = {
+            margin: {
+                l: 20,
+                r: 20,
+                b: 20,
+                t:0,
+                pad: 3
+            },
+            height: 50,
+            shapes: [
+                {
+                    fillcolor: 'rgb(0, 0, 0)',
+                    line: {width: 0},
+                    opacity: 1,
+                    type: 'rect',
+                    x0: 8,
+                    x1: 11,
+                    xref: 'x',
+                    y0: -1,
+                    y1: 1,
+                    yref: 'y'
+                }
+            ],
+            width: 1300,
+            yaxis: {
+                range: [-1, 1],
+                showgrid: true,
+                //ticktext: ['Turbine 2', 'Turbine 4', 'Turbine 10', 'Turbine 11', 'Turbine 20', 'Turbine 27', 'Turbine 16'],
+                //ticktext:[""],
+                tickvals: [],
+                zeroline: false,
+                fixedrange: true,
+                rangemode: 'tozero'
+            },
+            xaxis:
+                {
+                    rangemode: 'tozero',
+                    range:[0,12]
+                },
+            scrollZoom: true,
+        };
+        let goruntuIndirmeLayout = {
+            margin: {
+                l: 20,
+                r: 20,
+                b: 20,
+                t:0,
+                pad: 3
+            },
+            height: 50,
+            shapes: [
+                {
+                    fillcolor: 'rgb(0, 0, 0)',
+                    line: {width: 0},
+                    opacity: 1,
+                    type: 'rect',
+                    x0: 4,
+                    x1: 10,
+                    xref: 'x',
+                    y0: -1,
+                    y1: 1,
+                    yref: 'y'
+                }
+            ],
+            width: 1300,
+            yaxis: {
+                range: [-1, 1],
+                showgrid: true,
+                //ticktext: ['Turbine 2', 'Turbine 4', 'Turbine 10', 'Turbine 11', 'Turbine 20', 'Turbine 27', 'Turbine 16'],
+                //ticktext:[""],
+                tickvals: [],
+                zeroline: false,
+                fixedrange: true,
+                rangemode: 'tozero'
+            },
+            xaxis:
+                {
+                    rangemode: 'tozero',
+                    range:[0,12]
+                },
+            scrollZoom: true,
+        };
+        let goruntuSilmeLayout = {
+            margin: {
+                l: 20,
+                r: 20,
+                b: 20,
+                t:0,
+                pad: 3
+            },
+            height: 50,
+            shapes: [
+                {
+                    fillcolor: 'rgb(0, 0, 0)',
+                    line: {width: 0},
+                    opacity: 1,
+                    type: 'rect',
+                    x0: 6,
+                    x1: 12,
+                    xref: 'x',
+                    y0: -1,
+                    y1: 1,
+                    yref: 'y'
+                }
+            ],
+            width: 1300,
+            yaxis: {
+                range: [-1, 1],
+                showgrid: true,
+                //ticktext: ['Turbine 2', 'Turbine 4', 'Turbine 10', 'Turbine 11', 'Turbine 20', 'Turbine 27', 'Turbine 16'],
+                //ticktext:[""],
+                tickvals: [],
+                zeroline: false,
+                fixedrange: true,
+                rangemode: 'tozero'
+            },
+            xaxis:
+                {
+                    rangemode: 'tozero',
+                    range:[0,12]
+                },
+            scrollZoom: true,
+        };
+        let indirmeBitisLayout = {
+            margin: {
+                l: 20,
+                r: 20,
+                b: 20,
+                t:0,
+                pad: 3
+            },
+            height: 50,
+            shapes: [
+                {
+                    fillcolor: 'rgb(0, 0, 0)',
+                    line: {width: 0},
+                    opacity: 1,
+                    type: 'rect',
+                    x0: 7,
+                    x1: 8,
+                    xref: 'x',
+                    y0: -1,
+                    y1: 1,
+                    yref: 'y'
+                }
+            ],
+            width: 1300,
+            yaxis: {
+                range: [-1, 1],
+                showgrid: true,
+                //ticktext: ['Turbine 2', 'Turbine 4', 'Turbine 10', 'Turbine 11', 'Turbine 20', 'Turbine 27', 'Turbine 16'],
+                //ticktext:[""],
+                tickvals: [],
+                zeroline: false,
+                fixedrange: true,
+                rangemode: 'tozero'
+            },
+            xaxis:
+                {
+                    rangemode: 'tozero',
+                    range:[0,12]
+                },
+            scrollZoom: true,
+        };
+        let dtoBirLayout = {
+            margin: {
+                l: 20,
+                r: 20,
+                b: 20,
+                t:0,
+                pad: 3
+            },
+            height: 50,
+            shapes: [
+                {
+                    fillcolor: 'rgb(0, 0, 0)',
+                    line: {width: 0},
+                    opacity: 1,
+                    type: 'rect',
+                    x0: 4,
+                    x1: 11,
+                    xref: 'x',
+                    y0: -1,
+                    y1: 1,
+                    yref: 'y'
+                }
+            ],
+            width: 1300,
+            yaxis: {
+                range: [-1, 1],
+                showgrid: true,
+                //ticktext: ['Turbine 2', 'Turbine 4', 'Turbine 10', 'Turbine 11', 'Turbine 20', 'Turbine 27', 'Turbine 16'],
+                //ticktext:[""],
+                tickvals: [],
+                zeroline: false,
+                fixedrange: true,
+                rangemode: 'tozero'
+            },
+            xaxis:
+                {
+                    rangemode: 'tozero',
+                    range:[0,12]
+                },
+            scrollZoom: true,
+        };
+        let dloSabitYerIstasyonuLayout = {
+            margin: {
+                l: 20,
+                r: 20,
+                b: 20,
+                t:0,
+                pad: 3
+            },
+            height: 50,
+            shapes: [
+                {
+                    fillcolor: 'rgb(0, 0, 0)',
+                    line: {width: 0},
+                    opacity: 1,
+                    type: 'rect',
+                    x0: 5,
+                    x1: 8,
+                    xref: 'x',
+                    y0: -1,
+                    y1: 1,
+                    yref: 'y'
+                }
+            ],
+            width: 1300,
+            yaxis: {
+                range: [-1, 1],
+                showgrid: true,
+                //ticktext: ['Turbine 2', 'Turbine 4', 'Turbine 10', 'Turbine 11', 'Turbine 20', 'Turbine 27', 'Turbine 16'],
+                //ticktext:[""],
+                tickvals: [],
+                zeroline: false,
+                fixedrange: true,
+                rangemode: 'tozero'
+            },
+            xaxis:
+                {
+                    rangemode: 'tozero',
+                    range:[0,12]
+                },
+            scrollZoom: true,
+        };
+        let yerIstasyonlarıIletisimZamanlariLayout = {
+            margin: {
+                l: 20,
+                r: 20,
+                b: 20,
+                t:0,
+                pad: 3
+            },
+            height: 50,
+            shapes: [
+                {
+                    fillcolor: 'rgb(0, 0, 0)',
+                    line: {width: 0},
+                    opacity: 1,
+                    type: 'rect',
+                    x0: 1,
+                    x1: 7,
+                    xref: 'x',
+                    y0: -1,
+                    y1: 1,
+                    yref: 'y'
+                }
+            ],
+            width: 1300,
+            yaxis: {
+                range: [-1, 1],
+                showgrid: true,
+                //ticktext: ['Turbine 2', 'Turbine 4', 'Turbine 10', 'Turbine 11', 'Turbine 20', 'Turbine 27', 'Turbine 16'],
+                //ticktext:[""],
+                tickvals: [],
+                zeroline: false,
+                fixedrange: true,
+                rangemode: 'tozero'
+            },
+            xaxis:
+                {
+                    rangemode: 'tozero',
+                    range:[0,12]
+                },
+            scrollZoom: true,
+        };
+        let gunesIsigiUygunsuzlukAraligiLayout = {
+            margin: {
+                l: 20,
+                r: 20,
+                b: 20,
+                t:0,
+                pad: 3
+            },
+            height: 50,
+            shapes: [
+                {
+                    fillcolor: 'rgb(0, 0, 0)',
+                    line: {width: 0},
+                    opacity: 1,
+                    type: 'rect',
+                    x0: 2,
+                    x1: 8,
+                    xref: 'x',
+                    y0: -1,
+                    y1: 1,
+                    yref: 'y'
+                }
+            ],
+            width: 1300,
+            yaxis: {
+                range: [-1, 1],
+                showgrid: true,
+                //ticktext: ['Turbine 2', 'Turbine 4', 'Turbine 10', 'Turbine 11', 'Turbine 20', 'Turbine 27', 'Turbine 16'],
+                //ticktext:[""],
+                tickvals: [],
+                zeroline: false,
+                fixedrange: true,
+                rangemode: 'tozero'
+            },
+            xaxis:
+                {
+                    rangemode: 'tozero',
+                    range:[0,12]
+                },
+            scrollZoom: true,
+        };
+        let gorevYukuElverissizlikPenceresi = {
+            margin: {
+                l: 20,
+                r: 20,
+                b: 20,
+                t:0,
+                pad: 3
+            },
+            height: 50,
+            shapes: [
+                {
+                    fillcolor: 'rgb(0, 0, 0)',
+                    line: {width: 0},
+                    opacity: 1,
+                    type: 'rect',
+                    x0: 4,
+                    x1: 6,
+                    xref: 'x',
+                    y0: -1,
+                    y1: 1,
+                    yref: 'y'
+                }
+            ],
+            width: 1300,
+            yaxis: {
+                range: [-1, 1],
+                showgrid: true,
+                tickvals: [],
+                zeroline: false,
+                fixedrange: true,
+                rangemode: 'tozero'
+            },
+            xaxis:
+                {
+                    rangemode: 'tozero',
+                    range:[0,12]
+                },
+            scrollZoom: true,
+        };
+
+
+
+
+
 
         /* WE MUST FREE THE LOCK WHEN PRESSED ON GRAPH TO TRIGGER MULTIPLE EVENTS */
-        Plotly.plot(ctx, {
-            data: data,
-            layout: layout
-        }).then( gd => {
+        Plotly.plot(indirmeBaslangic, data, indirmeBaslangicLayout,
+            {
+                doubleClick: false,
+                modeBarButtonsToRemove: ['autoScale2d']
+            }).then( gd => {
+            let isMouseDown = false;
+            gd.addEventListener('mousedown', () => {
+                console.log('mousedown!');
+                this.lock = false;
+            });
+        });
+        Plotly.plot(manevra, data, manevraHedefLayout,
+            {
+                displayModeBar: false,
+                doubleClick: false
+            }).then( gd => {
+            gd.addEventListener('mousedown', () => {
+                this.lock = false;
+            });
+        });
+        Plotly.plot(goruntuBaslangic, data, goruntulemeBaslangicLayout,
+            {
+                displayModeBar: false,
+                doubleClick: false
+            }).then( gd => {
+            gd.addEventListener('mousedown', () => {
+                this.lock = false;
+            });
+        });
+        Plotly.plot(goruntuleme, data, goruntulemeLayout,
+            {
+                displayModeBar: false,
+                doubleClick: false
+            }).then( gd => {
+            let isMouseDown = false;
+            gd.addEventListener('mousedown', () => {
+                console.log('mousedown!');
+                this.lock = false;
+            });
+        });
+        Plotly.plot(goruntulemeBitis, data, goruntulemeBitisLayout,
+            {
+                displayModeBar: false,
+                doubleClick: false
+            }).then( gd => {
+            let isMouseDown = false;
+            gd.addEventListener('mousedown', () => {
+                console.log('mousedown!');
+                this.lock = false;
+            });
+        });
+        Plotly.plot(manevraOto, data, manevraOtoLayout,
+            {
+                displayModeBar: false,
+                doubleClick: false
+            }).then( gd => {
             let isMouseDown = false;
             gd.addEventListener('mousedown', () => {
                 console.log('mousedown!');
@@ -192,9 +675,96 @@ class GanttRenderer extends Component {
             });
         });
 
-        Plotly.plot(ctx, data, layout);
-        let ctx2 = this.refs.myGanttWithNormalCanvas;
-        let ctx3 = this.refs.myGanttWithNormalCanvas2;
+
+        Plotly.plot(goruntuIndirme, data, goruntuIndirmeLayout,
+            {
+                displayModeBar: false,
+                doubleClick: false
+            }).then( gd => {
+            let isMouseDown = false;
+            gd.addEventListener('mousedown', () => {
+                console.log('mousedown!');
+                this.lock = false;
+            });
+        });
+        Plotly.plot(goruntuSilme, data, goruntuSilmeLayout,
+            {
+                displayModeBar: false,
+                doubleClick: false
+            }).then( gd => {
+            let isMouseDown = false;
+            gd.addEventListener('mousedown', () => {
+                console.log('mousedown!');
+                this.lock = false;
+            });
+        });
+        Plotly.plot(indirmeBitis, data, indirmeBitisLayout,
+            {
+                displayModeBar: false,
+                doubleClick: false
+            }).then( gd => {
+            let isMouseDown = false;
+            gd.addEventListener('mousedown', () => {
+                console.log('mousedown!');
+                this.lock = false;
+            });
+        });
+        Plotly.plot(dtoBir, data, dtoBirLayout,
+            {
+                displayModeBar: false,
+                doubleClick: false
+            }).then( gd => {
+            let isMouseDown = false;
+            gd.addEventListener('mousedown', () => {
+                console.log('mousedown!');
+                this.lock = false;
+            });
+        });
+        Plotly.plot(dloSabitYerIstasyonu, data, dloSabitYerIstasyonuLayout,
+            {
+                displayModeBar: false,
+                doubleClick: false
+            }).then( gd => {
+            let isMouseDown = false;
+            gd.addEventListener('mousedown', () => {
+                console.log('mousedown!');
+                this.lock = false;
+            });
+        });
+        Plotly.plot(yerIstasyonuIletisimZamanlari, data, yerIstasyonlarıIletisimZamanlariLayout,
+            {
+                displayModeBar: false,
+                doubleClick: false
+            }).then( gd => {
+            let isMouseDown = false;
+            gd.addEventListener('mousedown', () => {
+                console.log('mousedown!');
+                this.lock = false;
+            });
+        });
+        Plotly.plot(gunesIsigiUygunsuzlukAraligi, data, gunesIsigiUygunsuzlukAraligiLayout,
+            {
+                displayModeBar: false,
+                doubleClick: false
+            }).then( gd => {
+            let isMouseDown = false;
+            gd.addEventListener('mousedown', () => {
+                console.log('mousedown!');
+                this.lock = false;
+            });
+        });
+        Plotly.plot(gorevYukuElverisizlikPenceresi, data, gorevYukuElverissizlikPenceresi,
+            {
+                displayModeBar: false,
+                doubleClick: false
+            }).then( gd => {
+            let isMouseDown = false;
+            gd.addEventListener('mousedown', () => {
+                console.log('mousedown!');
+                this.lock = false;
+            });
+        });
+
         /* ZOOMING 2 GRAPH AT THE SAME TIME */
         /* ctx.on('plotly_relayout',
              function(eventdata){
@@ -210,49 +780,60 @@ class GanttRenderer extends Component {
              });
          */
         let trace111 = {
-            x: [1, 2, 3, 4],
-            y: [10, 15, 13, 17],
+            x: [1, 2, 3, 4,5,6,7,8,9,10],
+            y: [10, 15, 13, 17,33,44,77,12,54,566],
             mode: 'Lines',
             name: 'Lines'
         };
 
         let trace222 = {
-            x: [2, 3, 4, 5],
-            y: [16, 5, 11, 9],
+            x: [1, 2, 3, 4,5,6,7,8,9,10],
+            y: [16, 5, 11, 922,44,665,232,123,766,933],
             mode: 'lines',
             name: 'Lines'
         };
 
         let trace333 = {
-            x: [1, 2, 3, 4],
-            y: [12, 9, 15, 12],
+            x: [1, 2, 3, 4,5,6,7,8,9,10],
+            y: [1,1,1,1,1,1,0,1,1,0],
             mode: 'lines+markers',
             name: 'Scatter + Lines'
         };
 
+        let trace444 = {
+            x: [1, 2, 3, 4,5,6,7,8,9,10],
+            y: [155,443, 15, 122,444,123,646,234,984,165],
+            mode: 'lines+markers',
+            name: 'Scatter + Lines'
+        };
         let data2 = [trace111];
 
         let layout2 = {
             margin: {
-                l: 55,
+                l: 20,
                 r: 20,
                 b: 20,
-                t: 20,
+                t:0,
                 pad: 3
             },
-            height: 150,
+            height: 50,
             yaxis: {
+                tickvals: [],
                 fixedrange: true,
                 rangemode: 'tozero'
             },
             xaxis: {
-                rangemode: 'tozero'
+                rangemode: 'tozero',
+                range:[0,12]
             },
             scrollZoom: true
         };
 
 
-        Plotly.plot(ctx2, data2, layout2, {displayModeBar: false}).then( gd => {
+        Plotly.plot(pilGerilim, data2, layout2, {
+            displayModeBar: false,
+            doubleClick: false
+        }).then( gd => {
             gd.addEventListener('mousedown', () => {
                 console.log('mousedown!');
                 this.lock = false;
@@ -264,57 +845,123 @@ class GanttRenderer extends Component {
 
         let layout3 = {
             margin: {
-                l: 55,
+                l: 20,
                 r: 20,
                 b: 20,
-                t: 20,
+                t:0,
                 pad: 3
             },
-            height: 150,
+            height: 50,
             yaxis: {
+                tickvals: [],
                 fixedrange: true,
                 rangemode: 'tozero'
+
             },
             scrollZoom: true,
             xaxis: {
-                rangemode: 'tozero'
+                rangemode: 'tozero',
+                range:[0,12]
             }
         };
 
+        let layout4 = {
+            margin: {
+                l: 20,
+                r: 20,
+                b: 20,
+                t:0,
+                pad: 3
+            },
+            height: 50,
+            yaxis: {
+                tickvals: [],
+                fixedrange: true,
+                rangemode: 'tozero'
 
+            },
+            scrollZoom: true,
+            xaxis: {
+                rangemode: 'tozero',
+                range:[0,12]
+            }
+        };
+        let layout5 = {
+            margin: {
+                l: 20,
+                r: 20,
+                b: 20,
+                t:0,
+                pad: 3
+            },
+            height: 50,
+            yaxis: {
+                tickvals: [],
+                fixedrange: true,
+                rangemode: 'tozero'
 
-        Plotly.plot(ctx3, data3, layout3, {displayModeBar: false}).then( gd => {
+            },
+            scrollZoom: true,
+            xaxis: {
+                rangemode: 'tozero',
+                range:[0,12]
+            }
+        };
+        let data4= [trace333];
+
+        let data5 = [trace444];
+
+        Plotly.plot(pilDOD, data3, layout3, {
+            displayModeBar: false,
+            doubleClick: false
+        }).then( gd => {
             gd.addEventListener('mousedown', () => {
                 console.log('mousedown!');
                 this.lock = false;
             });
         });
 
-        var plots = [ctx, ctx2, ctx3];
+        Plotly.plot(gorevYuku, data4, layout4, {
+            displayModeBar: false,
+            doubleClick: false
+        }).then( gd => {
+            gd.addEventListener('mousedown', () => {
+                console.log('mousedown!');
+                this.lock = false;
+            });
+        });
+        Plotly.plot(veriDepolama, data5, layout5, {
+            displayModeBar: false,
+            doubleClick: false
+        }).then( gd => {
+            gd.addEventListener('mousedown', () => {
+                console.log('mousedown!');
+                this.lock = false;
+            });
+        });
+        let plots = [indirmeBaslangic,manevra, goruntuBaslangic,goruntuleme,goruntulemeBitis,
+            manevraOto,goruntuIndirme, goruntuSilme,indirmeBitis,dtoBir,dloSabitYerIstasyonu,
+            yerIstasyonuIletisimZamanlari,gunesIsigiUygunsuzlukAraligi,gorevYukuElverisizlikPenceresi,pilGerilim, pilDOD,gorevYuku,veriDepolama];
+
         plots.forEach(div => {
             div.on("plotly_relayout", function (ed) {
                 this.zoomAll(ed, plots);
             }.bind(this));
         });
 
-    }
-    zoomAll = (ed, divs) => {
-            if(this.lock)
-                return;
-            divs.forEach((div, i) => {
-               this.lock = true;
-                    let x = div.layout.xaxis;
-                    if (ed["xaxis.autorange"] && x.autorange) return;
-                    if (
-                        x.range[0] != ed["xaxis.range[0]"] &&
-                        x.range[1] != ed["xaxis.range[1]"]
-                    )
-                        Plotly.relayout(div, ed);
-            });
-
     };
-     sleep = (time) => {
-        return new Promise((resolve) => setTimeout(resolve, time));
+    zoomAll = (ed, divs, number) => {
+           if(this.lock)
+               return;
+
+            this.lock = true;
+            divs.forEach((div, i) => {
+                    let x = div.layout.xaxis;
+                    //if (ed["xaxis.autorange"] && x.autorange) return;
+                    if (x.range[0] != ed["xaxis.range[0]"] && x.range[1] != ed["xaxis.range[1]"])
+                        Plotly.relayout(div, ed);
+
+            });
     };
     randomRgb = () => {
         var num = Math.round(0xffffff * Math.random());
@@ -323,48 +970,7 @@ class GanttRenderer extends Component {
         var b = num & 255;
         return 'rgb(' + r + ', ' + g + ', ' + b + ')';
     };
-    setIntervals = () =>
-    {
-        /* Min limits */
-        let selectedMinHour = document.getElementById("intervalsHourMin").value;
-        let selectedMinMinute = document.getElementById("intervalsMinuteMin").value;
-        let selectedMinSecond = document.getElementById("intervalsSecondMin").value;
 
-        /* Max limits */
-        let selectedMaxHour = document.getElementById("intervalsHourMax").value;
-        let selectedMaxMinute = document.getElementById("intervalsMinuteMax").value;
-        let selectedMaxSecond = document.getElementById("intervalsSecondMax").value;
-
-        /* Calculation of start and end indexes */
-        let startIndex = 0;
-        let endIndex = 0;
-
-        /* Find graph div */
-        let ctx = this.refs.myGanttCanvas;
-        let ctx2 = this.refs.myGanttWithNormalCanvas;
-            /* I'm using relayout() shows only an area with an interval */
-            Plotly.relayout(ctx, 'xaxis.range', [0,4]);
-            Plotly.relayout(ctx2, 'xaxis.range', [0,4]);
-
-    };
-    internalInputOnChange = (e) =>
-    {
-        e.target.value = e.target.value.replace(/\D/,'');
-
-        if(e.target.value.length <0)
-        {
-            document.getElementById("setIntervals").disabled = true;
-        }
-        else
-        {
-            document.getElementById("setIntervals").disabled = false;
-        }
-
-        if(e.target.value.length >=5)
-        {
-            e.target.value = e.target.value.substring(0,5);
-        }
-    };
     render()
     {
      return (
@@ -372,36 +978,98 @@ class GanttRenderer extends Component {
              <table className="granttGraphsTable">
                  <tbody>
                  <tr>
-                     <td>ASDASD</td>
-                     <div ref="myGanttCanvas" id="myGanttCanvas">
-                     </div>
-                 </tr>
-
-                 <tr>
-                     <td>ASDASD</td>
-                     <div ref="myGanttWithNormalCanvas" id="myGanttWithNormalCanvas">
-                     </div>
+                     <td>İndirme Başlangıç</td>
+                     <td><div ref="indirmeBaslangicGannt" id="indirmeBaslangicGannt">
+                 </div></td>
                  </tr>
                  <tr>
-                     <td>ASDASD</td>
-                     <div ref="myGanttWithNormalCanvas2" id="myGanttWithNormalCanvas2">
+                     <td>Manevra</td>
+                     <td><div ref="manevraGannt" id="manevraGannt">
+                 </div></td>
+                 </tr>
+                 <tr>
+                     <td>Görüntüleme Başlangıç</td>
+                     <td><div ref="goruntulemeBaslangicGannt" id="goruntulemeBaslangicGannt">
+                 </div></td>
+                  </tr>
+                 <tr>
+                     <td>Görüntüleme</td>
+                     <td><div ref="goruntulemeGannt" id="goruntulemeGannt">
+                 </div></td>
+                 </tr>
+                 <tr>
+                     <td>Görüntüleme Bitiş</td>
+                     <td><div ref="goruntulemeBitisGannt" id="goruntulemeBitiscGannt">
+                 </div></td>
+                 </tr>
+                 <tr>
+                     <td>Manevra(Auto)</td>
+                     <td><div ref="manevraOtoGannt" id="manevraOtoGannt">
+                 </div></td>
+                 </tr>
+                 <tr>
+                     <td>Görüntü İndirme</td>
+                     <td><div ref="goruntuIndirmeGannt" id="goruntuIndirmeGannt">
+                     </div></td>
+                 </tr>
+                 <tr>
+                     <td>Görüntü Silme</td>
+                     <td><div ref="goruntuSilmeGannt" id="goruntuSilmeGannt">
+                     </div></td>
+                 </tr>
+                 <tr>
+                     <td>İndirme Bitiş</td>
+                     <td><div ref="indirmeBitisGannt" id="indirmeBitisGannt">
+                 </div></td>
+                 </tr>
+                 <tr>
+                     <td>DTO-1</td>
+                     <td><div ref="dtoBirGannt" id="dtoBirGannt">
+                     </div></td>
+                 </tr>
+                 <tr>
+                     <td>DLO Sabit Yer İstasyonu</td>
+                     <td><div ref="dloSabitYerIstasyonuGannt" id="dloSabitYerIstasyonuGannt">
+                     </div></td>
+                     </tr>
+                 <tr>
+                     <td>Yer İstasyonu İletişim Zamanları</td>
+                     <td><div ref="yerIstasyonuIletisimZamanlariGannt" id="yerIstasyonuIletisimZamanlariGannt">
+                     </div></td>
+                 </tr>
+                 <tr>
+                     <td>Güneş Işığı Uygunsuzluk Aralığı</td>
+                     <td><div ref="gunesIsigiUygunsuzlukAraligiGannt" id="gunesIsigiUygunsuzlukAraligiGannt">
+                     </div></td>
+                 </tr>
+                 <tr>
+                     <td>Görev Yükü Elverişsizlik Penceresi</td>
+                     <td><div ref="gorevYukuElverissizlikPenceresiGannt" id="gorevYukuElverissizlikPenceresiGannt">
+                     </div></td>
+                 </tr>
+                 <tr>
+                     <td>Pil(Gerilim)</td>
+                     <td><div ref="pilGerilimGannt" id="pilGerilimGannt">
+                     </div></td>
+                 </tr>
+                 <tr>
+                     <td>Pil(DOD%)</td>
+                     <td><div ref="pilDODGannt" id="pilDODGannt">
+                     </div></td>
+                 </tr>
+                  <tr>
+                     <td>Görev Yükü</td>
+                     <div ref="gorevYukuGannt" id="gorevYukuGannt">
+                     </div>
+                 </tr>
+                 <tr>
+                     <td>Veri Depolama</td>
+                     <div ref="veriDepolamaGannt" id="veriDepolamaGannt">
                      </div>
                  </tr>
                  </tbody>
              </table>
 
-
-
-
-         <input id="intervalsHourMin"   className="intervals"   pattern="[0-9]*" onChange={(e) =>this.internalInputOnChange(e)}/>
-         <input id="intervalsMinuteMin" className="intervals"   pattern="[0-9]*" onChange={(e) =>this.internalInputOnChange(e)}/>
-         <input id="intervalsSecondMin" className="intervals"   pattern="[0-9]*" onChange={(e) =>this.internalInputOnChange(e)}/>
-         <p>-</p>
-         <input id="intervalsHourMax"   className="intervals"   pattern="[0-9]*" onChange={(e) =>this.internalInputOnChange(e)}/>
-         <input id="intervalsMinuteMax" className="intervals"   pattern="[0-9]*" onChange={(e) =>this.internalInputOnChange(e)}/>
-         <input id="intervalsSecondMax" className="intervals"   pattern="[0-9]*" onChange={(e) =>this.internalInputOnChange(e)}/>
-
-         <button id="setIntervals" onClick = {() => this.setIntervals()}>Ayarla</button>
 
      </div>);
     }
