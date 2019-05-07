@@ -11,6 +11,7 @@ class GanttRenderer extends Component {
     }
     startPlotting = () =>
     {
+        /* Gannts */
         let indirmeBaslangic = this.refs.indirmeBaslangicGannt;
         let manevra = this.refs.manevraGannt;
         let goruntuBaslangic = this.refs.goruntulemeBaslangicGannt;
@@ -25,6 +26,8 @@ class GanttRenderer extends Component {
         let yerIstasyonuIletisimZamanlari = this.refs.yerIstasyonuIletisimZamanlariGannt;
         let gunesIsigiUygunsuzlukAraligi = this.refs.gunesIsigiUygunsuzlukAraligiGannt;
         let gorevYukuElverisizlikPenceresi = this.refs.gorevYukuElverissizlikPenceresiGannt;
+
+        /*Numerical graphs */
         let pilGerilim = this.refs.pilGerilimGannt;
         let pilDOD = this.refs.pilDODGannt;
         let gorevYuku = this.refs.gorevYukuGannt;
@@ -648,7 +651,6 @@ class GanttRenderer extends Component {
             }).then( gd => {
             let isMouseDown = false;
             gd.addEventListener('mousedown', () => {
-                console.log('mousedown!');
                 this.lock = false;
             });
         });
@@ -659,7 +661,6 @@ class GanttRenderer extends Component {
             }).then( gd => {
             let isMouseDown = false;
             gd.addEventListener('mousedown', () => {
-                console.log('mousedown!');
                 this.lock = false;
             });
         });
@@ -670,7 +671,6 @@ class GanttRenderer extends Component {
             }).then( gd => {
             let isMouseDown = false;
             gd.addEventListener('mousedown', () => {
-                console.log('mousedown!');
                 this.lock = false;
             });
         });
@@ -683,7 +683,6 @@ class GanttRenderer extends Component {
             }).then( gd => {
             let isMouseDown = false;
             gd.addEventListener('mousedown', () => {
-                console.log('mousedown!');
                 this.lock = false;
             });
         });
@@ -694,7 +693,6 @@ class GanttRenderer extends Component {
             }).then( gd => {
             let isMouseDown = false;
             gd.addEventListener('mousedown', () => {
-                console.log('mousedown!');
                 this.lock = false;
             });
         });
@@ -705,7 +703,6 @@ class GanttRenderer extends Component {
             }).then( gd => {
             let isMouseDown = false;
             gd.addEventListener('mousedown', () => {
-                console.log('mousedown!');
                 this.lock = false;
             });
         });
@@ -738,7 +735,6 @@ class GanttRenderer extends Component {
             }).then( gd => {
             let isMouseDown = false;
             gd.addEventListener('mousedown', () => {
-                console.log('mousedown!');
                 this.lock = false;
             });
         });
@@ -749,7 +745,6 @@ class GanttRenderer extends Component {
             }).then( gd => {
             let isMouseDown = false;
             gd.addEventListener('mousedown', () => {
-                console.log('mousedown!');
                 this.lock = false;
             });
         });
@@ -760,7 +755,6 @@ class GanttRenderer extends Component {
             }).then( gd => {
             let isMouseDown = false;
             gd.addEventListener('mousedown', () => {
-                console.log('mousedown!');
                 this.lock = false;
             });
         });
@@ -916,7 +910,6 @@ class GanttRenderer extends Component {
             doubleClick: false
         }).then( gd => {
             gd.addEventListener('mousedown', () => {
-                console.log('mousedown!');
                 this.lock = false;
             });
         });
@@ -926,7 +919,6 @@ class GanttRenderer extends Component {
             doubleClick: false
         }).then( gd => {
             gd.addEventListener('mousedown', () => {
-                console.log('mousedown!');
                 this.lock = false;
             });
         });
@@ -935,7 +927,6 @@ class GanttRenderer extends Component {
             doubleClick: false
         }).then( gd => {
             gd.addEventListener('mousedown', () => {
-                console.log('mousedown!');
                 this.lock = false;
             });
         });

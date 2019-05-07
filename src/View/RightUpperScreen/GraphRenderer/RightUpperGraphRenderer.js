@@ -8,9 +8,12 @@ import * as Plotly from "plotly.js";
 class RightUpperGraphRenderer extends Component {
     constructor(props) {
         super(props);
+        var object = this.props.parentGraphs.getNodeAt(this.props.currentTab);
         this.state = {
+            current_object_strings: object.objects,
             currentTab : this.props.currentTab,
-            parentTabs : this.props.parentTabs,
+            parentTabs : this.props.parentGraphs,
+            ids : object.ids
         };
     }
     componentDidMount() {
@@ -22,7 +25,11 @@ class RightUpperGraphRenderer extends Component {
         this.startMinute = currentMinute;
         this.startSecond = currentSecond;
 
+        console.log("now here 1");
+        if(this.state.current_object_strings == "")
+            return;
 
+        console.log("now here 2");
         let objectstring = this.state.parentTabs.getNodeAt(this.state.currentTab).objects; // find current jsons
         let ids = this.state.parentTabs.getNodeAt(this.state.currentTab).ids; // find current ids
         let max = 0;
@@ -222,11 +229,37 @@ class RightUpperGraphRenderer extends Component {
         /* Redraw chart */
         Plotly.redraw(ctx, update, [0]);
     };
+    allowDrop = (e) =>
+    {
+        e.preventDefault();
+    };
+    onDrop = (ev) =>
+    {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("xmldoctext"); /* FETCH THE XML FROM LEFT DOWN MENU */
+            var tosearch = ev.dataTransfer.getData("id"); /* FETCH THE ID LEFT DOWN MENU SENT */
+            if(data == "" || data == null || tosearch == null || tosearch == "")
+                return null;
+            this.state.xmldocument = data; /* SET XML TO STATE */
+
+            /* PUSH NEW ID ONTO OTHERS TO FETCH LATER */
+            let currentids = this.state.ids;
+            currentids.push(parseInt(tosearch));
+
+            /* PUSH NEW OBJECT TO OBJECT LIST */
+            let current_objects = this.state.current_object_strings;
+            current_objects.push(data);
+            this.state.current_object_strings = current_objects;
+
+            //UPDATE PARENT DATA
+            this.props.setParentGraphObject(current_objects,currentids,this.props.currentTab);
+            this.setState({ids : currentids});
+    };
     /* CALL  RENDER FUNCTION */
     render() {
 
         return (
-            renderFunct(this.state.currentTab,this.internalInputOnChange,this.setIntervals,this.resetGraph,this.startFloating,this.stopFloating,this.changeColors)
+            renderFunct(this.state.currentTab,this.internalInputOnChange,this.setIntervals,this.startFloating,this.stopFloating,this.onDrop,this.allowDrop)
 
         );
     }

@@ -26,7 +26,9 @@ class TabSection extends Component {
         this.state = {
             isTableSelected:true,
             Tabs: new SavedData([],[]) ,
+            Graphs: new SavedData([],[]),
             currentTab:1,
+            toWhat: "",
             totalTabs:1}
     }
     componentDidMount() {
@@ -68,25 +70,30 @@ class TabSection extends Component {
         parentObject.change(currentTab,newIds,newJSONs);
         this.setState({Tabs: parentObject})
     };
-
+    setParentGraphObject =(newJSONs,newIds,currentTab) => {
+        var parentObject = this.state.Graphs;
+        parentObject.change(currentTab,newIds,newJSONs);
+        this.setState({Graphs: parentObject})
+    };
     changeSelectedSection = (toWhat) =>
     {
+        this.state.toWhat = toWhat;
         /*
         * Screen Manager Click events. To decide page's flow. Whether tables or graphs or worldwind are selected.
         */
-        if(toWhat == "table")
+        if(this.state.toWhat == "table")
         {
             ReactDOM.unmountComponentAtNode(document.getElementById('insideMain'));
             ReactDOM.render(<RightUpperTableRenderer  parentTabs={this.state.Tabs} setParentObject = {this.setParentObject} currentTab = {this.state.currentTab} >
             </RightUpperTableRenderer>,document.getElementById('insideMain'));
         }
 
-        else if(toWhat =="graph")
+        else if(this.state.toWhat =="graph")
         {
             /*
             * IF there is no data dragged yet, throw an error to screen.
             */
-            if(this.state.Tabs.getNodeAt(this.state.currentTab).objects == "")
+          /*  if(this.state.Tabs.getNodeAt(this.state.currentTab).objects == "")
             {
                 ReactDOM.unmountComponentAtNode(document.getElementById('insideMain'));
                 ReactDOM.render(<div id="graphDivision">
@@ -94,16 +101,14 @@ class TabSection extends Component {
                 </div>, document.getElementById('insideMain'));
                 return;
             }
-            else
-            {
+            */
                 ReactDOM.unmountComponentAtNode(document.getElementById('insideMain'));
-                ReactDOM.render(<RightUpperGraphRenderer parentTabs={this.state.Tabs}
-                                                         setParentObject={this.setParentObject}
+                ReactDOM.render(<RightUpperGraphRenderer parentGraphs={this.state.Graphs}
+                                                         setParentGraphObject={this.setParentGraphObject}
                                                          currentTab={this.state.currentTab}>
                 </RightUpperGraphRenderer>, document.getElementById('insideMain'));
-            }
         }
-        else if(toWhat =="world")
+        else if(this.state.toWhat =="world")
         {
             ReactDOM.unmountComponentAtNode(document.getElementById('insideMain'));
             ReactDOM.render(<WorldWindRenderer parentTabs={this.state.Tabs}
@@ -111,7 +116,7 @@ class TabSection extends Component {
                                                      currentTab={this.state.currentTab}>
             </WorldWindRenderer>, document.getElementById('insideMain'));
         }
-        else if(toWhat =="gantt")
+        else if(this.state.toWhat =="gantt")
         {
             ReactDOM.unmountComponentAtNode(document.getElementById('insideMain'));
             ReactDOM.render(<GanttRenderer parentTabs={this.state.Tabs}
@@ -137,15 +142,30 @@ class TabSection extends Component {
     };
     render()
     {
-        /* In first render, render tables and other components */
-        ReactDOM.unmountComponentAtNode(document.getElementById('insideMain'));
-        ReactDOM.render(<RightUpperTableRenderer  parentTabs={this.state.Tabs} setParentObject = {this.setParentObject} currentTab = {this.state.currentTab} >
-        </RightUpperTableRenderer>,document.getElementById('insideMain'));
+        console.log("here again");
 
-        ReactDOM.render(<DownMenuContext />,document.getElementById('leftBottomFixedMenu'));
-        ReactDOM.render(<ScreenManager changeScreen={this.changeSelectedSection}> </ScreenManager>, document.getElementById('leftFixedMenu'));
+        if(this.state.toWhat === "graph") {
+            console.log("here again");
+            ReactDOM.unmountComponentAtNode(document.getElementById('insideMain'));
+            ReactDOM.render(<RightUpperGraphRenderer parentGraphs={this.state.Graphs}
+                                                     setParentGraphObject={this.setParentGraphObject}
+                                                     currentTab={this.state.currentTab}>
+            </RightUpperGraphRenderer>, document.getElementById('insideMain'));
+
+        }
+        else
+        {
+            /* In first render, render tables and other components */
+            ReactDOM.unmountComponentAtNode(document.getElementById('insideMain'));
+            ReactDOM.render(<RightUpperTableRenderer parentTabs={this.state.Tabs} setParentObject={this.setParentObject}
+                                                     currentTab={this.state.currentTab}>
+            </RightUpperTableRenderer>, document.getElementById('insideMain'));
+        }
 
 
+        ReactDOM.render(<DownMenuContext/>, document.getElementById('leftBottomFixedMenu'));
+        ReactDOM.render(<ScreenManager
+            changeScreen={this.changeSelectedSection}> </ScreenManager>, document.getElementById('leftFixedMenu'));
 
         /* PRINT REACT BUTTONS */
        return(<div>

@@ -13,6 +13,9 @@ class DownMenuContext extends Component {
         this.state = {jsonstring:null, keytosearch: "",xmlfound:false};
     }
     componentDidMount() {
+        document.onmouseup = () =>{
+          this.isMouseDown = false;
+        };
         Resizer(); // TABLE RESIZING JQUERY
         // ASYNC WORKER
         this.XmlFetcherWorker = new WebWorker(timedCount);

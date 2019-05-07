@@ -1,12 +1,12 @@
 import React from 'react';
 
 
-export default function renderFunc(currentTab,intervalInputOnChange,setIntervals,resetGraph,startFloating,stopFloating,changeColors)
+export default function renderFunc(currentTab,intervalInputOnChange,setIntervals,startFloating,stopFloating,onDrop,allowDrop)
 {
 
     return(
         <div className="sidenav">
-            <div ref="myGraphCanvas" id="myGraphCanvas"> </div>
+            <div onDrop={(e) => onDrop(e)} onDragOver={(e)=>allowDrop(e)} ref="myGraphCanvas" id="myGraphCanvas"> </div>
 
             <p id="totalIntervals">Aralıklar (HH - MM - ss)</p>
 
