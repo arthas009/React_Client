@@ -8,12 +8,13 @@ import * as Plotly from "plotly.js";
 class RightUpperGraphRenderer extends Component {
     constructor(props) {
         super(props);
-        var object = this.props.parentGraphs.getNodeAt(this.props.currentTab);
+        let object = this.props.parentGraphs.getNodeAt(this.props.currentTab);
+
         this.state = {
+            ids: object.ids,
             current_object_strings: object.objects,
-            currentTab : this.props.currentTab,
-            parentTabs : this.props.parentGraphs,
-            ids : object.ids
+            currentTab:this.props.currentTab,
+            plotlyJSDrawedValues:this.props.plotlyJSDrawedValues
         };
     }
     componentDidMount() {
@@ -21,73 +22,103 @@ class RightUpperGraphRenderer extends Component {
         let currentHour = date.getHours();
         let currentMinute = date.getMinutes();
         let currentSecond = date.getSeconds();
-        this.startHour = currentHour;
-        this.startMinute = currentMinute;
-        this.startSecond = currentSecond;
 
-        console.log("now here 1");
-        if(this.state.current_object_strings == "")
+
+        if (this.state.current_object_strings.length === 0 || this.state.current_object_strings === undefined) {
             return;
-
-        console.log("now here 2");
-        let objectstring = this.state.parentTabs.getNodeAt(this.state.currentTab).objects; // find current jsons
-        let ids = this.state.parentTabs.getNodeAt(this.state.currentTab).ids; // find current ids
-        let max = 0;
-        let min = 9999999;
-        let datasett = [];
-        this.timeStamp = [];
-
-
-        /*
-        *
-        * CALCULATE MIN AND MAX NUMBER
-        * THEN START ARRANGING DATASET ACCORDING TO DRAGGED PARAMETERS
-        *
-         */
-        for (let i = 0; i < ids.length; i++) {
-            let JSONobject = JSON.parse(objectstring[i]);
-            for (let k = 0; k < JSONobject.Parameters.Parameter[ids[i]].timestamp.length; k++) {
-                if (JSONobject.Parameters.Parameter[ids[i]].timestamp[k] > max) {
-                    this.state.max = JSONobject.Parameters.Parameter[ids[i]].timestamp[k];
-                    max = JSONobject.Parameters.Parameter[ids[i]].timestamp[k];
-                }
-                if (min > JSONobject.Parameters.Parameter[ids[i]].timestamp[k]) {
-                    min = JSONobject.Parameters.Parameter[ids[i]].timestamp[k];
-                    this.state.min = JSONobject.Parameters.Parameter[ids[i]].timestamp[k];
-                }
-            }
-            datasett.push(JSONobject.Parameters.Parameter[ids[i]].timestamp);
         }
+        let asd = [];
+        asd.push([123]);
+        asd.push([1234]);
 
-        /* push first values of x axis to 'intervals' variable */
-        for(let k = 0;k<datasett[0].length;k++)
-        this.timeStamp.push(currentHour+":"+currentMinute+":"+(currentSecond++));
-        let layout = {
-            title: 'Parameters',
-            xaxis: {
-                range: [0,15],
-            }
-        };
-        let ctx = this.refs.myGraphCanvas;
-        let data = [];
+        asd[0].push([123123]);
+        asd[1].push([12341234]);
 
-        for(let i = 0; i< datasett.length;i++)
+        console.log(asd);
+        console.log(this.state.plotlyJSDrawedValues);
+        console.log(this.state.plotlyJSDrawedValues[this.state.currentTab-1]);
+        if (this.state.plotlyJSDrawedValues[this.state.currentTab-1] === undefined || this.state.plotlyJSDrawedValues[this.state.currentTab-1].length === 0)
         {
-            data.push({
-                name:"Parameter"+(i+1),
-                x: this.timeStamp,
-                y: datasett[i],
-                mode: 'lines',
-                line: {color: this.randomRgb()}
-            });
-        }
-        Plotly.plot(ctx, data,layout);
+            let objectstring = this.state.current_object_strings; // find current jsons
+            let ids = this.state.ids; // find current ids
+            let datasett = [];
+            this.timeStamp = [];
+            console.log("here");
+            /*
+            *
+            * CALCULATE MIN AND MAX NUMBER
+            * THEN START ARRANGING DATASET ACCORDING TO DRAGGED PARAMETERS
+            *
+            */
+            for (let i = 0; i < ids.length; i++) {
+                let JSONobject = JSON.parse(objectstring[i]);
+                datasett.push(JSONobject.Parameters.Parameter[ids[i]].timestamp);
+            }
 
-        this.currentDataset = datasett;
+            /* push first values of x axis to 'intervals' variable */
+            for (let k = 0; k < datasett[0].length; k++)
+                this.timeStamp.push(currentHour + ":" + currentMinute + ":" + (currentSecond++));
+            let layout = {
+                title: 'Parameters',
+                xaxis: {
+                    range: [0, 15],
+                }
+            };
+            let ctx = this.refs.myGraphCanvas;
+            let data = [];
+
+            for (let i = 0; i < datasett.length; i++) {
+                data.push({
+                    name: "Parameter" + (i + 1),
+                    x: this.timeStamp,
+                    y: datasett[i],
+                    mode: 'lines',
+                    line: {color: this.randomRgb()}
+                });
+            }
+            Plotly.plot(ctx, data, layout);
+
+            this.currentDataset = datasett;
+        }
+        else
+        {
+            let datasett = this.state.plotlyJSDrawedValues[this.state.currentTab-1][0];
+            this.timeStamp = this.state.plotlyJSDrawedValues[this.state.currentTab-1][1];
+
+            /*
+            *
+            * CALCULATE MIN AND MAX NUMBER
+            * THEN START ARRANGING DATASET ACCORDING TO DRAGGED PARAMETERS
+            *
+            */
+            /* push first values of x axis to 'intervals' variable */
+
+            let layout = {
+                title: 'Parameters',
+                xaxis: {
+                    range: [0, 15],
+                }
+            };
+            let ctx = this.refs.myGraphCanvas;
+            let data = [];
+            console.log("here2");
+            for (let i = 0; i < datasett.length; i++) {
+                data.push({
+                    name: "Parameter" + (i + 1),
+                    x: this.timeStamp,
+                    y: datasett[i],
+                    mode: 'lines',
+                    line: {color: this.randomRgb()}
+                });
+            }
+            Plotly.plot(ctx, data, layout);
+
+            this.currentDataset = datasett;
+        }
         /* DYNAMICALLY AND INTERVALLY UPDATE THE CHART IN EACH 1 SEC */
         this.intervalID = setInterval(() => {
 
-          this.float();
+            this.float();
 
         }, 1000);
 
@@ -95,6 +126,7 @@ class RightUpperGraphRenderer extends Component {
         document.getElementById("startFloating").disabled = true;
         /* interval set button deactive at first */
         document.getElementById("setIntervals").disabled = true;
+
     }
 
     componentWillUnmount()
@@ -222,10 +254,14 @@ class RightUpperGraphRenderer extends Component {
         this.timeStamp.push(currentHour+":"+currentMinute+":"+(currentSecond++));
 
         /* New object to update */
-        var update = {
+        let update = {
             x: [this.timeStamp],
             y: [this.currentDataset],
         };
+        let array = [];
+        array.push(this.currentDataset);
+        array.push(this.timeStamp);
+        this.props.updatePlotlyData(array);
         /* Redraw chart */
         Plotly.redraw(ctx, update, [0]);
     };
@@ -233,27 +269,30 @@ class RightUpperGraphRenderer extends Component {
     {
         e.preventDefault();
     };
-    onDrop = (ev) =>
-    {
-            ev.preventDefault();
-            var data = ev.dataTransfer.getData("xmldoctext"); /* FETCH THE XML FROM LEFT DOWN MENU */
-            var tosearch = ev.dataTransfer.getData("id"); /* FETCH THE ID LEFT DOWN MENU SENT */
-            if(data == "" || data == null || tosearch == null || tosearch == "")
-                return null;
-            this.state.xmldocument = data; /* SET XML TO STATE */
+    onDrop = (ev) => {
 
-            /* PUSH NEW ID ONTO OTHERS TO FETCH LATER */
-            let currentids = this.state.ids;
-            currentids.push(parseInt(tosearch));
+        ev.preventDefault();
 
-            /* PUSH NEW OBJECT TO OBJECT LIST */
-            let current_objects = this.state.current_object_strings;
-            current_objects.push(data);
-            this.state.current_object_strings = current_objects;
+        var transfereddata = ev.dataTransfer.getData("xmldoctext"); /* FETCH THE XML FROM LEFT DOWN MENU */
+        var tosearch = ev.dataTransfer.getData("id"); /* FETCH THE ID LEFT DOWN MENU SENT */
+        if (transfereddata == "" || transfereddata == null || tosearch == null || tosearch == "")
+            return null;
 
-            //UPDATE PARENT DATA
-            this.props.setParentGraphObject(current_objects,currentids,this.props.currentTab);
-            this.setState({ids : currentids});
+        const divs = document.getElementsByClassName("SelectedID");
+        let currentids = this.state.ids;
+        let current_objects = this.state.current_object_strings;
+
+        for(let k = 0;k<divs.length;k++)
+        {
+            currentids.push(parseInt(divs[k].innerHTML)-1);
+            current_objects.push(transfereddata);
+        }
+
+        //UPDATE PARENT DATA
+        this.props.setParentGraphObject(current_objects, currentids, this.props.currentTab);
+        this.state.ids = currentids;
+
+
     };
     /* CALL  RENDER FUNCTION */
     render() {

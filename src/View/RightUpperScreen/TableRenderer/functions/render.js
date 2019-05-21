@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function renderFunc (createInfoComps,drop,allowDrop,currentTab){
+export default function renderFunc (createInfoComps,drop,allowDrop){
 
     //CREATE THE TABLE OF DRAGGED ID's
     let table_to_add = createInfoComps();

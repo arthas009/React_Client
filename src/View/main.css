@@ -158,12 +158,17 @@
 
 
 }
+
 /* ROW AND COLUMN */
 .leftBottomFixedMenuContainer td, th {
     word-wrap:break-word;
     width:7%;
     padding:1%;
     text-align: left;
+    overflow-y: auto;
+}
+.leftBottomFixedMenuContainer .table-resizable div {
+
 }
 .leftBottomFixedMenuContainer td:first-child {
     word-wrap:break-word;
@@ -222,7 +227,9 @@
 .leftBottomFixedMenuContainer .table-resizable th{
     padding:10px;
 }
-
+.leftBottomFixedMenuContainer .SelectedID {
+    background-color:#666666;
+}
 /*WORTHLESS*/
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
@@ -422,7 +429,7 @@
 }
 .main .tabSection #newSection
 {
-    font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-family:"Courier New", Courier, monospace;
     margin-top:5px;
     margin-left:15px;
     display: inline-block;
@@ -458,7 +465,7 @@
     background-color:#888888;
     display: inline-block;
     padding: 7px 10px;
-    font-size: 12px;
+    font-size: 13px;
     cursor: pointer;
     text-align: center;
     text-decoration: none;

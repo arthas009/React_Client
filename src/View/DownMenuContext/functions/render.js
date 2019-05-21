@@ -11,7 +11,7 @@ export default function renderFunc(createTable,readxmlfunc,search)
             <label className="search" htmlFor="inpt_search">
             <input id="inpt_search" type="text" name="input" ref="searchInput" onChange={(e) => search(e)}/>
             </label>
-            <table className="table table-striped table-bordered table-resizable tables_ui" id="t_draggable1">
+            <table className="table table-striped table-bordered table-resizable tables_ui leftmenutable" id="t_draggable1">
                 <tbody className="t_sortable">
                 <tr>
                     <th>#</th>

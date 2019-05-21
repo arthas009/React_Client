@@ -9,13 +9,13 @@
 
 
 class SavedData {
-    constructor(objects,ids) {
-        this.head = new Node(objects,ids);
+    constructor(objects, ids) {
+        this.head = new Node(objects, ids);
         this.currentTab = 1;
     }
 
-    add(objects,ids) {
-        const newNode = new Node(objects,ids);
+    add(objects, ids) {
+        const newNode = new Node(objects, ids);
         var current = this.head;
         while (current.next) {
             current = current.next;
@@ -30,51 +30,30 @@ class SavedData {
     * This function returns the node we search with a spesific index 'toSearch' .
     *
     */
-    getNodeAt(toSearch)
-    {
+    getNodeAt(toSearch) {
         let count = 1;
         let gezici = this.head;
-        while(count < toSearch && gezici.next != null)
-        {
+        while (count < toSearch && gezici.next != null) {
             gezici = gezici.next;
             count++;
         }
         return gezici;
     }
+
     /*
     *
     * This function changes the node value at index 'toSearch' .
     *
     */
-    change(toSearch,newids,newobjects)
-    {
+    change(toSearch, newids, newobjects) {
         let count = 1;
         let gezici = this.head;
-        while(count < toSearch && gezici.next != null)
-        {
+        while (count < toSearch && gezici.next != null) {
             gezici = gezici.next;
             count++;
         }
         gezici.ids = newids;
         gezici.objects = newobjects;
-    }
-    /*
-    *
-    * Return current tab if called
-    *
-    */
-    getCurrentTab()
-    {
-        return this.currentTab;
-    }
-    /*
-   *
-   * Set current tab data
-   *
-   */
-    setCurrentTab(newValue)
-    {
-        this.currentTab = newValue;
     }
 }
 class Node

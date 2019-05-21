@@ -13,12 +13,14 @@ class DownMenuContext extends Component {
         this.state = {jsonstring:null, keytosearch: "",xmlfound:false};
     }
     componentDidMount() {
-        document.onmouseup = () =>{
-          this.isMouseDown = false;
-        };
+
         Resizer(); // TABLE RESIZING JQUERY
         // ASYNC WORKER
         this.XmlFetcherWorker = new WebWorker(timedCount);
+        window.onmouseup = () =>
+        {
+          this.isMouseDown = false;
+        };
 
         //LISTEN MESSAGES FROM WORKER
         this.XmlFetcherWorker.addEventListener('message', function (event) {
@@ -29,7 +31,6 @@ class DownMenuContext extends Component {
             }
             this.state.xmlfound = true;
             var jsontext = JSON.stringify(event.data);
-            var parser = new DOMParser();
             // SET OBJECT STRING TO STATE. THIS WILL TRIGGER A COMPONENT REFRESH
             this.setState({jsonstring:jsontext});
         }.bind(this));
@@ -48,6 +49,39 @@ class DownMenuContext extends Component {
         // ALSO SEND THE XML DOCUMENT TO OTHER REACT COMPONENT
         ev.dataTransfer.setData("xmldoctext",this.state.jsonstring); /* SET XML STRING TRANSFERRING FOR DRAG DROP */
     };
+    tdMouseDown = (e,fromWhere) =>
+    {
+        if(fromWhere == "InnerDiv")
+            e.target.className = "SelectedID";
+        else if(fromWhere == "OuterTD")
+            e.target.childNodes[0].className = "SelectedID";
+
+        this.isMouseDown = true;
+
+    };
+    onDoubleClick = (e) =>
+    {
+        const table = document.getElementById("t_draggable1");
+        const divs = table.getElementsByTagName("td");
+        for(let k = 0;k<divs.length;k++)
+        {
+            divs[k].className = "";
+        }
+        const divs2 = table.getElementsByTagName("div");
+        for(let k = 0;k<divs2.length;k++)
+        {
+            divs2[k].className = "";
+        }
+    };
+    tdMouseHover= (e) =>
+    {
+        if(this.isMouseDown)
+        {
+            //e.target.className = "SelectedID";
+            e.target.childNodes[0].className = "SelectedID";
+        }
+    };
+
     createTable = () =>
     {
         /* GET XML DOCUMENT */
@@ -56,18 +90,19 @@ class DownMenuContext extends Component {
         let are_we_searching = true;
         if(this.state.keytosearch == "")
             are_we_searching = false;
-        var xmlstring = this.state.xmldocument;
+
         let jsonobj = JSON.parse(this.state.jsonstring);
         var parameters = jsonobj.Parameters.Parameter;
+
         /* CREATE TABLE'S SUB CELLS READ FROM XML */
         /* IF WE ARE SEARCHING FOR A PATTERN THEN IF CLAUSE WILL WORK */
         if(are_we_searching)
         {
-            return bringIndexValues(findIndexes(parameters,this.state.keytosearch),parameters,this.drag);
+            return bringIndexValues(findIndexes(parameters,this.state.keytosearch),parameters,this.drag,this.tdMouseDown,this.tdMouseHover,this.onDoubleClick);
         }
         // IF WE ARE NOT SEARCHING ANY PATTERN, THIS SECTION WILL WORK
         else {
-            return bringValues(parameters,this.drag);
+            return bringValues(parameters,this.drag,this.tdMouseDown,this.tdMouseHover,this.onDoubleClick);
         }
 
     };

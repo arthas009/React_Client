@@ -7,5 +7,5 @@ export default function timedCount() {
             postMessage(data)
             //Prints result from `response.json()` in getRequest
         })
-    setTimeout(timedCount,4000);
+   // setTimeout(timedCount,4000);
 }

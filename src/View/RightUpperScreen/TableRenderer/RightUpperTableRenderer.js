@@ -9,7 +9,7 @@ class RightUpperTableRenderer extends Component {
         super(props);
         //WHENEVER A REFRESH TRIGGERED, CURRENT_OBJECT_STRINGS WILL KEEP VALEUS OF CURRENT JSON XML
             //Keep data storage in object variable
-            var object = this.props.parentTabs.getNodeAt(this.props.currentTab);
+        let object = this.props.parentTabs.getNodeAt(this.props.currentTab);
             //Find JSONs and ids of current tab
             this.state = {
                 ids: object.ids,
@@ -28,6 +28,7 @@ class RightUpperTableRenderer extends Component {
     };
     /* ON DROP FUNCTION */
     drop = (ev) => {
+
         ev.preventDefault();
         var data = ev.dataTransfer.getData("xmldoctext"); /* FETCH THE XML FROM LEFT DOWN MENU */
         var tosearch = ev.dataTransfer.getData("id"); /* FETCH THE ID LEFT DOWN MENU SENT */
@@ -36,18 +37,27 @@ class RightUpperTableRenderer extends Component {
         this.state.xmldocument = data; /* SET XML TO STATE */
 
         /* PUSH NEW ID ONTO OTHERS TO FETCH LATER */
+
+        const divs = document.getElementsByClassName("SelectedID");
         let currentids = this.state.ids;
-        currentids.push(parseInt(tosearch));
+        let current_objects = this.state.current_object_strings;
+
+        for(let k = 0;k<divs.length;k++)
+        {
+            currentids.push(parseInt(divs[k].innerHTML)-1);
+            current_objects.push(data);
+        }
+
 
         /* PUSH NEW OBJECT TO OBJECT LIST */
-        let current_objects = this.state.current_object_strings;
-        current_objects.push(data);
+
+
         this.state.current_object_strings = current_objects;
 
         //UPDATE PARENT DATA
         this.props.setParentObject(current_objects,currentids,this.props.currentTab);
 
-        //TRIGGER A REFRESH
+        //TRIGGER A REFRESH!
         this.setState({ids: currentids});
     };
     /* REMOVING FUNCTION TO REMOVE A SPESIFIC TABLE ELEMENT */
@@ -79,6 +89,7 @@ class RightUpperTableRenderer extends Component {
         * SEND DRAGGED ID'S, THEIR JSON INFORMATIONS AND REMOVE FUNCTION.
         *
         */
+
         return putValuesToTable(currentids, JSONstrings, this.remove)
     };
 
@@ -90,7 +101,8 @@ class RightUpperTableRenderer extends Component {
     *
     */
     render() {
-        return renderFunc(this.createInfoComps, this.drop, this.allowDrop,this.state.currentTab);
+
+        return renderFunc(this.createInfoComps, this.drop, this.allowDrop);
     }
 }
 
