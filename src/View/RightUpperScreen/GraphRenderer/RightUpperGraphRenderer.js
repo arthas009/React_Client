@@ -27,29 +27,15 @@ class RightUpperGraphRenderer extends Component {
         if (this.state.current_object_strings.length === 0 || this.state.current_object_strings === undefined) {
             return;
         }
-        let asd = [];
-        asd.push([123]);
-        asd.push([1234]);
 
-        asd[0].push([123123]);
-        asd[1].push([12341234]);
-
-        console.log(asd);
-        console.log(this.state.plotlyJSDrawedValues);
-        console.log(this.state.plotlyJSDrawedValues[this.state.currentTab-1]);
         if (this.state.plotlyJSDrawedValues[this.state.currentTab-1] === undefined || this.state.plotlyJSDrawedValues[this.state.currentTab-1].length === 0)
         {
             let objectstring = this.state.current_object_strings; // find current jsons
             let ids = this.state.ids; // find current ids
             let datasett = [];
             this.timeStamp = [];
-            console.log("here");
-            /*
-            *
-            * CALCULATE MIN AND MAX NUMBER
-            * THEN START ARRANGING DATASET ACCORDING TO DRAGGED PARAMETERS
-            *
-            */
+
+            /* Push first values from timestamp value of parameter */
             for (let i = 0; i < ids.length; i++) {
                 let JSONobject = JSON.parse(objectstring[i]);
                 datasett.push(JSONobject.Parameters.Parameter[ids[i]].timestamp);
@@ -58,6 +44,8 @@ class RightUpperGraphRenderer extends Component {
             /* push first values of x axis to 'intervals' variable */
             for (let k = 0; k < datasett[0].length; k++)
                 this.timeStamp.push(currentHour + ":" + currentMinute + ":" + (currentSecond++));
+
+            /* range: shows only 15 elements for now */
             let layout = {
                 title: 'Parameters',
                 xaxis: {
@@ -80,18 +68,11 @@ class RightUpperGraphRenderer extends Component {
 
             this.currentDataset = datasett;
         }
+        /* If there is already an drawed data, draw them*/
         else
         {
             let datasett = this.state.plotlyJSDrawedValues[this.state.currentTab-1][0];
             this.timeStamp = this.state.plotlyJSDrawedValues[this.state.currentTab-1][1];
-
-            /*
-            *
-            * CALCULATE MIN AND MAX NUMBER
-            * THEN START ARRANGING DATASET ACCORDING TO DRAGGED PARAMETERS
-            *
-            */
-            /* push first values of x axis to 'intervals' variable */
 
             let layout = {
                 title: 'Parameters',
@@ -101,7 +82,8 @@ class RightUpperGraphRenderer extends Component {
             };
             let ctx = this.refs.myGraphCanvas;
             let data = [];
-            console.log("here2");
+
+
             for (let i = 0; i < datasett.length; i++) {
                 data.push({
                     name: "Parameter" + (i + 1),
@@ -131,6 +113,7 @@ class RightUpperGraphRenderer extends Component {
 
     componentWillUnmount()
     {
+        /* destroy chart */
       if(this.state.myChart)
          this.state.myChart.destroy();
 
@@ -143,6 +126,7 @@ class RightUpperGraphRenderer extends Component {
     /*Internal input area text change event */
     internalInputOnChange(e)
     {
+       /* letters are disabled */
        e.target.value = e.target.value.replace(/\D/,'');
 
        if(e.target.value.length <0)
@@ -243,7 +227,7 @@ class RightUpperGraphRenderer extends Component {
         /* Find Graph Div */
         let ctx = this.refs.myGraphCanvas;
 
-        /* Go for each element and push a new value */
+        /* Go for each element in objects and push a new value */
         for (let i = 0; i < this.currentDataset.length; i++) {
             let newValue = Math.floor(Math.random() * 225) + 10;
             // PUSH NEW VALUE
@@ -278,10 +262,12 @@ class RightUpperGraphRenderer extends Component {
         if (transfereddata == "" || transfereddata == null || tosearch == null || tosearch == "")
             return null;
 
+        /* divs contains all selected div element on left bottom menu */
         const divs = document.getElementsByClassName("SelectedID");
         let currentids = this.state.ids;
         let current_objects = this.state.current_object_strings;
 
+        /* push new data ids and their objects */
         for(let k = 0;k<divs.length;k++)
         {
             currentids.push(parseInt(divs[k].innerHTML)-1);

@@ -53,13 +53,13 @@ class TabSection extends Component {
 
     newTabButtonOnClick= () =>
     {
-        let changer = this.state.Tabs; // To open a new empty room in table DATA STORAGE.
+        let changer = this.state.Tabs; // To open a new empty data room in table DATA STORAGE.
         changer.add([],[]);
 
-        let changer2 = this.state.Graphs; // // To open a new empty room in graph DATA STORAGE.
+        let changer2 = this.state.Graphs; // // To open a new empty data room in graph DATA STORAGE.
         changer2.add([],[]);
 
-        let changer3 =this.state.plotlyJSDrawedValues;
+        let changer3 =this.state.plotlyJSDrawedValues; // New generated random values will come here
         changer3.push([]);
 
 
@@ -70,7 +70,9 @@ class TabSection extends Component {
         /* Last added  tab is the last current tab */
 
         ReactDOM.unmountComponentAtNode(document.getElementById('insideMain'));
+
         this.setState( {Tabs:changer});
+
         ReactDOM.render(<RightUpperTableRenderer  parentTabs={this.state.Tabs} setParentObject = {this.setParentObject} currentTab = {this.state.totalTabs} >
         </RightUpperTableRenderer>,document.getElementById('insideMain'));
 
@@ -79,14 +81,19 @@ class TabSection extends Component {
 
     setParentObject =(newJSONs,newIds,currentTab) => {
         let parentObject = this.state.Tabs;
+
         parentObject.change(currentTab,newIds,newJSONs);
+
         this.state.Tabs = parentObject;
     };
 
     setParentGraphObject =(newJSONs,newIds,currentTab) => {
         let parentObject = this.state.Graphs;
+
         parentObject.change(currentTab,newIds,newJSONs);
+
         ReactDOM.unmountComponentAtNode(document.getElementById('insideMain'));
+
         this.setState({Graphs:parentObject});
     };
     changeSelectedSection = (toWhat) =>
@@ -97,10 +104,13 @@ class TabSection extends Component {
         */
 
     };
+
+    /* Update new generated random values from graph section */
     updatePlotlyData = (Values) =>
     {
         this.state.plotlyJSDrawedValues[this.state.currentTab-1] = Values;
     };
+
     /* place all section buttons according to a count number in parent */
     bringButtons = () =>
     {
@@ -109,36 +119,34 @@ class TabSection extends Component {
         {
           if(i+1 == this.state.currentTab)
           buttons.push(<button ref={"button"+(i+1)} className="sections active" onClick={() => this.setCurrentTab(i+1)}>Sekme {i+1}</button>)
+
           else
           buttons.push(<button ref={"button"+(i+1)} className="sections" onClick={() => this.setCurrentTab(i+1)}>Sekme {i+1}</button>)
         }
         return buttons;
     };
+
     render()
     {
+        /* insideMain gets empty */
         ReactDOM.unmountComponentAtNode(document.getElementById('insideMain'));
+
+        /* To decide what to render, we use 'toWhat' variable */
         if(this.state.toWhat === "table")
         {
-            ReactDOM.render(<RightUpperTableRenderer  parentTabs={this.state.Tabs} setParentObject = {this.setParentObject} currentTab = {this.state.currentTab} >
+            ReactDOM.render(<RightUpperTableRenderer  parentTabs={this.state.Tabs}
+                                                      setParentObject = {this.setParentObject}
+                                                      currentTab = {this.state.currentTab} >
             </RightUpperTableRenderer>,document.getElementById('insideMain'));
         }
 
         else if(this.state.toWhat === "graph")
         {
-            /*
-            * IF there is no data dragged yet, throw an error to screen.
-            */
-            /*  if(this.state.Tabs.getNodeAt(this.state.currentTab).objects == "")
-              {
-                  ReactDOM.unmountComponentAtNode(document.getElementById('insideMain'));
-                  ReactDOM.render(<div id="graphDivision">
-                      <h2>Tabloya henüz bir öğe atanmamış</h2>
-                  </div>, document.getElementById('insideMain'));
-                  return;
-              }
-              */
-            ReactDOM.render(<RightUpperGraphRenderer parentGraphs={this.state.Graphs} setParentGraphObject={this.setParentGraphObject} currentTab={this.state.currentTab}
-            updatePlotlyData = {this.updatePlotlyData} plotlyJSDrawedValues ={this.state.plotlyJSDrawedValues}>
+            ReactDOM.render(<RightUpperGraphRenderer parentGraphs={this.state.Graphs}
+                                                     setParentGraphObject={this.setParentGraphObject}
+                                                     currentTab={this.state.currentTab}
+                                                     updatePlotlyData = {this.updatePlotlyData}
+                                                     plotlyJSDrawedValues ={this.state.plotlyJSDrawedValues}>
             </RightUpperGraphRenderer>, document.getElementById('insideMain'));
         }
         else if(this.state.toWhat === "world")
@@ -156,7 +164,10 @@ class TabSection extends Component {
             </GanttRenderer>, document.getElementById('insideMain'));
         }
 
+        /* Place downmenucontext */
         ReactDOM.render(<DownMenuContext/>, document.getElementById('leftBottomFixedMenu'));
+
+        /* Place ScreenManager */
         ReactDOM.render(<ScreenManager
         changeScreen={this.changeSelectedSection}> </ScreenManager>, document.getElementById('leftFixedMenu'));
 

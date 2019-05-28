@@ -33,7 +33,6 @@ class GanttRenderer extends Component {
         let gorevYuku = this.refs.gorevYukuGannt;
         let veriDepolama = this.refs.veriDepolamaGannt;
 
-        // console.log("asd"+goruntulemeBitis);
 
         let data = [];
         let indirmeBaslangicLayout = {

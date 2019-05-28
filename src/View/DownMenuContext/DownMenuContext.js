@@ -29,7 +29,9 @@ class DownMenuContext extends Component {
                 this.setState({xmlfound:false});
                 return;
             }
+
             this.state.xmlfound = true;
+
             var jsontext = JSON.stringify(event.data);
             // SET OBJECT STRING TO STATE. THIS WILL TRIGGER A COMPONENT REFRESH
             this.setState({jsonstring:jsontext});
@@ -51,30 +53,35 @@ class DownMenuContext extends Component {
     };
     tdMouseDown = (e,fromWhere) =>
     {
+        /* if event is triggered from an inner <div> */
         if(fromWhere == "InnerDiv")
-            e.target.className = "SelectedID";
+            e.target.className = "SelectedID"; /* make inner divs class as SelectedID
+        /* if event is triggered from an outer <td> */
         else if(fromWhere == "OuterTD")
-            e.target.childNodes[0].className = "SelectedID";
+            e.target.childNodes[0].className = "SelectedID"; // make inner divs class as SelectedID
 
-        this.isMouseDown = true;
+        this.isMouseDown = true; //mousedown flag is true
 
     };
     onDoubleClick = (e) =>
     {
         const table = document.getElementById("t_draggable1");
+
         const divs = table.getElementsByTagName("td");
         for(let k = 0;k<divs.length;k++)
         {
-            divs[k].className = "";
+            divs[k].className = ""; // RESET CLASSES
         }
+
         const divs2 = table.getElementsByTagName("div");
         for(let k = 0;k<divs2.length;k++)
         {
-            divs2[k].className = "";
+            divs2[k].className = "";  // RESET CLASSES
         }
     };
     tdMouseHover= (e) =>
     {
+        /* IF MOUSE IS DOWN AND HOVERING, THEN ADD TD ELEMENT TO selectedID CLASS */
         if(this.isMouseDown)
         {
             //e.target.className = "SelectedID";
@@ -87,6 +94,7 @@ class DownMenuContext extends Component {
         /* GET XML DOCUMENT */
         if(!this.state.jsonstring)
             return null;
+
         let are_we_searching = true;
         if(this.state.keytosearch == "")
             are_we_searching = false;

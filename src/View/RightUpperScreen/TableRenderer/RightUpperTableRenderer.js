@@ -64,6 +64,7 @@ class RightUpperTableRenderer extends Component {
     remove = (i) => {
         let currentObjects = this.state.current_object_strings;
         let currentids = this.state.ids;
+
         currentids.splice(i, 1);
         currentObjects.splice(i,1);
 
@@ -89,7 +90,6 @@ class RightUpperTableRenderer extends Component {
         * SEND DRAGGED ID'S, THEIR JSON INFORMATIONS AND REMOVE FUNCTION.
         *
         */
-
         return putValuesToTable(currentids, JSONstrings, this.remove)
     };
 
